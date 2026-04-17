@@ -1,0 +1,191 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "quarto-chevrons",
+    "section": "",
+    "text": "quarto-chevrons is a Quarto extension that adds circular flow diagrams to Reveal.js presentations. Items are arranged in a circle with customizable node shapes and arrow types."
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "quarto-chevrons",
+    "section": "Installation",
+    "text": "Installation\nquarto add EmilHvitfeldt/quarto-chevrons"
+  },
+  {
+    "objectID": "index.html#basic-usage",
+    "href": "index.html#basic-usage",
+    "title": "quarto-chevrons",
+    "section": "Basic Usage",
+    "text": "Basic Usage\nActivate the extension in your document YAML:\nfilters:\n  - circle-flow\nThen use the circle-flow div with nested item divs:\n::: circle-flow\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "index.html#whats-next",
+    "href": "index.html#whats-next",
+    "title": "quarto-chevrons",
+    "section": "What’s Next",
+    "text": "What’s Next\n\nNode Shapes — circle, box, and text-only nodes\nArrow Types — chevron, curved, thin, ring, arc, and double arrows\nColors — global and per-node color control\nCustomization — full class and attribute reference"
+  },
+  {
+    "objectID": "arrow-types.html",
+    "href": "arrow-types.html",
+    "title": "Arrow Types",
+    "section": "",
+    "text": "The arrow style is controlled by a modifier class on the .circle-flow container. The default is arrow-chevron."
+  },
+  {
+    "objectID": "arrow-types.html#arrow-chevron-default",
+    "href": "arrow-types.html#arrow-chevron-default",
+    "title": "Arrow Types",
+    "section": "arrow-chevron (default)",
+    "text": "arrow-chevron (default)\nDiv-based filled chevron shapes, scaled proportionally with node size.\n::: {.circle-flow .node-box}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "arrow-types.html#arrow-curved",
+    "href": "arrow-types.html#arrow-curved",
+    "title": "Arrow Types",
+    "section": "arrow-curved",
+    "text": "arrow-curved\nFilled SVG arrow shapes — an outer arc, inner arc, and pointed tip between each pair of nodes.\n::: {.circle-flow .node-box .arrow-curved}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "arrow-types.html#arrow-thin",
+    "href": "arrow-types.html#arrow-thin",
+    "title": "Arrow Types",
+    "section": "arrow-thin",
+    "text": "arrow-thin\nSVG thin straight lines with arrowheads.\n::: {.circle-flow .node-box .arrow-thin}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "arrow-types.html#arrow-ring",
+    "href": "arrow-types.html#arrow-ring",
+    "title": "Arrow Types",
+    "section": "arrow-ring",
+    "text": "arrow-ring\nA single SVG circle behind all nodes, with a mask to cleanly hide the ring inside each node.\n::: {.circle-flow .node-box .arrow-ring}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "arrow-types.html#arrow-arc",
+    "href": "arrow-types.html#arrow-arc",
+    "title": "Arrow Types",
+    "section": "arrow-arc",
+    "text": "arrow-arc\nA single filled SVG arrow shape going clockwise around all nodes.\n::: {.circle-flow .node-box .arrow-arc}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "arrow-types.html#arrow-double",
+    "href": "arrow-types.html#arrow-double",
+    "title": "Arrow Types",
+    "section": "arrow-double",
+    "text": "arrow-double\nSVG thin lines with arrowheads on both ends.\n::: {.circle-flow .node-box .arrow-double}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "customization.html",
+    "href": "customization.html",
+    "title": "Customization",
+    "section": "",
+    "text": "Classes applied to the .circle-flow div.\n\n\n\nClass\nDescription\n\n\n\n\ncircle-flow\nRequired. Marks the container.\n\n\nnode-circle\n(default) Circular nodes.\n\n\nnode-box\nRounded rectangle nodes.\n\n\nnode-none\nText-only, no node background.\n\n\narrow-chevron\n(default) Filled chevron arrows.\n\n\narrow-curved\nFilled SVG arc arrows.\n\n\narrow-thin\nThin SVG lines with arrowheads.\n\n\narrow-ring\nSingle ring circle behind nodes.\n\n\narrow-arc\nSingle filled clockwise arc.\n\n\narrow-double\nThin lines, arrowheads both ends."
+  },
+  {
+    "objectID": "customization.html#container-classes",
+    "href": "customization.html#container-classes",
+    "title": "Customization",
+    "section": "",
+    "text": "Classes applied to the .circle-flow div.\n\n\n\nClass\nDescription\n\n\n\n\ncircle-flow\nRequired. Marks the container.\n\n\nnode-circle\n(default) Circular nodes.\n\n\nnode-box\nRounded rectangle nodes.\n\n\nnode-none\nText-only, no node background.\n\n\narrow-chevron\n(default) Filled chevron arrows.\n\n\narrow-curved\nFilled SVG arc arrows.\n\n\narrow-thin\nThin SVG lines with arrowheads.\n\n\narrow-ring\nSingle ring circle behind nodes.\n\n\narrow-arc\nSingle filled clockwise arc.\n\n\narrow-double\nThin lines, arrowheads both ends."
+  },
+  {
+    "objectID": "customization.html#container-attributes",
+    "href": "customization.html#container-attributes",
+    "title": "Customization",
+    "section": "Container attributes",
+    "text": "Container attributes\n\n\n\nAttribute\nDescription\n\n\n\n\ndata-node-color\nColor for all nodes (default #2e6b8a).\n\n\ndata-arrow-color\nColor for all arrows (default #2e6b8a)."
+  },
+  {
+    "objectID": "customization.html#item-attributes",
+    "href": "customization.html#item-attributes",
+    "title": "Customization",
+    "section": "Item attributes",
+    "text": "Item attributes\n\n\n\nAttribute\nDescription\n\n\n\n\ndata-color\nOverrides node color for this item only."
+  },
+  {
+    "objectID": "customization.html#sizing-behavior",
+    "href": "customization.html#sizing-behavior",
+    "title": "Customization",
+    "section": "Sizing behavior",
+    "text": "Sizing behavior\nNode size and layout radius are computed from n (number of items). The gap between neighboring circle edges equals nodeRadius. The formula is:\nnodeRadius = (2/3) · layoutR · sin(π/n)\nlayoutR + nodeRadius ≤ 240\nFor n=1: layoutR=0, nodeRadius=240 (fills the container).\nFont size is scaled using canvas measureText so the longest label fills the node without overflow. For node-none, the label width is capped at 80px."
+  },
+  {
+    "objectID": "colors.html",
+    "href": "colors.html",
+    "title": "Colors",
+    "section": "",
+    "text": "Colors are set via data-* attributes. Always use the data- prefix — plain hyphenated attributes are not reliably passed through by Pandoc."
+  },
+  {
+    "objectID": "colors.html#all-nodes-the-same-color",
+    "href": "colors.html#all-nodes-the-same-color",
+    "title": "Colors",
+    "section": "All nodes the same color",
+    "text": "All nodes the same color\nSet data-node-color on the container to apply one color to all nodes.\n::: {.circle-flow .node-box data-node-color=\"#27ae60\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "colors.html#arrow-color-only",
+    "href": "colors.html#arrow-color-only",
+    "title": "Colors",
+    "section": "Arrow color only",
+    "text": "Arrow color only\nSet data-arrow-color on the container. Arrow color is always global — per-arrow color is not supported.\n::: {.circle-flow .node-box data-arrow-color=\"#e74c3c\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "colors.html#node-and-arrow-color-together",
+    "href": "colors.html#node-and-arrow-color-together",
+    "title": "Colors",
+    "section": "Node and arrow color together",
+    "text": "Node and arrow color together\n::: {.circle-flow .node-box data-node-color=\"#e67e22\" data-arrow-color=\"#c0392b\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "colors.html#per-node-color",
+    "href": "colors.html#per-node-color",
+    "title": "Colors",
+    "section": "Per-node color",
+    "text": "Per-node color\nSet data-color on individual item divs to override that node’s color.\n::: {.circle-flow .node-box}\n::: {.item data-color=\"#e74c3c\"}\nAlice\n:::\n::: {.item data-color=\"#e67e22\"}\nBob\n:::\n::: {.item data-color=\"#27ae60\"}\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "colors.html#mixed-base-color-with-overrides",
+    "href": "colors.html#mixed-base-color-with-overrides",
+    "title": "Colors",
+    "section": "Mixed: base color with overrides",
+    "text": "Mixed: base color with overrides\nSet a base color on the container and override specific nodes individually.\n::: {.circle-flow .node-box data-node-color=\"#2980b9\"}\n::: item\nAlice\n:::\n::: {.item data-color=\"#e74c3c\"}\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "node-shapes.html",
+    "href": "node-shapes.html",
+    "title": "Node Shapes",
+    "section": "",
+    "text": "The node shape is controlled by a modifier class on the .circle-flow container. The default is node-circle."
+  },
+  {
+    "objectID": "node-shapes.html#node-circle-default",
+    "href": "node-shapes.html#node-circle-default",
+    "title": "Node Shapes",
+    "section": "node-circle (default)",
+    "text": "node-circle (default)\nFilled circle nodes. No class needed — this is the default.\n::: circle-flow\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "node-shapes.html#node-box",
+    "href": "node-shapes.html#node-box",
+    "title": "Node Shapes",
+    "section": "node-box",
+    "text": "node-box\nRounded rectangle nodes. Width is nodeRadius × 1.8, height is nodeRadius × 1.2.\n::: {.circle-flow .node-box}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "node-shapes.html#node-none",
+    "href": "node-shapes.html#node-none",
+    "title": "Node Shapes",
+    "section": "node-none",
+    "text": "node-none\nText-only nodes with a transparent background. Labels are capped at 80px width regardless of item count.\n::: {.circle-flow .node-none}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "index.html#item-count",
+    "href": "index.html#item-count",
+    "title": "quarto-chevrons",
+    "section": "Item Count",
+    "text": "Item Count\nThe layout automatically adjusts to any number of items. With a single item there is no arrow.\n\n\nAlice\n\n\nWith two items, arrows are offset so they don’t overlap.\n\n\nAlice\n\n\nBob\n\n\nThree or more items are arranged evenly around the circle.\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nNode size scales down automatically as more items are added.\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nEthan\n\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nEthan\n\n\nFiona"
+  }
+]

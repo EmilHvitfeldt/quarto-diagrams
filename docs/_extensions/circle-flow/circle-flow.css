@@ -1,0 +1,32 @@
+.circle-flow {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  margin: auto;
+}
+
+.circle-flow .node {
+  position: absolute;
+  background: #2e6b8a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.circle-flow .node.node-circle {
+  border-radius: 50%;
+}
+
+.circle-flow .node.node-none {
+  background: transparent;
+  color: #222222;
+}
+
+.circle-flow .arrow-shape {
+  position: absolute;
+  background: #2e6b8a;
+  clip-path: polygon(0 25%, 60% 25%, 60% 0%, 100% 50%, 60% 100%, 60% 75%, 0 75%);
+}

@@ -1,0 +1,185 @@
+---
+title: "Arrow Types"
+---
+
+The arrow style is controlled by a modifier class on the `.circle-flow` container. The default is `arrow-chevron`.
+
+## arrow-chevron (default)
+
+Div-based filled chevron shapes, scaled proportionally with node size.
+
+````markdown
+::: {.circle-flow .node-box}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: {.circle-flow .node-box}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## arrow-curved
+
+Filled SVG arrow shapes — an outer arc, inner arc, and pointed tip between each pair of nodes.
+
+````markdown
+::: {.circle-flow .node-box .arrow-curved}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: {.circle-flow .node-box .arrow-curved}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## arrow-thin
+
+SVG thin straight lines with arrowheads.
+
+````markdown
+::: {.circle-flow .node-box .arrow-thin}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: {.circle-flow .node-box .arrow-thin}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## arrow-ring
+
+A single SVG circle behind all nodes, with a mask to cleanly hide the ring inside each node.
+
+````markdown
+::: {.circle-flow .node-box .arrow-ring}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: {.circle-flow .node-box .arrow-ring}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## arrow-arc
+
+A single filled SVG arrow shape going clockwise around all nodes.
+
+````markdown
+::: {.circle-flow .node-box .arrow-arc}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: {.circle-flow .node-box .arrow-arc}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## arrow-double
+
+SVG thin lines with arrowheads on both ends.
+
+````markdown
+::: {.circle-flow .node-box .arrow-double}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: {.circle-flow .node-box .arrow-double}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::

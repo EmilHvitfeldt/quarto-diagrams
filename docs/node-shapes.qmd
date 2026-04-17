@@ -1,0 +1,95 @@
+---
+title: "Node Shapes"
+---
+
+The node shape is controlled by a modifier class on the `.circle-flow` container. The default is `node-circle`.
+
+## node-circle (default)
+
+Filled circle nodes. No class needed — this is the default.
+
+````markdown
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## node-box
+
+Rounded rectangle nodes. Width is `nodeRadius × 1.8`, height is `nodeRadius × 1.2`.
+
+````markdown
+::: {.circle-flow .node-box}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: {.circle-flow .node-box}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## node-none
+
+Text-only nodes with a transparent background. Labels are capped at 80px width regardless of item count.
+
+````markdown
+::: {.circle-flow .node-none}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: {.circle-flow .node-none}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::

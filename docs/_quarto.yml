@@ -1,0 +1,35 @@
+project:
+  type: website
+
+execute:
+  freeze: auto
+
+filters:
+  - circle-flow
+
+website:
+  title: "quarto-chevrons"
+  navbar:
+    left:
+      - text: "Get Started"
+        href: index.qmd
+      - text: "Documentation"
+        menu:
+          - text: "Node Shapes"
+            href: node-shapes.qmd
+          - text: "Arrow Types"
+            href: arrow-types.qmd
+          - text: "Colors"
+            href: colors.qmd
+          - text: "Customization"
+            href: customization.qmd
+    right:
+      - icon: github
+        href: https://github.com/EmilHvitfeldt/quarto-chevrons
+        aria-label: GitHub
+
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    css: styles.css

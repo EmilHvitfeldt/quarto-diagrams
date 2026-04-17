@@ -1,0 +1,148 @@
+---
+title: "quarto-chevrons"
+subtitle: "Circular flow diagrams for Quarto presentations"
+toc: false
+---
+
+`quarto-chevrons` is a Quarto extension that adds circular flow diagrams to Reveal.js presentations. Items are arranged in a circle with customizable node shapes and arrow types.
+
+## Installation
+
+```bash
+quarto add EmilHvitfeldt/quarto-chevrons
+```
+
+## Basic Usage
+
+Activate the extension in your document YAML:
+
+```yaml
+filters:
+  - circle-flow
+```
+
+Then use the `circle-flow` div with nested `item` divs:
+
+````markdown
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## Item Count
+
+The layout automatically adjusts to any number of items. With a single item there is no arrow.
+
+::: circle-flow
+::: item
+Alice
+:::
+:::
+
+With two items, arrows are offset so they don't overlap.
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+:::
+
+Three or more items are arranged evenly around the circle.
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+Node size scales down automatically as more items are added.
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+::: item
+Ethan
+:::
+:::
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+::: item
+Ethan
+:::
+::: item
+Fiona
+:::
+:::
+
+## What's Next
+
+- [Node Shapes](node-shapes.qmd) — circle, box, and text-only nodes
+- [Arrow Types](arrow-types.qmd) — chevron, curved, thin, ring, arc, and double arrows
+- [Colors](colors.qmd) — global and per-node color control
+- [Customization](customization.qmd) — full class and attribute reference

@@ -1,0 +1,46 @@
+---
+title: "Customization"
+---
+
+## Container classes
+
+Classes applied to the `.circle-flow` div.
+
+| Class | Description |
+|---|---|
+| `circle-flow` | Required. Marks the container. |
+| `node-circle` | (default) Circular nodes. |
+| `node-box` | Rounded rectangle nodes. |
+| `node-none` | Text-only, no node background. |
+| `arrow-chevron` | (default) Filled chevron arrows. |
+| `arrow-curved` | Filled SVG arc arrows. |
+| `arrow-thin` | Thin SVG lines with arrowheads. |
+| `arrow-ring` | Single ring circle behind nodes. |
+| `arrow-arc` | Single filled clockwise arc. |
+| `arrow-double` | Thin lines, arrowheads both ends. |
+
+## Container attributes
+
+| Attribute | Description |
+|---|---|
+| `data-node-color` | Color for all nodes (default `#2e6b8a`). |
+| `data-arrow-color` | Color for all arrows (default `#2e6b8a`). |
+
+## Item attributes
+
+| Attribute | Description |
+|---|---|
+| `data-color` | Overrides node color for this item only. |
+
+## Sizing behavior
+
+Node size and layout radius are computed from `n` (number of items). The gap between neighboring circle edges equals `nodeRadius`. The formula is:
+
+```
+nodeRadius = (2/3) · layoutR · sin(π/n)
+layoutR + nodeRadius ≤ 240
+```
+
+For `n=1`: `layoutR=0`, `nodeRadius=240` (fills the container).
+
+Font size is scaled using canvas `measureText` so the longest label fills the node without overflow. For `node-none`, the label width is capped at 80px.
