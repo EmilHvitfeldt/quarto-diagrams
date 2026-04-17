@@ -1,0 +1,324 @@
+<script type="text/javascript">
+let _cfCounter = 0;
+
+function initCircleFlow(container) {
+  const items = Array.from(container.querySelectorAll('.item'));
+  if (items.length === 0) return;
+
+  const n = items.length;
+  const cx = 250, cy = 250;
+  const maxR = 240;
+
+  const nodeType = container.classList.contains('node-box')  ? 'box'  :
+                   container.classList.contains('node-none') ? 'none' : 'circle';
+  const arrowType = container.classList.contains('arrow-curved')  ? 'curved'  :
+                    container.classList.contains('arrow-thin')    ? 'thin'    :
+                    container.classList.contains('arrow-ring')    ? 'ring'    :
+                    container.classList.contains('arrow-arc')     ? 'arc'     :
+                    container.classList.contains('arrow-double')  ? 'double'  : 'chevron';
+
+  const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
+  const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
+
+  let layoutR, nodeRadius;
+  if (n === 1) {
+    layoutR = 0;
+    nodeRadius = maxR;
+  } else {
+    const s = Math.sin(Math.PI / n);
+    layoutR = maxR / (1 + (2 / 3) * s);
+    nodeRadius = (2 / 3) * layoutR * s;
+  }
+
+  container.style.position = 'relative';
+  container.style.width = '500px';
+  container.style.height = '500px';
+
+  const positions = items.map((_, i) => {
+    const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
+    return { x: cx + layoutR * Math.cos(angle), y: cy + layoutR * Math.sin(angle), angle };
+  });
+
+  const nodeEls = items.map((item, i) => {
+    const { x, y } = positions[i];
+    const nodeColor = item.dataset.color || defaultNodeColor;
+    const node = document.createElement('div');
+    node.className = 'node node-' + nodeType;
+    node.textContent = item.textContent.trim();
+    if (nodeType !== 'none') node.style.background = nodeColor;
+    node.style.left = x + 'px';
+    node.style.top = y + 'px';
+    node.style.transform = 'translate(-50%, -50%)';
+
+    if (nodeType === 'box') {
+      node.style.width  = (nodeRadius * 1.8) + 'px';
+      node.style.height = (nodeRadius * 1.2) + 'px';
+      node.style.borderRadius = (nodeRadius * 0.15) + 'px';
+    } else {
+      node.style.width  = (nodeRadius * 2) + 'px';
+      node.style.height = (nodeRadius * 2) + 'px';
+    }
+
+    container.appendChild(node);
+    item.style.display = 'none';
+    return node;
+  });
+
+  // Scale font so the longest label fills (but doesn't overflow) the node
+  const textMaxW = nodeType === 'box'  ? nodeRadius * 1.8 - 16 :
+                   nodeType === 'none' ? 80 :
+                   nodeRadius * 2 - 16;
+  const baseStyle   = getComputedStyle(nodeEls[0]);
+  const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+  const fontFamily   = baseStyle.fontFamily  || 'sans-serif';
+  const fontWeight   = baseStyle.fontWeight  || '500';
+  const cvs = document.createElement('canvas');
+  const cctx = cvs.getContext('2d');
+  cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+  const maxTextWidth = Math.max(...nodeEls.map(el => cctx.measureText(el.textContent).width));
+  const scaledSize = (baseFontSize * textMaxW / maxTextWidth) + 'px';
+  nodeEls.forEach(el => el.style.fontSize = scaledSize);
+
+  if (n === 1) return;
+
+  const uid = 'cf' + (_cfCounter++);
+
+  if (arrowType === 'chevron') {
+    renderChevrons(container, positions, n, nodeRadius, arrowColor);
+  } else {
+    renderSVGArrows(container, positions, n, layoutR, nodeRadius, nodeType, arrowType, cx, cy, uid, arrowColor);
+  }
+}
+
+// --- Chevron (div-based) ---
+
+function renderChevrons(container, positions, n, nodeRadius, arrowColor) {
+  const scale = nodeRadius / 55;
+  const w = 36 * scale, h = 28 * scale;
+
+  positions.forEach((from, i) => {
+    const to = positions[(i + 1) % n];
+    let mx = (from.x + to.x) / 2;
+    let my = (from.y + to.y) / 2;
+    const angleDeg = Math.atan2(to.y - from.y, to.x - from.x) * 180 / Math.PI;
+
+    if (n === 2) {
+      const dx = positions[1].x - positions[0].x;
+      const dy = positions[1].y - positions[0].y;
+      const len = Math.sqrt(dx * dx + dy * dy);
+      const offset = nodeRadius * 0.3;
+      const px = -dy / len * offset, py = dx / len * offset;
+      mx += i === 0 ? px : -px;
+      my += i === 0 ? py : -py;
+    }
+
+    const arrow = document.createElement('div');
+    arrow.className = 'arrow-shape';
+    arrow.style.background = arrowColor;
+    arrow.style.width  = w + 'px';
+    arrow.style.height = h + 'px';
+    arrow.style.left   = mx + 'px';
+    arrow.style.top    = my + 'px';
+    arrow.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
+    container.appendChild(arrow);
+  });
+}
+
+// --- SVG helpers ---
+
+function makeSVGOverlay(container) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '500');
+  svg.setAttribute('height', '500');
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;pointer-events:none;';
+  container.insertBefore(svg, container.firstChild);
+  return svg;
+}
+
+function addArrowMarker(defs, id, color, size, reverse) {
+  const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+  marker.setAttribute('id', id);
+  marker.setAttribute('markerWidth',  size);
+  marker.setAttribute('markerHeight', size * 0.75);
+  marker.setAttribute('refX', reverse ? '0' : size);
+  marker.setAttribute('refY', size * 0.375);
+  marker.setAttribute('orient', reverse ? 'auto-start-reverse' : 'auto');
+  marker.setAttribute('markerUnits', 'userSpaceOnUse');
+  const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  poly.setAttribute('points', `0 0, ${size} ${size * 0.375}, 0 ${size * 0.75}`);
+  poly.setAttribute('fill', color);
+  marker.appendChild(poly);
+  defs.appendChild(marker);
+}
+
+function nodeEdgePoint(pos, toward, nodeRadius, nodeType) {
+  const dx = toward.x - pos.x, dy = toward.y - pos.y;
+  const len = Math.sqrt(dx * dx + dy * dy);
+  // box half-diagonal ≈ nodeRadius * 1.08; add padding for a clear gap
+  const trim = nodeType === 'none' ? 0 : nodeType === 'box' ? nodeRadius * 1.2 : nodeRadius;
+  return { x: pos.x + dx / len * trim, y: pos.y + dy / len * trim };
+}
+
+// --- SVG arrow renderers ---
+
+function renderSVGArrows(container, positions, n, layoutR, nodeRadius, nodeType, arrowType, cx, cy, uid, arrowColor) {
+  const svg  = makeSVGOverlay(container);
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  svg.appendChild(defs);
+
+  if (arrowType === 'ring') {
+    const maskId = uid + '-ring-mask';
+    const mask = document.createElementNS('http://www.w3.org/2000/svg', 'mask');
+    mask.setAttribute('id', maskId);
+
+    // White background — ring visible everywhere by default
+    const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bg.setAttribute('x', '-500'); bg.setAttribute('y', '-500');
+    bg.setAttribute('width', '1500'); bg.setAttribute('height', '1500');
+    bg.setAttribute('fill', 'white');
+    mask.appendChild(bg);
+
+    // Black rect per node — hides the ring inside each node
+    const nw = nodeRadius * (nodeType === 'box' ? 1.8 : 2) + 8;
+    const nh = nodeRadius * (nodeType === 'box' ? 1.2 : 2) + 8;
+    positions.forEach(pos => {
+      const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      r.setAttribute('x', pos.x - nw / 2); r.setAttribute('y', pos.y - nh / 2);
+      r.setAttribute('width', nw); r.setAttribute('height', nh);
+      r.setAttribute('fill', 'black');
+      mask.appendChild(r);
+    });
+    defs.appendChild(mask);
+
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    el.setAttribute('cx', cx); el.setAttribute('cy', cy);
+    el.setAttribute('r', layoutR);
+    el.setAttribute('fill', 'none');
+    el.setAttribute('stroke', arrowColor);
+    el.setAttribute('stroke-width', '2');
+    el.setAttribute('mask', `url(#${maskId})`);
+    svg.appendChild(el);
+    return;
+  }
+
+  if (arrowType === 'arc') {
+    const hw = Math.max(8, nodeRadius * 0.18);
+    const arrowHeadLen = hw * 2;
+
+    const angleOffset = Math.asin(Math.min(nodeRadius / layoutR, 0.99));
+    const startAngle = positions[0].angle + angleOffset;
+    const tipAngle   = positions[0].angle + 2 * Math.PI - angleOffset;
+    const bodyAngle  = tipAngle - arrowHeadLen / layoutR;
+
+    const rOut = layoutR + hw;
+    const rIn  = layoutR - hw;
+    const p = (r, a) => `${cx + r * Math.cos(a)} ${cy + r * Math.sin(a)}`;
+
+    const d = [
+      `M ${p(rOut, startAngle)}`,
+      `A ${rOut} ${rOut} 0 1 1 ${p(rOut, bodyAngle)}`,
+      `L ${p(layoutR, tipAngle)}`,
+      `L ${p(rIn, bodyAngle)}`,
+      `A ${rIn} ${rIn} 0 1 0 ${p(rIn, startAngle)}`,
+      'Z'
+    ].join(' ');
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', arrowColor);
+    path.setAttribute('stroke', 'none');
+    svg.appendChild(path);
+    return;
+  }
+
+  if (arrowType === 'curved') {
+    const hw = Math.max(8, nodeRadius * 0.18); // half-width of arrow body
+    const arrowHeadLen = hw * 2;               // length of the pointed tip
+
+    const trimR = nodeType === 'none' ? nodeRadius * 0.85 : nodeRadius;
+    const angleOffset = Math.asin(Math.min(trimR / layoutR, 0.99));
+
+    positions.forEach((from, i) => {
+      const to = positions[(i + 1) % n];
+      const fromAngle = from.angle + angleOffset;
+      let toAngle = to.angle - angleOffset;
+      if (toAngle <= fromAngle) toAngle += 2 * Math.PI;
+
+      // Tip of arrowhead is at toAngle; body ends arrowHeadLen back along the arc
+      const tipAngle  = toAngle;
+      const bodyAngle = toAngle - arrowHeadLen / layoutR;
+      const largeArc  = (bodyAngle - fromAngle > Math.PI) ? 1 : 0;
+
+      const rOut = layoutR + hw;
+      const rIn  = layoutR - hw;
+
+      const p = (r, a) => `${cx + r * Math.cos(a)} ${cy + r * Math.sin(a)}`;
+
+      const d = [
+        `M ${p(rOut, fromAngle)}`,
+        `A ${rOut} ${rOut} 0 ${largeArc} 1 ${p(rOut, bodyAngle)}`,
+        `L ${p(layoutR, tipAngle)}`,
+        `L ${p(rIn,  bodyAngle)}`,
+        `A ${rIn}  ${rIn}  0 ${largeArc} 0 ${p(rIn,  fromAngle)}`,
+        'Z'
+      ].join(' ');
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('fill', arrowColor);
+      path.setAttribute('stroke', 'none');
+      svg.appendChild(path);
+    });
+    return;
+  }
+
+  // thin and double — straight lines with arrowheads
+  const markerSize = 12;
+  addArrowMarker(defs, uid + '-end',   arrowColor, markerSize, false);
+  if (arrowType === 'double') addArrowMarker(defs, uid + '-start', arrowColor, markerSize, true);
+
+  positions.forEach((from, i) => {
+    const to = positions[(i + 1) % n];
+    let p1 = nodeEdgePoint(from, to, nodeRadius, nodeType);
+    let p2 = nodeEdgePoint(to, from, nodeRadius, nodeType);
+
+    if (n === 2) {
+      const dx = positions[1].x - positions[0].x;
+      const dy = positions[1].y - positions[0].y;
+      const len = Math.sqrt(dx * dx + dy * dy);
+      const offset = nodeRadius * 0.3;
+      const px = -dy / len * offset, py = dx / len * offset;
+      const sign = i === 0 ? 1 : -1;
+      p1 = { x: p1.x + sign * px, y: p1.y + sign * py };
+      p2 = { x: p2.x + sign * px, y: p2.y + sign * py };
+    }
+
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', p1.x);
+    line.setAttribute('y1', p1.y);
+    line.setAttribute('x2', p2.x);
+    line.setAttribute('y2', p2.y);
+    line.setAttribute('stroke', arrowColor);
+    line.setAttribute('stroke-width', '2');
+    line.setAttribute('marker-end', `url(#${uid}-end)`);
+    if (arrowType === 'double') line.setAttribute('marker-start', `url(#${uid}-start)`);
+    svg.appendChild(line);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.circle-flow').forEach(el => {
+    el.setAttribute('data-cf-init', '1');
+    initCircleFlow(el);
+  });
+});
+
+if (typeof Reveal !== 'undefined') {
+  Reveal.on('slidechanged', () => {
+    document.querySelectorAll('.circle-flow:not([data-cf-init])').forEach(el => {
+      el.setAttribute('data-cf-init', '1');
+      initCircleFlow(el);
+    });
+  });
+}
+</script>

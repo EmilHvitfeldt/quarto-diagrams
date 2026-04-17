@@ -1,0 +1,361 @@
+---
+format: revealjs
+filters:
+  - circle-flow
+---
+
+# Item counts
+
+## 1 Item
+
+::: circle-flow
+::: item
+Alice
+:::
+:::
+
+## 2 Items
+
+::: circle-flow
+::: item
+AliceAndLisaHasAFriend
+:::
+::: item
+Bob
+:::
+:::
+
+## 3 Items
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## 4 Items
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## 5 Items
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Ethan
+:::
+::: item
+Frankie
+:::
+:::
+
+## 6 Items
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+::: item
+Ethan
+:::
+::: item
+Frankie
+:::
+:::
+
+# Node shapes
+
+## node-circle (default)
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## node-box
+
+::: {.circle-flow .node-box}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## node-none
+
+::: {.circle-flow .node-none .arrow-curved}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+# Arrow types
+
+## arrow-chevron (default)
+
+::: {.circle-flow .node-box}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## arrow-curved
+
+::: {.circle-flow .node-box .arrow-curved}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## arrow-thin
+
+::: {.circle-flow .node-box .arrow-thin}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## arrow-ring
+
+::: {.circle-flow .node-box .arrow-ring}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## arrow-arc
+
+::: {.circle-flow .node-box .arrow-arc}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## arrow-double
+
+::: {.circle-flow .node-box .arrow-double}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+# Colors
+
+## all nodes same color
+
+::: {.circle-flow .node-box data-node-color="#27ae60"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## arrow color only
+
+::: {.circle-flow .node-box data-arrow-color="#e74c3c"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## node and arrow color
+
+::: {.circle-flow .node-box data-node-color="#e67e22" data-arrow-color="#c0392b"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+## each node different color
+
+::: {.circle-flow .node-box}
+::: {.item data-color="#e74c3c"}
+Alice
+:::
+::: {.item data-color="#e67e22"}
+Bob
+:::
+::: {.item data-color="#27ae60"}
+Carol
+:::
+::: {.item data-color="#8e44ad"}
+Dave
+:::
+:::
+
+## mixed: base color with overrides
+
+::: {.circle-flow .node-box data-node-color="#2980b9"}
+::: item
+Alice
+:::
+::: {.item data-color="#e74c3c"}
+Bob
+:::
+::: item
+Carol
+:::
+::: {.item data-color="#e74c3c"}
+Dave
+:::
+:::
+
+## node-none with arrow color
+
+::: {.circle-flow .node-none .arrow-curved data-arrow-color="#e67e22"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
