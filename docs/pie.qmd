@@ -1,0 +1,209 @@
+---
+title: "Pie Chart"
+---
+
+The `pie` class renders items as equal-sized wedges of a circle. It is a separate layout from `.circle-flow` and uses the same `filters: [circle-flow]` extension.
+
+## Basic usage
+
+````markdown
+::: pie
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+::: item
+Eve
+:::
+:::
+````
+
+::: pie
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+::: item
+Eve
+:::
+:::
+
+## Gap between slices
+
+Add the `.gap` modifier to offset all slices outward, creating visible separation.
+
+````markdown
+::: {.pie .gap}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+::: item
+Eve
+:::
+:::
+````
+
+::: {.pie .gap}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+::: item
+Eve
+:::
+:::
+
+## Highlighting individual slices
+
+Add `.gap` to specific items to pull those slices out while the rest stay in place.
+
+````markdown
+::: pie
+::: {.item .gap}
+Alice
+:::
+::: item
+Bob
+:::
+::: {.item .gap}
+Carol
+:::
+::: item
+David
+:::
+::: item
+Eve
+:::
+:::
+````
+
+::: pie
+::: {.item .gap}
+Alice
+:::
+::: item
+Bob
+:::
+::: {.item .gap}
+Carol
+:::
+::: item
+David
+:::
+::: item
+Eve
+:::
+:::
+
+## Colors
+
+Use `node-color=` on the container to set a shared color, or `color=` on individual items to override per slice.
+
+````markdown
+::: {.pie node-color="#e67e22"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+::: item
+Eve
+:::
+:::
+````
+
+::: {.pie node-color="#e67e22"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+::: item
+Eve
+:::
+:::
+
+````markdown
+::: pie
+::: {.item color="#e74c3c"}
+Alice
+:::
+::: {.item color="#e67e22"}
+Bob
+:::
+::: {.item color="#27ae60"}
+Carol
+:::
+::: {.item color="#2980b9"}
+David
+:::
+::: {.item color="#8e44ad"}
+Eve
+:::
+:::
+````
+
+::: pie
+::: {.item color="#e74c3c"}
+Alice
+:::
+::: {.item color="#e67e22"}
+Bob
+:::
+::: {.item color="#27ae60"}
+Carol
+:::
+::: {.item color="#2980b9"}
+David
+:::
+::: {.item color="#8e44ad"}
+Eve
+:::
+:::

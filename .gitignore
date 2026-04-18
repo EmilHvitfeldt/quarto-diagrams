@@ -1,2 +1,6 @@
 /.quarto/
 **/*.quarto_ipynb
+.claude/settings.local.json
+.playwright-mcp/
+test.qmd
+test.html

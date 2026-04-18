@@ -23,6 +23,8 @@ website:
             href: colors.qmd
           - text: "Customization"
             href: customization.qmd
+          - text: "Pie Chart"
+            href: pie.qmd
     right:
       - icon: github
         href: https://github.com/EmilHvitfeldt/quarto-chevrons

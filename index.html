@@ -131,6 +131,31 @@
 
 
 <section>
+<section id="pie" class="title-slide slide level1 center">
+<h1>Pie</h1>
+
+</section>
+<section id="items" class="slide level2">
+<h2>5 Items</h2>
+<div class="pie">
+<div class="item">
+<p>Alice</p>
+</div>
+<div class="item">
+<p>Bob</p>
+</div>
+<div class="item">
+<p>Carol</p>
+</div>
+<div class="item">
+<p>David</p>
+</div>
+<div class="item">
+<p>Eve</p>
+</div>
+</div>
+</section></section>
+<section>
 <section id="item-counts" class="title-slide slide level1 center">
 <h1>Item counts</h1>
 
@@ -143,7 +168,7 @@
 </div>
 </div>
 </section>
-<section id="items" class="slide level2">
+<section id="items-1" class="slide level2">
 <h2>2 Items</h2>
 <div class="circle-flow">
 <div class="item">
@@ -154,7 +179,7 @@
 </div>
 </div>
 </section>
-<section id="items-1" class="slide level2">
+<section id="items-2" class="slide level2">
 <h2>3 Items</h2>
 <div class="circle-flow">
 <div class="item">
@@ -168,7 +193,7 @@
 </div>
 </div>
 </section>
-<section id="items-2" class="slide level2">
+<section id="items-3" class="slide level2">
 <h2>4 Items</h2>
 <div class="circle-flow">
 <div class="item">
@@ -185,7 +210,7 @@
 </div>
 </div>
 </section>
-<section id="items-3" class="slide level2">
+<section id="items-4" class="slide level2">
 <h2>5 Items</h2>
 <div class="circle-flow">
 <div class="item">
@@ -205,7 +230,7 @@
 </div>
 </div>
 </section>
-<section id="items-4" class="slide level2">
+<section id="items-5" class="slide level2">
 <h2>6 Items</h2>
 <div class="circle-flow">
 <div class="item">
@@ -1195,6 +1220,10 @@
         el.setAttribute('data-cf-init', '1');
         initCircleFlow(el);
       });
+      document.querySelectorAll('.pie').forEach(el => {
+        el.setAttribute('data-cf-init', '1');
+        initPie(el);
+      });
     });
 
     if (typeof Reveal !== 'undefined') {
@@ -1203,7 +1232,99 @@
           el.setAttribute('data-cf-init', '1');
           initCircleFlow(el);
         });
+        document.querySelectorAll('.pie:not([data-cf-init])').forEach(el => {
+          el.setAttribute('data-cf-init', '1');
+          initPie(el);
+        });
       });
+    }
+
+    // --- Pie (pie slices) ---
+
+    function initPie(container) {
+      const items = Array.from(container.querySelectorAll('.item'));
+      if (items.length === 0) return;
+
+      const n = items.length;
+      const cx = 250, cy = 250;
+      const hasGap = container.classList.contains('gap');
+      const sliceOffset = hasGap ? 20 : 0;
+      const r = hasGap ? 210 : 240;
+      const defaultColor = container.dataset.nodeColor || '#2e6b8a';
+
+      container.style.position = 'relative';
+      container.style.width = '500px';
+      container.style.height = '500px';
+      container.style.margin = '0 auto';
+      container.style.display = 'block';
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '500');
+      svg.setAttribute('height', '500');
+      svg.style.cssText = 'position:absolute;left:0;top:0;';
+      container.appendChild(svg);
+
+      const labelEls = [];
+
+      items.forEach((item, i) => {
+        const color = item.dataset.color || defaultColor;
+        const startAngle = (i / n) * 2 * Math.PI - Math.PI / 2;
+        const endAngle   = ((i + 1) / n) * 2 * Math.PI - Math.PI / 2;
+        const midAngle   = (startAngle + endAngle) / 2;
+
+        const dx = sliceOffset * Math.cos(midAngle);
+        const dy = sliceOffset * Math.sin(midAngle);
+        const ox = cx + dx, oy = cy + dy;
+
+        const x1 = ox + r * Math.cos(startAngle);
+        const y1 = oy + r * Math.sin(startAngle);
+        const x2 = ox + r * Math.cos(endAngle);
+        const y2 = oy + r * Math.sin(endAngle);
+        const largeArc = (endAngle - startAngle > Math.PI) ? 1 : 0;
+
+        const d = n === 1
+          ? `M ${ox} ${oy - r} A ${r} ${r} 0 1 1 ${ox - 0.01} ${oy - r} Z`
+          : `M ${ox} ${oy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('fill', color);
+        if (!hasGap) {
+          path.setAttribute('stroke', 'white');
+          path.setAttribute('stroke-width', '3');
+        }
+        svg.appendChild(path);
+
+        const labelR = n === 1 ? 0 : r * 0.6;
+        const lx = ox + labelR * Math.cos(midAngle);
+        const ly = oy + labelR * Math.sin(midAngle);
+
+        const label = document.createElement('div');
+        label.className = 'slice-label';
+        label.textContent = item.textContent.trim();
+        label.style.left = lx + 'px';
+        label.style.top  = ly + 'px';
+        container.appendChild(label);
+        labelEls.push(label);
+
+        item.style.display = 'none';
+      });
+
+      // Scale font so longest label fits within its slice
+      const sliceWidth = 2 * r * Math.sin(Math.PI / n) * 0.85;
+      const textMaxW = Math.max(60, sliceWidth);
+      const baseStyle = getComputedStyle(labelEls[0]);
+      const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+      const fontFamily = baseStyle.fontFamily || 'sans-serif';
+      const fontWeight = baseStyle.fontWeight || '500';
+      const cvs = document.createElement('canvas');
+      const cctx = cvs.getContext('2d');
+      cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+      const maxTextWidth = Math.max(...labelEls.map(el => cctx.measureText(el.textContent).width));
+      if (maxTextWidth > textMaxW) {
+        const scaledSize = (baseFontSize * textMaxW / maxTextWidth) + 'px';
+        labelEls.forEach(el => el.style.fontSize = scaledSize);
+      }
     }
     </script>
     

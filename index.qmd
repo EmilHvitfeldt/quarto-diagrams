@@ -4,6 +4,28 @@ filters:
   - circle-flow
 ---
 
+# Pie
+
+## 5 Items
+
+::: pie
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+::: item
+Eve
+:::
+:::
+
 # Item counts
 
 ## 1 Item
