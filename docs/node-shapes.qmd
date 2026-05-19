@@ -2,6 +2,8 @@
 title: "Node Shapes"
 ---
 
+*Applies to: [Circle Flow](circle-flow.qmd)*
+
 The node shape is controlled by a modifier class on the `.circle-flow` container. The default is `node-circle`.
 
 ## node-circle (default)

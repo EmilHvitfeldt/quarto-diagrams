@@ -1,0 +1,130 @@
+---
+title: "Circle Flow"
+---
+
+The `.circle-flow` style arranges items as nodes on a ring, connected by arrows. It is the original style and the namesake of the extension.
+
+## Basic usage
+
+````markdown
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## Item count
+
+The layout automatically adjusts to any number of items. With a single item there is no arrow.
+
+::: circle-flow
+::: item
+Alice
+:::
+:::
+
+With two items, arrows are offset so they don't overlap.
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+:::
+
+Three or more items are arranged evenly around the circle.
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+:::
+
+Node size scales down automatically as more items are added.
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+::: item
+Ethan
+:::
+:::
+
+::: circle-flow
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+Dave
+:::
+::: item
+Ethan
+:::
+::: item
+Fiona
+:::
+:::
+
+## What's next
+
+- [Node Shapes](node-shapes.qmd) — change how individual nodes look
+- [Arrow Types](arrow-types.qmd) — change how items are connected
+- [Colors](colors.qmd) — control node and arrow colors

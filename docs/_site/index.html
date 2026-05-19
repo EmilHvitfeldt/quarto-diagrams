@@ -133,10 +133,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-documentation" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Documentation</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-styles" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Styles</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-documentation">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-styles">    
+        <li>
+    <a class="dropdown-item" href="./circle-flow.html">
+ <span class="dropdown-text">Circle Flow</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pie.html">
+ <span class="dropdown-text">Pie</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-concepts" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Concepts</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-concepts">    
         <li>
     <a class="dropdown-item" href="./node-shapes.html">
  <span class="dropdown-text">Node Shapes</span></a>
@@ -152,10 +167,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="./customization.html">
  <span class="dropdown-text">Customization</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./pie.html">
- <span class="dropdown-text">Pie Chart</span></a>
   </li>  
     </ul>
   </li>
@@ -184,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">quarto-chevrons</h1>
-<p class="subtitle lead">Circular flow diagrams for Quarto presentations</p>
+<p class="subtitle lead">Circular diagram styles for Quarto</p>
 </div>
 
 
@@ -201,29 +212,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><code>quarto-chevrons</code> is a Quarto extension that adds circular flow diagrams to Reveal.js presentations. Items are arranged in a circle with customizable node shapes and arrow types.</p>
+<p><code>quarto-chevrons</code> is a Quarto extension that adds a collection of circular diagram styles to your documents and Reveal.js presentations. Each style shares the same authoring model — a container div with nested <code>item</code> divs — but renders differently.</p>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> add EmilHvitfeldt/quarto-chevrons</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="basic-usage" class="level2">
-<h2 class="anchored" data-anchor-id="basic-usage">Basic Usage</h2>
 <p>Activate the extension in your document YAML:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> circle-flow</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then use the <code>circle-flow</code> div with nested <code>item</code> divs:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: circle-flow</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow">
+</section>
+<section id="styles" class="level2">
+<h2 class="anchored" data-anchor-id="styles">Styles</h2>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<section id="circle-flow" class="level3 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h3 class="anchored" data-anchor-id="circle-flow"><a href="./circle-flow.html">Circle Flow</a></h3>
+<p>Nodes arranged on a ring, connected by arrows.</p>
+</section>
+<div class="circle-flow quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="item">
 <p>Alice</p>
 </div>
@@ -232,97 +237,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="item">
 <p>Carol</p>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<section id="pie" class="level3 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h3 class="anchored" data-anchor-id="pie"><a href="./pie.html">Pie</a></h3>
+<p>Items rendered as equal-sized wedges of a circle.</p>
+</section>
+<div class="pie quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="item">
+<p>Alice</p>
+</div>
+<div class="item">
+<p>Bob</p>
+</div>
+<div class="item">
+<p>Carol</p>
+</div>
+<div class="item">
+<p>David</p>
+</div>
+<div class="item">
+<p>Eve</p>
+</div>
+</div>
 </div>
 </div>
 </section>
-<section id="item-count" class="level2">
-<h2 class="anchored" data-anchor-id="item-count">Item Count</h2>
-<p>The layout automatically adjusts to any number of items. With a single item there is no arrow.</p>
-<div class="circle-flow">
-<div class="item">
-<p>Alice</p>
-</div>
-</div>
-<p>With two items, arrows are offset so they don’t overlap.</p>
-<div class="circle-flow">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item">
-<p>Bob</p>
-</div>
-</div>
-<p>Three or more items are arranged evenly around the circle.</p>
-<div class="circle-flow">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item">
-<p>Bob</p>
-</div>
-<div class="item">
-<p>Carol</p>
-</div>
-</div>
-<div class="circle-flow">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item">
-<p>Bob</p>
-</div>
-<div class="item">
-<p>Carol</p>
-</div>
-<div class="item">
-<p>Dave</p>
-</div>
-</div>
-<p>Node size scales down automatically as more items are added.</p>
-<div class="circle-flow">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item">
-<p>Bob</p>
-</div>
-<div class="item">
-<p>Carol</p>
-</div>
-<div class="item">
-<p>Dave</p>
-</div>
-<div class="item">
-<p>Ethan</p>
-</div>
-</div>
-<div class="circle-flow">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item">
-<p>Bob</p>
-</div>
-<div class="item">
-<p>Carol</p>
-</div>
-<div class="item">
-<p>Dave</p>
-</div>
-<div class="item">
-<p>Ethan</p>
-</div>
-<div class="item">
-<p>Fiona</p>
-</div>
-</div>
-</section>
-<section id="whats-next" class="level2">
-<h2 class="anchored" data-anchor-id="whats-next">What’s Next</h2>
+<section id="shared-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="shared-concepts">Shared concepts</h2>
+<p>Across all styles:</p>
 <ul>
 <li><a href="./node-shapes.html">Node Shapes</a> — circle, box, and text-only nodes</li>
 <li><a href="./arrow-types.html">Arrow Types</a> — chevron, curved, thin, ring, arc, and double arrows</li>
-<li><a href="./colors.html">Colors</a> — global and per-node color control</li>
+<li><a href="./colors.html">Colors</a> — global and per-item color control</li>
 <li><a href="./customization.html">Customization</a> — full class and attribute reference</li>
 </ul>
 

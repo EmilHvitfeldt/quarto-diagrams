@@ -2,9 +2,15 @@
 title: "Customization"
 ---
 
-## Container classes
+*Applies to: all styles*
 
-Classes applied to the `.circle-flow` div.
+Full reference of classes and attributes, grouped by style.
+
+## Circle Flow
+
+Container: `.circle-flow`
+
+### Container classes
 
 | Class | Description |
 |---|---|
@@ -19,34 +25,51 @@ Classes applied to the `.circle-flow` div.
 | `arrow-arc` | Single filled clockwise arc. |
 | `arrow-double` | Thin lines, arrowheads both ends. |
 
-## Container attributes
+### Container attributes
 
 | Attribute | Description |
 |---|---|
 | `node-color` | Color for all nodes (default `#2e6b8a`). |
 | `arrow-color` | Color for all arrows (default `#2e6b8a`). |
 
-## Item attributes
+### Item attributes
 
 | Attribute | Description |
 |---|---|
 | `color` | Overrides node color for this item only. |
 
-## Pie classes
+## Pie
 
-The `.pie` layout is a separate container type. See [Pie charts](pie.qmd) for examples.
+Container: `.pie`
+
+### Container classes
 
 | Class | Description |
 |---|---|
-| `pie` | Required on the container. Renders a pie chart instead of a ring of nodes. |
-| `gap` on container | Separate every slice with an offset; removes the white slice stroke. |
-| `gap` on an item | Offset just that slice from the center. |
+| `pie` | Required. Marks the container. |
+| `gap` | Separate every slice with an offset; removes the white slice stroke. |
 
-Pie containers accept `node-color` (base slice color); individual items accept `color` (per-slice override).
+### Container attributes
 
-## Sizing behavior
+| Attribute | Description |
+|---|---|
+| `node-color` | Base slice color. |
 
-Node size and layout radius are computed from `n` (number of items). The gap between neighboring circle edges equals `nodeRadius`. The formula is:
+### Item classes
+
+| Class | Description |
+|---|---|
+| `gap` | Offset just that slice from the center. |
+
+### Item attributes
+
+| Attribute | Description |
+|---|---|
+| `color` | Per-slice color override. |
+
+## Sizing behavior (Circle Flow)
+
+Node size and layout radius are computed from `n` (number of items). The gap between neighboring circle edges equals `nodeRadius`:
 
 ```
 nodeRadius = (2/3) · layoutR · sin(π/n)

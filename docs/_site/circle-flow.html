@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Colors – quarto-chevrons</title>
+<title>Circle Flow – quarto-chevrons</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -193,12 +193,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#all-nodes-the-same-color" id="toc-all-nodes-the-same-color" class="nav-link active" data-scroll-target="#all-nodes-the-same-color">All nodes the same color</a></li>
-  <li><a href="#arrow-color-only" id="toc-arrow-color-only" class="nav-link" data-scroll-target="#arrow-color-only">Arrow color only</a></li>
-  <li><a href="#node-and-arrow-color-together" id="toc-node-and-arrow-color-together" class="nav-link" data-scroll-target="#node-and-arrow-color-together">Node and arrow color together</a></li>
-  <li><a href="#per-node-color" id="toc-per-node-color" class="nav-link" data-scroll-target="#per-node-color">Per-node color</a></li>
-  <li><a href="#mixed-base-color-with-overrides" id="toc-mixed-base-color-with-overrides" class="nav-link" data-scroll-target="#mixed-base-color-with-overrides">Mixed: base color with overrides</a></li>
-  <li><a href="#colors-in-pie-charts" id="toc-colors-in-pie-charts" class="nav-link" data-scroll-target="#colors-in-pie-charts">Colors in pie charts</a></li>
+  <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link active" data-scroll-target="#basic-usage">Basic usage</a></li>
+  <li><a href="#item-count" id="toc-item-count" class="nav-link" data-scroll-target="#item-count">Item count</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next</a></li>
   </ul>
 </nav>
     </div>
@@ -207,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Colors</h1>
+<h1 class="title">Circle Flow</h1>
 </div>
 
 
@@ -224,13 +221,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><em>Applies to: <a href="./circle-flow.html">Circle Flow</a>, <a href="./pie.html">Pie</a></em></p>
-<p>Colors work the same way across every style: <code>node-color</code> on the container sets a base color, and <code>color</code> on an item overrides for that item. <code>arrow-color</code> is Circle-Flow-only.</p>
-<p>In Quarto source, write attributes without a <code>data-</code> prefix (e.g.&nbsp;<code>node-color="#27ae60"</code>) — Pandoc auto-prefixes them in the emitted HTML.</p>
-<section id="all-nodes-the-same-color" class="level2">
-<h2 class="anchored" data-anchor-id="all-nodes-the-same-color">All nodes the same color</h2>
-<p>Set <code>node-color</code> on the container to apply one color to all nodes.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box node-color="#27ae60"}</span>
+<p>The <code>.circle-flow</code> style arranges items as nodes on a ring, connected by arrows. It is the original style and the namesake of the extension.</p>
+<section id="basic-usage" class="level2">
+<h2 class="anchored" data-anchor-id="basic-usage">Basic usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: circle-flow</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>:::</span>
@@ -241,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-box" data-node-color="#27ae60">
+<div class="circle-flow">
 <div class="item">
 <p>Alice</p>
 </div>
@@ -253,21 +247,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="arrow-color-only" class="level2">
-<h2 class="anchored" data-anchor-id="arrow-color-only">Arrow color only</h2>
-<p>Set <code>arrow-color</code> on the container. Arrow color is always global — per-arrow color is not supported.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box arrow-color="#e74c3c"}</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-box" data-arrow-color="#e74c3c">
+<section id="item-count" class="level2">
+<h2 class="anchored" data-anchor-id="item-count">Item count</h2>
+<p>The layout automatically adjusts to any number of items. With a single item there is no arrow.</p>
+<div class="circle-flow">
+<div class="item">
+<p>Alice</p>
+</div>
+</div>
+<p>With two items, arrows are offset so they don’t overlap.</p>
+<div class="circle-flow">
+<div class="item">
+<p>Alice</p>
+</div>
+<div class="item">
+<p>Bob</p>
+</div>
+</div>
+<p>Three or more items are arranged evenly around the circle.</p>
+<div class="circle-flow">
 <div class="item">
 <p>Alice</p>
 </div>
@@ -276,118 +274,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="item">
 <p>Carol</p>
+</div>
+</div>
+<div class="circle-flow">
+<div class="item">
+<p>Alice</p>
+</div>
+<div class="item">
+<p>Bob</p>
+</div>
+<div class="item">
+<p>Carol</p>
+</div>
+<div class="item">
+<p>Dave</p>
+</div>
+</div>
+<p>Node size scales down automatically as more items are added.</p>
+<div class="circle-flow">
+<div class="item">
+<p>Alice</p>
+</div>
+<div class="item">
+<p>Bob</p>
+</div>
+<div class="item">
+<p>Carol</p>
+</div>
+<div class="item">
+<p>Dave</p>
+</div>
+<div class="item">
+<p>Ethan</p>
+</div>
+</div>
+<div class="circle-flow">
+<div class="item">
+<p>Alice</p>
+</div>
+<div class="item">
+<p>Bob</p>
+</div>
+<div class="item">
+<p>Carol</p>
+</div>
+<div class="item">
+<p>Dave</p>
+</div>
+<div class="item">
+<p>Ethan</p>
+</div>
+<div class="item">
+<p>Fiona</p>
 </div>
 </div>
 </section>
-<section id="node-and-arrow-color-together" class="level2">
-<h2 class="anchored" data-anchor-id="node-and-arrow-color-together">Node and arrow color together</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box node-color="#e67e22" arrow-color="#c0392b"}</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-box" data-node-color="#e67e22" data-arrow-color="#c0392b">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item">
-<p>Bob</p>
-</div>
-<div class="item">
-<p>Carol</p>
-</div>
-</div>
-</section>
-<section id="per-node-color" class="level2">
-<h2 class="anchored" data-anchor-id="per-node-color">Per-node color</h2>
-<p>Set <code>color</code> on individual <code>item</code> divs to override that node’s color.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box}</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e74c3c"}</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e67e22"}</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>::: {.item color="#27ae60"}</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-box">
-<div class="item" color="#e74c3c">
-<p>Alice</p>
-</div>
-<div class="item" color="#e67e22">
-<p>Bob</p>
-</div>
-<div class="item" color="#27ae60">
-<p>Carol</p>
-</div>
-</div>
-</section>
-<section id="mixed-base-color-with-overrides" class="level2">
-<h2 class="anchored" data-anchor-id="mixed-base-color-with-overrides">Mixed: base color with overrides</h2>
-<p>Set a base color on the container and override specific nodes individually.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box node-color="#2980b9"}</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e74c3c"}</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="colors-in-pie-charts" class="level2">
-<h2 class="anchored" data-anchor-id="colors-in-pie-charts">Colors in pie charts</h2>
-<p>The same <code>node-color</code> and <code>color</code> attributes work on <code>.pie</code> containers and items.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>::: pie</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e74c3c"}</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e67e22"}</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>::: {.item color="#27ae60"}</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>::: {.item color="#2980b9"}</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>David</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="pie">
-<div class="item" color="#e74c3c">
-<p>Alice</p>
-</div>
-<div class="item" color="#e67e22">
-<p>Bob</p>
-</div>
-<div class="item" color="#27ae60">
-<p>Carol</p>
-</div>
-<div class="item" color="#2980b9">
-<p>David</p>
-</div>
-</div>
-<p>(See the <a href="./pie.html">Pie</a> page for more pie-specific examples.)</p>
-<div class="circle-flow node-box" data-node-color="#2980b9">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item" color="#e74c3c">
-<p>Bob</p>
-</div>
-<div class="item">
-<p>Carol</p>
-</div>
-</div>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next</h2>
+<ul>
+<li><a href="./node-shapes.html">Node Shapes</a> — change how individual nodes look</li>
+<li><a href="./arrow-types.html">Arrow Types</a> — change how items are connected</li>
+<li><a href="./colors.html">Colors</a> — control node and arrow colors</li>
+</ul>
 
 
 </section>

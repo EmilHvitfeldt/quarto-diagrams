@@ -2,6 +2,8 @@
 title: "Arrow Types"
 ---
 
+*Applies to: [Circle Flow](circle-flow.qmd)*
+
 The arrow style is controlled by a modifier class on the `.circle-flow` container. The default is `arrow-chevron`.
 
 ## arrow-chevron (default)

@@ -2,7 +2,11 @@
 title: "Colors"
 ---
 
-Colors are set via `data-*` attributes. Always use the `data-` prefix — plain hyphenated attributes are not reliably passed through by Pandoc.
+*Applies to: [Circle Flow](circle-flow.qmd), [Pie](pie.qmd)*
+
+Colors work the same way across every style: `node-color` on the container sets a base color, and `color` on an item overrides for that item. `arrow-color` is Circle-Flow-only.
+
+In Quarto source, write attributes without a `data-` prefix (e.g. `node-color="#27ae60"`) — Pandoc auto-prefixes them in the emitted HTML.
 
 ## All nodes the same color
 
@@ -139,6 +143,44 @@ Carol
 :::
 :::
 ````
+
+## Colors in pie charts
+
+The same `node-color` and `color` attributes work on `.pie` containers and items.
+
+````markdown
+::: pie
+::: {.item color="#e74c3c"}
+Alice
+:::
+::: {.item color="#e67e22"}
+Bob
+:::
+::: {.item color="#27ae60"}
+Carol
+:::
+::: {.item color="#2980b9"}
+David
+:::
+:::
+````
+
+::: pie
+::: {.item color="#e74c3c"}
+Alice
+:::
+::: {.item color="#e67e22"}
+Bob
+:::
+::: {.item color="#27ae60"}
+Carol
+:::
+::: {.item color="#2980b9"}
+David
+:::
+:::
+
+(See the [Pie](pie.qmd) page for more pie-specific examples.)
 
 ::: {.circle-flow .node-box node-color="#2980b9"}
 ::: item

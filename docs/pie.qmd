@@ -2,7 +2,7 @@
 title: "Pie Chart"
 ---
 
-The `pie` class renders items as equal-sized wedges of a circle. It is a separate layout from `.circle-flow` and uses the same `filters: [circle-flow]` extension.
+The `.pie` style renders items as equal-sized wedges of a circle. Like all styles in this extension, it is activated via `filters: [circle-flow]`.
 
 ## Basic usage
 

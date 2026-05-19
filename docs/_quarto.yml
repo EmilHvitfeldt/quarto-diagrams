@@ -13,7 +13,13 @@ website:
     left:
       - text: "Get Started"
         href: index.qmd
-      - text: "Documentation"
+      - text: "Styles"
+        menu:
+          - text: "Circle Flow"
+            href: circle-flow.qmd
+          - text: "Pie"
+            href: pie.qmd
+      - text: "Concepts"
         menu:
           - text: "Node Shapes"
             href: node-shapes.qmd
@@ -23,8 +29,6 @@ website:
             href: colors.qmd
           - text: "Customization"
             href: customization.qmd
-          - text: "Pie Chart"
-            href: pie.qmd
     right:
       - icon: github
         href: https://github.com/EmilHvitfeldt/quarto-chevrons

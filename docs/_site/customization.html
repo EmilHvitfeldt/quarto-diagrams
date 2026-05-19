@@ -98,10 +98,25 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-documentation" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Documentation</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-styles" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Styles</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-documentation">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-styles">    
+        <li>
+    <a class="dropdown-item" href="./circle-flow.html">
+ <span class="dropdown-text">Circle Flow</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./pie.html">
+ <span class="dropdown-text">Pie</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-concepts" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Concepts</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-concepts">    
         <li>
     <a class="dropdown-item" href="./node-shapes.html">
  <span class="dropdown-text">Node Shapes</span></a>
@@ -117,10 +132,6 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./customization.html">
  <span class="dropdown-text">Customization</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./pie.html">
- <span class="dropdown-text">Pie Chart</span></a>
   </li>  
     </ul>
   </li>
@@ -147,11 +158,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#container-classes" id="toc-container-classes" class="nav-link active" data-scroll-target="#container-classes">Container classes</a></li>
-  <li><a href="#container-attributes" id="toc-container-attributes" class="nav-link" data-scroll-target="#container-attributes">Container attributes</a></li>
-  <li><a href="#item-attributes" id="toc-item-attributes" class="nav-link" data-scroll-target="#item-attributes">Item attributes</a></li>
-  <li><a href="#pie-classes" id="toc-pie-classes" class="nav-link" data-scroll-target="#pie-classes">Pie classes</a></li>
-  <li><a href="#sizing-behavior" id="toc-sizing-behavior" class="nav-link" data-scroll-target="#sizing-behavior">Sizing behavior</a></li>
+  <li><a href="#circle-flow" id="toc-circle-flow" class="nav-link active" data-scroll-target="#circle-flow">Circle Flow</a></li>
+  <li><a href="#pie" id="toc-pie" class="nav-link" data-scroll-target="#pie">Pie</a></li>
+  <li><a href="#sizing-behavior-circle-flow" id="toc-sizing-behavior-circle-flow" class="nav-link" data-scroll-target="#sizing-behavior-circle-flow">Sizing behavior (Circle Flow)</a></li>
   </ul>
 </nav>
     </div>
@@ -177,9 +186,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="container-classes" class="level2">
-<h2 class="anchored" data-anchor-id="container-classes">Container classes</h2>
-<p>Classes applied to the <code>.circle-flow</code> div.</p>
+<p><em>Applies to: all styles</em></p>
+<p>Full reference of classes and attributes, grouped by style.</p>
+<section id="circle-flow" class="level2">
+<h2 class="anchored" data-anchor-id="circle-flow">Circle Flow</h2>
+<p>Container: <code>.circle-flow</code></p>
+<section id="container-classes" class="level3">
+<h3 class="anchored" data-anchor-id="container-classes">Container classes</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -231,8 +244,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="container-attributes" class="level2">
-<h2 class="anchored" data-anchor-id="container-attributes">Container attributes</h2>
+<section id="container-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="container-attributes">Container attributes</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -252,8 +265,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="item-attributes" class="level2">
-<h2 class="anchored" data-anchor-id="item-attributes">Item attributes</h2>
+<section id="item-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="item-attributes">Item attributes</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -269,9 +282,12 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="pie-classes" class="level2">
-<h2 class="anchored" data-anchor-id="pie-classes">Pie classes</h2>
-<p>The <code>.pie</code> layout is a separate container type. See <a href="./pie.html">Pie charts</a> for examples.</p>
+</section>
+<section id="pie" class="level2">
+<h2 class="anchored" data-anchor-id="pie">Pie</h2>
+<p>Container: <code>.pie</code></p>
+<section id="container-classes-1" class="level3">
+<h3 class="anchored" data-anchor-id="container-classes-1">Container classes</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -286,23 +302,70 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><code>pie</code></td>
-<td>Required on the container. Renders a pie chart instead of a ring of nodes.</td>
+<td>Required. Marks the container.</td>
 </tr>
 <tr class="even">
-<td><code>gap</code> on container</td>
+<td><code>gap</code></td>
 <td>Separate every slice with an offset; removes the white slice stroke.</td>
 </tr>
+</tbody>
+</table>
+</section>
+<section id="container-attributes-1" class="level3">
+<h3 class="anchored" data-anchor-id="container-attributes-1">Container attributes</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
-<td><code>gap</code> on an item</td>
+<td><code>node-color</code></td>
+<td>Base slice color.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="item-classes" class="level3">
+<h3 class="anchored" data-anchor-id="item-classes">Item classes</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>gap</code></td>
 <td>Offset just that slice from the center.</td>
 </tr>
 </tbody>
 </table>
-<p>Pie containers accept <code>node-color</code> (base slice color); individual items accept <code>color</code> (per-slice override).</p>
 </section>
-<section id="sizing-behavior" class="level2">
-<h2 class="anchored" data-anchor-id="sizing-behavior">Sizing behavior</h2>
-<p>Node size and layout radius are computed from <code>n</code> (number of items). The gap between neighboring circle edges equals <code>nodeRadius</code>. The formula is:</p>
+<section id="item-attributes-1" class="level3">
+<h3 class="anchored" data-anchor-id="item-attributes-1">Item attributes</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>color</code></td>
+<td>Per-slice color override.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sizing-behavior-circle-flow" class="level2">
+<h2 class="anchored" data-anchor-id="sizing-behavior-circle-flow">Sizing behavior (Circle Flow)</h2>
+<p>Node size and layout radius are computed from <code>n</code> (number of items). The gap between neighboring circle edges equals <code>nodeRadius</code>:</p>
 <pre><code>nodeRadius = (2/3) · layoutR · sin(π/n)
 layoutR + nodeRadius ≤ 240</code></pre>
 <p>For <code>n=1</code>: <code>layoutR=0</code>, <code>nodeRadius=240</code> (fills the container).</p>
