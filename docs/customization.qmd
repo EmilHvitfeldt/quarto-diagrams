@@ -23,14 +23,14 @@ Classes applied to the `.circle-flow` div.
 
 | Attribute | Description |
 |---|---|
-| `data-node-color` | Color for all nodes (default `#2e6b8a`). |
-| `data-arrow-color` | Color for all arrows (default `#2e6b8a`). |
+| `node-color` | Color for all nodes (default `#2e6b8a`). |
+| `arrow-color` | Color for all arrows (default `#2e6b8a`). |
 
 ## Item attributes
 
 | Attribute | Description |
 |---|---|
-| `data-color` | Overrides node color for this item only. |
+| `color` | Overrides node color for this item only. |
 
 ## Sizing behavior
 

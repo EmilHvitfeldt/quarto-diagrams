@@ -74,35 +74,35 @@
     "href": "colors.html#all-nodes-the-same-color",
     "title": "Colors",
     "section": "All nodes the same color",
-    "text": "All nodes the same color\nSet data-node-color on the container to apply one color to all nodes.\n::: {.circle-flow .node-box data-node-color=\"#27ae60\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "text": "All nodes the same color\nSet node-color on the container to apply one color to all nodes.\n::: {.circle-flow .node-box node-color=\"#27ae60\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
     "objectID": "colors.html#arrow-color-only",
     "href": "colors.html#arrow-color-only",
     "title": "Colors",
     "section": "Arrow color only",
-    "text": "Arrow color only\nSet data-arrow-color on the container. Arrow color is always global — per-arrow color is not supported.\n::: {.circle-flow .node-box data-arrow-color=\"#e74c3c\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "text": "Arrow color only\nSet arrow-color on the container. Arrow color is always global — per-arrow color is not supported.\n::: {.circle-flow .node-box arrow-color=\"#e74c3c\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
     "objectID": "colors.html#node-and-arrow-color-together",
     "href": "colors.html#node-and-arrow-color-together",
     "title": "Colors",
     "section": "Node and arrow color together",
-    "text": "Node and arrow color together\n::: {.circle-flow .node-box data-node-color=\"#e67e22\" data-arrow-color=\"#c0392b\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "text": "Node and arrow color together\n::: {.circle-flow .node-box node-color=\"#e67e22\" arrow-color=\"#c0392b\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
     "objectID": "colors.html#per-node-color",
     "href": "colors.html#per-node-color",
     "title": "Colors",
     "section": "Per-node color",
-    "text": "Per-node color\nSet data-color on individual item divs to override that node’s color.\n::: {.circle-flow .node-box}\n::: {.item data-color=\"#e74c3c\"}\nAlice\n:::\n::: {.item data-color=\"#e67e22\"}\nBob\n:::\n::: {.item data-color=\"#27ae60\"}\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "text": "Per-node color\nSet color on individual item divs to override that node’s color.\n::: {.circle-flow .node-box}\n::: {.item color=\"#e74c3c\"}\nAlice\n:::\n::: {.item color=\"#e67e22\"}\nBob\n:::\n::: {.item color=\"#27ae60\"}\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
     "objectID": "colors.html#mixed-base-color-with-overrides",
     "href": "colors.html#mixed-base-color-with-overrides",
     "title": "Colors",
     "section": "Mixed: base color with overrides",
-    "text": "Mixed: base color with overrides\nSet a base color on the container and override specific nodes individually.\n::: {.circle-flow .node-box data-node-color=\"#2980b9\"}\n::: item\nAlice\n:::\n::: {.item data-color=\"#e74c3c\"}\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "text": "Mixed: base color with overrides\nSet a base color on the container and override specific nodes individually.\n::: {.circle-flow .node-box node-color=\"#2980b9\"}\n::: item\nAlice\n:::\n::: {.item color=\"#e74c3c\"}\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
     "objectID": "customization.html",
@@ -123,14 +123,14 @@
     "href": "customization.html#container-attributes",
     "title": "Customization",
     "section": "Container attributes",
-    "text": "Container attributes\n\n\n\nAttribute\nDescription\n\n\n\n\ndata-node-color\nColor for all nodes (default #2e6b8a).\n\n\ndata-arrow-color\nColor for all arrows (default #2e6b8a)."
+    "text": "Container attributes\n\n\n\nAttribute\nDescription\n\n\n\n\nnode-color\nColor for all nodes (default #2e6b8a).\n\n\narrow-color\nColor for all arrows (default #2e6b8a)."
   },
   {
     "objectID": "customization.html#item-attributes",
     "href": "customization.html#item-attributes",
     "title": "Customization",
     "section": "Item attributes",
-    "text": "Item attributes\n\n\n\nAttribute\nDescription\n\n\n\n\ndata-color\nOverrides node color for this item only."
+    "text": "Item attributes\n\n\n\nAttribute\nDescription\n\n\n\n\ncolor\nOverrides node color for this item only."
   },
   {
     "objectID": "customization.html#sizing-behavior",

@@ -41,6 +41,6 @@ Screenshots and snapshots are saved to `.playwright-mcp/` (gitignored). The fold
 
 - Do NOT use SVG stroke + `marker-end` for curved arrows — use filled paths instead
 - Do NOT use `contributes.format` in `_extension.yml` to inject CSS/JS — use the Lua filter
-- Attributes do NOT need a `data-` prefix — use `color=`, `node-color=`, `arrow-color=` directly; Pandoc passes arbitrary attributes through to HTML and the JS reads them via `getAttribute()`
+- In Quarto source, write attributes WITHOUT a `data-` prefix — `node-color=`, `arrow-color=`, `color=`. Pandoc auto-prefixes unrecognized attrs with `data-` in the emitted HTML (e.g. `node-color` → `data-node-color`), so the JS reads container attrs via `dataset.nodeColor` / `dataset.arrowColor`. The legacy HTML attribute `color` is the exception — it passes through unprefixed, so the JS checks `getAttribute('color')` first then `dataset.color`.
 - Boolean flags use classes, not attributes — e.g. `.gap` on an item, not `data-gap="true"`
 - When clearing the Quarto freeze cache for a page, delete `docs/_freeze/<page-name>/` then re-render

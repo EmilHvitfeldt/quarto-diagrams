@@ -215,8 +215,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Colors are set via <code>data-*</code> attributes. Always use the <code>data-</code> prefix — plain hyphenated attributes are not reliably passed through by Pandoc.</p>
 <section id="all-nodes-the-same-color" class="level2">
 <h2 class="anchored" data-anchor-id="all-nodes-the-same-color">All nodes the same color</h2>
-<p>Set <code>data-node-color</code> on the container to apply one color to all nodes.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box data-node-color="#27ae60"}</span>
+<p>Set <code>node-color</code> on the container to apply one color to all nodes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box node-color="#27ae60"}</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>:::</span>
@@ -241,8 +241,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="arrow-color-only" class="level2">
 <h2 class="anchored" data-anchor-id="arrow-color-only">Arrow color only</h2>
-<p>Set <code>data-arrow-color</code> on the container. Arrow color is always global — per-arrow color is not supported.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box data-arrow-color="#e74c3c"}</span>
+<p>Set <code>arrow-color</code> on the container. Arrow color is always global — per-arrow color is not supported.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box arrow-color="#e74c3c"}</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>:::</span>
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="node-and-arrow-color-together" class="level2">
 <h2 class="anchored" data-anchor-id="node-and-arrow-color-together">Node and arrow color together</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box data-node-color="#e67e22" data-arrow-color="#c0392b"}</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box node-color="#e67e22" arrow-color="#c0392b"}</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>:::</span>
@@ -292,26 +292,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="per-node-color" class="level2">
 <h2 class="anchored" data-anchor-id="per-node-color">Per-node color</h2>
-<p>Set <code>data-color</code> on individual <code>item</code> divs to override that node’s color.</p>
+<p>Set <code>color</code> on individual <code>item</code> divs to override that node’s color.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box}</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>::: {.item data-color="#e74c3c"}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e74c3c"}</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>::: {.item data-color="#e67e22"}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e67e22"}</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>::: {.item data-color="#27ae60"}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>::: {.item color="#27ae60"}</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="circle-flow node-box">
-<div class="item" data-color="#e74c3c">
+<div class="item" color="#e74c3c">
 <p>Alice</p>
 </div>
-<div class="item" data-color="#e67e22">
+<div class="item" color="#e67e22">
 <p>Bob</p>
 </div>
-<div class="item" data-color="#27ae60">
+<div class="item" color="#27ae60">
 <p>Carol</p>
 </div>
 </div>
@@ -319,11 +319,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="mixed-base-color-with-overrides" class="level2">
 <h2 class="anchored" data-anchor-id="mixed-base-color-with-overrides">Mixed: base color with overrides</h2>
 <p>Set a base color on the container and override specific nodes individually.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box data-node-color="#2980b9"}</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box node-color="#2980b9"}</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>::: {.item data-color="#e74c3c"}</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e74c3c"}</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
@@ -334,7 +334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="item">
 <p>Alice</p>
 </div>
-<div class="item" data-color="#e74c3c">
+<div class="item" color="#e74c3c">
 <p>Bob</p>
 </div>
 <div class="item">
@@ -766,8 +766,8 @@ function initCircleFlow(container) {
                     container.classList.contains('arrow-arc')     ? 'arc'     :
                     container.classList.contains('arrow-double')  ? 'double'  : 'chevron';
 
-  const defaultNodeColor = container.getAttribute('node-color') || container.dataset.nodeColor  || '#2e6b8a';
-  const arrowColor       = container.getAttribute('arrow-color') || container.dataset.arrowColor || '#2e6b8a';
+  const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
+  const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
 
   let layoutR, nodeRadius;
   if (n === 1) {
@@ -1091,7 +1091,7 @@ function initPie(container) {
   const anyItemGap = items.some(item => item.classList.contains('gap'));
   const sliceOffset = 20;
   const r = (hasGap || anyItemGap) ? 210 : 240;
-  const defaultColor = container.getAttribute('node-color') || container.dataset.nodeColor || '#2e6b8a';
+  const defaultColor = container.dataset.nodeColor || '#2e6b8a';
 
   container.style.position = 'relative';
   container.style.width = '500px';

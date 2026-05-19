@@ -475,16 +475,16 @@
 <section id="each-node-different-color" class="slide level2">
 <h2>each node different color</h2>
 <div class="circle-flow node-box">
-<div class="item" data-color="#e74c3c">
+<div class="item" color="#e74c3c">
 <p>Alice</p>
 </div>
-<div class="item" data-color="#e67e22">
+<div class="item" color="#e67e22">
 <p>Bob</p>
 </div>
-<div class="item" data-color="#27ae60">
+<div class="item" color="#27ae60">
 <p>Carol</p>
 </div>
-<div class="item" data-color="#8e44ad">
+<div class="item" color="#8e44ad">
 <p>Dave</p>
 </div>
 </div>
@@ -495,13 +495,13 @@
 <div class="item">
 <p>Alice</p>
 </div>
-<div class="item" data-color="#e74c3c">
+<div class="item" color="#e74c3c">
 <p>Bob</p>
 </div>
 <div class="item">
 <p>Carol</p>
 </div>
-<div class="item" data-color="#e74c3c">
+<div class="item" color="#e74c3c">
 <p>Dave</p>
 </div>
 </div>
@@ -926,8 +926,8 @@
                         container.classList.contains('arrow-arc')     ? 'arc'     :
                         container.classList.contains('arrow-double')  ? 'double'  : 'chevron';
 
-      const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
-      const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
+      const defaultNodeColor = container.getAttribute('node-color') || '#2e6b8a';
+      const arrowColor       = container.getAttribute('arrow-color') || '#2e6b8a';
 
       let layoutR, nodeRadius;
       if (n === 1) {
@@ -950,7 +950,7 @@
 
       const nodeEls = items.map((item, i) => {
         const { x, y } = positions[i];
-        const nodeColor = item.dataset.color || defaultNodeColor;
+        const nodeColor = item.getAttribute('color') || defaultNodeColor;
         const node = document.createElement('div');
         node.className = 'node node-' + nodeType;
         node.textContent = item.textContent.trim();
@@ -1248,9 +1248,10 @@
       const n = items.length;
       const cx = 250, cy = 250;
       const hasGap = container.classList.contains('gap');
-      const sliceOffset = hasGap ? 20 : 0;
-      const r = hasGap ? 210 : 240;
-      const defaultColor = container.dataset.nodeColor || '#2e6b8a';
+      const anyItemGap = items.some(item => item.classList.contains('gap'));
+      const sliceOffset = 20;
+      const r = (hasGap || anyItemGap) ? 210 : 240;
+      const defaultColor = container.getAttribute('node-color') || '#2e6b8a';
 
       container.style.position = 'relative';
       container.style.width = '500px';
@@ -1267,13 +1268,14 @@
       const labelEls = [];
 
       items.forEach((item, i) => {
-        const color = item.dataset.color || defaultColor;
+        const color = item.getAttribute('color') || defaultColor;
         const startAngle = (i / n) * 2 * Math.PI - Math.PI / 2;
         const endAngle   = ((i + 1) / n) * 2 * Math.PI - Math.PI / 2;
         const midAngle   = (startAngle + endAngle) / 2;
 
-        const dx = sliceOffset * Math.cos(midAngle);
-        const dy = sliceOffset * Math.sin(midAngle);
+        const itemOffset = (hasGap || item.classList.contains('gap')) ? sliceOffset || 20 : 0;
+        const dx = itemOffset * Math.cos(midAngle);
+        const dy = itemOffset * Math.sin(midAngle);
         const ox = cx + dx, oy = cy + dy;
 
         const x1 = ox + r * Math.cos(startAngle);

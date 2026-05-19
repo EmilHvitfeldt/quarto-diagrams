@@ -4,3 +4,5 @@
 .playwright-mcp/
 test.qmd
 test.html
+
+/.luarc.json

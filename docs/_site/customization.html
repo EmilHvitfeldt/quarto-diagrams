@@ -241,11 +241,11 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>data-node-color</code></td>
+<td><code>node-color</code></td>
 <td>Color for all nodes (default <code>#2e6b8a</code>).</td>
 </tr>
 <tr class="even">
-<td><code>data-arrow-color</code></td>
+<td><code>arrow-color</code></td>
 <td>Color for all arrows (default <code>#2e6b8a</code>).</td>
 </tr>
 </tbody>
@@ -262,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>data-color</code></td>
+<td><code>color</code></td>
 <td>Overrides node color for this item only.</td>
 </tr>
 </tbody>
@@ -700,8 +700,8 @@ function initCircleFlow(container) {
                     container.classList.contains('arrow-arc')     ? 'arc'     :
                     container.classList.contains('arrow-double')  ? 'double'  : 'chevron';
 
-  const defaultNodeColor = container.getAttribute('node-color') || container.dataset.nodeColor  || '#2e6b8a';
-  const arrowColor       = container.getAttribute('arrow-color') || container.dataset.arrowColor || '#2e6b8a';
+  const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
+  const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
 
   let layoutR, nodeRadius;
   if (n === 1) {
@@ -1025,7 +1025,7 @@ function initPie(container) {
   const anyItemGap = items.some(item => item.classList.contains('gap'));
   const sliceOffset = 20;
   const r = (hasGap || anyItemGap) ? 210 : 240;
-  const defaultColor = container.getAttribute('node-color') || container.dataset.nodeColor || '#2e6b8a';
+  const defaultColor = container.dataset.nodeColor || '#2e6b8a';
 
   container.style.position = 'relative';
   container.style.width = '500px';

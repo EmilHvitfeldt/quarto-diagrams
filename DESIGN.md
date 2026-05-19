@@ -32,7 +32,7 @@ Users activate with `filters: [circle-flow]` in their document YAML.
 
 `initCircleFlow(container)` runs on `DOMContentLoaded` and on Reveal.js `slidechanged`:
 1. Detects `nodeType` (circle/box/none) and `arrowType` (chevron/curved/thin/ring/arc/double) from container classes
-2. Reads `data-node-color`, `data-arrow-color` from container; `data-color` from individual items
+2. Reads `data-node-color`, `data-arrow-color` from container (via `dataset`); `color` from items (Pandoc auto-prefixes unknown attrs with `data-` but passes the legacy `color` attribute through)
 3. Computes `layoutR` and `nodeRadius` from `n` (see sizing math below)
 4. Creates `.node` divs positioned on the circle; sets size, background color, and border-radius inline
 5. Scales font size via canvas `measureText` so the longest label fills (but doesn't overflow) the node
@@ -71,8 +71,8 @@ SVG arrows use a unique `uid` per container to avoid marker ID collisions across
 
 ## Color system
 
-- `data-node-color="<color>"` on container — all nodes (default `#2e6b8a`)
-- `data-color="<color>"` on an individual `.item` — overrides that node only
-- `data-arrow-color="<color>"` on container — all arrows (default `#2e6b8a`)
-- Use `data-*` prefix — plain hyphenated attributes are not reliably passed through by Pandoc
+- `node-color="<color>"` on container — all nodes (default `#2e6b8a`)
+- `color="<color>"` on an individual `.item` — overrides that node only
+- `arrow-color="<color>"` on container — all arrows (default `#2e6b8a`)
+- Source-side: write attributes without `data-` prefix. Pandoc rewrites unknown attrs to `data-*` in the HTML output, so the JS reads container attrs via `dataset.*`. `color` is a legacy HTML attribute and is passed through unprefixed.
 - Arrow color is always global; no per-arrow color support

@@ -282,7 +282,7 @@ Dave
 
 ## all nodes same color
 
-::: {.circle-flow .node-box data-node-color="#27ae60"}
+::: {.circle-flow .node-box node-color="#27ae60"}
 ::: item
 Alice
 :::
@@ -299,7 +299,7 @@ Dave
 
 ## arrow color only
 
-::: {.circle-flow .node-box data-arrow-color="#e74c3c"}
+::: {.circle-flow .node-box arrow-color="#e74c3c"}
 ::: item
 Alice
 :::
@@ -316,7 +316,7 @@ Dave
 
 ## node and arrow color
 
-::: {.circle-flow .node-box data-node-color="#e67e22" data-arrow-color="#c0392b"}
+::: {.circle-flow .node-box node-color="#e67e22" arrow-color="#c0392b"}
 ::: item
 Alice
 :::
@@ -334,40 +334,40 @@ Dave
 ## each node different color
 
 ::: {.circle-flow .node-box}
-::: {.item data-color="#e74c3c"}
+::: {.item color="#e74c3c"}
 Alice
 :::
-::: {.item data-color="#e67e22"}
+::: {.item color="#e67e22"}
 Bob
 :::
-::: {.item data-color="#27ae60"}
+::: {.item color="#27ae60"}
 Carol
 :::
-::: {.item data-color="#8e44ad"}
+::: {.item color="#8e44ad"}
 Dave
 :::
 :::
 
 ## mixed: base color with overrides
 
-::: {.circle-flow .node-box data-node-color="#2980b9"}
+::: {.circle-flow .node-box node-color="#2980b9"}
 ::: item
 Alice
 :::
-::: {.item data-color="#e74c3c"}
+::: {.item color="#e74c3c"}
 Bob
 :::
 ::: item
 Carol
 :::
-::: {.item data-color="#e74c3c"}
+::: {.item color="#e74c3c"}
 Dave
 :::
 :::
 
 ## node-none with arrow color
 
-::: {.circle-flow .node-none .arrow-curved data-arrow-color="#e67e22"}
+::: {.circle-flow .node-none .arrow-curved arrow-color="#e67e22"}
 ::: item
 Alice
 :::

@@ -6,10 +6,10 @@ Colors are set via `data-*` attributes. Always use the `data-` prefix — plain 
 
 ## All nodes the same color
 
-Set `data-node-color` on the container to apply one color to all nodes.
+Set `node-color` on the container to apply one color to all nodes.
 
 ````markdown
-::: {.circle-flow .node-box data-node-color="#27ae60"}
+::: {.circle-flow .node-box node-color="#27ae60"}
 ::: item
 Alice
 :::
@@ -22,7 +22,7 @@ Carol
 :::
 ````
 
-::: {.circle-flow .node-box data-node-color="#27ae60"}
+::: {.circle-flow .node-box node-color="#27ae60"}
 ::: item
 Alice
 :::
@@ -36,10 +36,10 @@ Carol
 
 ## Arrow color only
 
-Set `data-arrow-color` on the container. Arrow color is always global — per-arrow color is not supported.
+Set `arrow-color` on the container. Arrow color is always global — per-arrow color is not supported.
 
 ````markdown
-::: {.circle-flow .node-box data-arrow-color="#e74c3c"}
+::: {.circle-flow .node-box arrow-color="#e74c3c"}
 ::: item
 Alice
 :::
@@ -52,7 +52,7 @@ Carol
 :::
 ````
 
-::: {.circle-flow .node-box data-arrow-color="#e74c3c"}
+::: {.circle-flow .node-box arrow-color="#e74c3c"}
 ::: item
 Alice
 :::
@@ -67,7 +67,7 @@ Carol
 ## Node and arrow color together
 
 ````markdown
-::: {.circle-flow .node-box data-node-color="#e67e22" data-arrow-color="#c0392b"}
+::: {.circle-flow .node-box node-color="#e67e22" arrow-color="#c0392b"}
 ::: item
 Alice
 :::
@@ -80,7 +80,7 @@ Carol
 :::
 ````
 
-::: {.circle-flow .node-box data-node-color="#e67e22" data-arrow-color="#c0392b"}
+::: {.circle-flow .node-box node-color="#e67e22" arrow-color="#c0392b"}
 ::: item
 Alice
 :::
@@ -94,30 +94,30 @@ Carol
 
 ## Per-node color
 
-Set `data-color` on individual `item` divs to override that node's color.
+Set `color` on individual `item` divs to override that node's color.
 
 ````markdown
 ::: {.circle-flow .node-box}
-::: {.item data-color="#e74c3c"}
+::: {.item color="#e74c3c"}
 Alice
 :::
-::: {.item data-color="#e67e22"}
+::: {.item color="#e67e22"}
 Bob
 :::
-::: {.item data-color="#27ae60"}
+::: {.item color="#27ae60"}
 Carol
 :::
 :::
 ````
 
 ::: {.circle-flow .node-box}
-::: {.item data-color="#e74c3c"}
+::: {.item color="#e74c3c"}
 Alice
 :::
-::: {.item data-color="#e67e22"}
+::: {.item color="#e67e22"}
 Bob
 :::
-::: {.item data-color="#27ae60"}
+::: {.item color="#27ae60"}
 Carol
 :::
 :::
@@ -127,11 +127,11 @@ Carol
 Set a base color on the container and override specific nodes individually.
 
 ````markdown
-::: {.circle-flow .node-box data-node-color="#2980b9"}
+::: {.circle-flow .node-box node-color="#2980b9"}
 ::: item
 Alice
 :::
-::: {.item data-color="#e74c3c"}
+::: {.item color="#e74c3c"}
 Bob
 :::
 ::: item
@@ -140,11 +140,11 @@ Carol
 :::
 ````
 
-::: {.circle-flow .node-box data-node-color="#2980b9"}
+::: {.circle-flow .node-box node-color="#2980b9"}
 ::: item
 Alice
 :::
-::: {.item data-color="#e74c3c"}
+::: {.item color="#e74c3c"}
 Bob
 :::
 ::: item
