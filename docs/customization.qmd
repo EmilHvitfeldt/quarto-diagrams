@@ -32,6 +32,18 @@ Classes applied to the `.circle-flow` div.
 |---|---|
 | `color` | Overrides node color for this item only. |
 
+## Pie classes
+
+The `.pie` layout is a separate container type. See [Pie charts](pie.qmd) for examples.
+
+| Class | Description |
+|---|---|
+| `pie` | Required on the container. Renders a pie chart instead of a ring of nodes. |
+| `gap` on container | Separate every slice with an offset; removes the white slice stroke. |
+| `gap` on an item | Offset just that slice from the center. |
+
+Pie containers accept `node-color` (base slice color); individual items accept `color` (per-slice override).
+
 ## Sizing behavior
 
 Node size and layout radius are computed from `n` (number of items). The gap between neighboring circle edges equals `nodeRadius`. The formula is:

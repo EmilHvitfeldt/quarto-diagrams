@@ -133,6 +133,13 @@
     "text": "Item attributes\n\n\n\nAttribute\nDescription\n\n\n\n\ncolor\nOverrides node color for this item only."
   },
   {
+    "objectID": "customization.html#pie-classes",
+    "href": "customization.html#pie-classes",
+    "title": "Customization",
+    "section": "Pie classes",
+    "text": "Pie classes\nThe .pie layout is a separate container type. See Pie charts for examples.\n\n\n\n\n\n\n\nClass\nDescription\n\n\n\n\npie\nRequired on the container. Renders a pie chart instead of a ring of nodes.\n\n\ngap on container\nSeparate every slice with an offset; removes the white slice stroke.\n\n\ngap on an item\nOffset just that slice from the center.\n\n\n\nPie containers accept node-color (base slice color); individual items accept color (per-slice override)."
+  },
+  {
     "objectID": "customization.html#sizing-behavior",
     "href": "customization.html#sizing-behavior",
     "title": "Customization",

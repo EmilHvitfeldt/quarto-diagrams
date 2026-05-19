@@ -150,6 +150,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#container-classes" id="toc-container-classes" class="nav-link active" data-scroll-target="#container-classes">Container classes</a></li>
   <li><a href="#container-attributes" id="toc-container-attributes" class="nav-link" data-scroll-target="#container-attributes">Container attributes</a></li>
   <li><a href="#item-attributes" id="toc-item-attributes" class="nav-link" data-scroll-target="#item-attributes">Item attributes</a></li>
+  <li><a href="#pie-classes" id="toc-pie-classes" class="nav-link" data-scroll-target="#pie-classes">Pie classes</a></li>
   <li><a href="#sizing-behavior" id="toc-sizing-behavior" class="nav-link" data-scroll-target="#sizing-behavior">Sizing behavior</a></li>
   </ul>
 </nav>
@@ -267,6 +268,37 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+</section>
+<section id="pie-classes" class="level2">
+<h2 class="anchored" data-anchor-id="pie-classes">Pie classes</h2>
+<p>The <code>.pie</code> layout is a separate container type. See <a href="./pie.html">Pie charts</a> for examples.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pie</code></td>
+<td>Required on the container. Renders a pie chart instead of a ring of nodes.</td>
+</tr>
+<tr class="even">
+<td><code>gap</code> on container</td>
+<td>Separate every slice with an offset; removes the white slice stroke.</td>
+</tr>
+<tr class="odd">
+<td><code>gap</code> on an item</td>
+<td>Offset just that slice from the center.</td>
+</tr>
+</tbody>
+</table>
+<p>Pie containers accept <code>node-color</code> (base slice color); individual items accept <code>color</code> (per-slice override).</p>
 </section>
 <section id="sizing-behavior" class="level2">
 <h2 class="anchored" data-anchor-id="sizing-behavior">Sizing behavior</h2>
@@ -838,7 +870,7 @@ function nodeEdgePoint(pos, toward, nodeRadius, nodeType) {
   const dx = toward.x - pos.x, dy = toward.y - pos.y;
   const len = Math.sqrt(dx * dx + dy * dy);
   // box half-diagonal ≈ nodeRadius * 1.08; add padding for a clear gap
-  const trim = nodeType === 'none' ? 0 : nodeType === 'box' ? nodeRadius * 1.2 : nodeRadius;
+  const trim = nodeType === 'none' ? nodeRadius * 0.6 : nodeType === 'box' ? nodeRadius * 1.2 : nodeRadius;
   return { x: pos.x + dx / len * trim, y: pos.y + dy / len * trim };
 }
 

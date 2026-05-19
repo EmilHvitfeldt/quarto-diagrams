@@ -76,3 +76,38 @@ SVG arrows use a unique `uid` per container to avoid marker ID collisions across
 - `arrow-color="<color>"` on container — all arrows (default `#2e6b8a`)
 - Source-side: write attributes without `data-` prefix. Pandoc rewrites unknown attrs to `data-*` in the HTML output, so the JS reads container attrs via `dataset.*`. `color` is a legacy HTML attribute and is passed through unprefixed.
 - Arrow color is always global; no per-arrow color support
+
+## Pie layout
+
+A separate layout, triggered by `.pie` on the container (instead of `.circle-flow`). Items become pie slices instead of nodes-on-a-ring. Implemented by `initPie` in `circle-flow.html`, with CSS for `.pie` and `.slice-label` in `circle-flow.css`.
+
+```
+::: pie
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+:::
+```
+
+**Class system:**
+- `.pie` on container — pie chart layout
+- `.gap` on container — separate all slices with an offset, no white stroke
+- `.gap` on an individual `.item` — offset just that slice (keeps the white stroke on others)
+
+**Color system:**
+- `node-color="<color>"` on container — base color for all slices (default `#2e6b8a`)
+- `color="<color>"` on an `.item` — overrides that slice's color
+
+**Sizing math:**
+- `r = 210` when any slice has a gap, otherwise `240`. `sliceOffset = 20`.
+- Each slice path is built around an origin offset `sliceOffset` along the slice's mid-angle when that slice has `.gap` (or all of them when the container has `.gap`).
+- Label radius is `r * 0.6` (positioned at the slice mid-angle).
+- Single-item pie: full circle path, label at center.
+
+**Font scaling:**
+- Same canvas `measureText` approach as circle-flow, but only scales *down* when the label would exceed `sliceWidth = 2·r·sin(π/n)·0.85` (with a 60px floor). Labels smaller than the slice keep their CSS size.
+
+**Init guard:** Pie containers use the same `data-cf-init` flag as circle-flow, so they also only initialize once across `DOMContentLoaded` and Reveal `slidechanged`.

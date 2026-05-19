@@ -4,7 +4,7 @@ See `DESIGN.md` for full design documentation, class system, color system, and d
 
 ## Key files
 
-- `_extensions/circle-flow/` — the extension (CSS, JS, Lua filter)
+- `_extensions/circle-flow/` — the extension (CSS, JS, Lua filter). Provides two layouts: `.circle-flow` (nodes-on-a-ring with arrows) and `.pie` (pie chart). Both initialize from the same JS file (`initCircleFlow` / `initPie`).
 - `index.qmd` — demo slides; activate extension with `filters: [circle-flow]`
 - `docs/` — documentation website (`quarto render docs/` to build, output in `docs/_site/`)
 - `docs/_extensions/circle-flow/` — **copy** of `_extensions/circle-flow/`; Quarto does not follow symlinks for extension lookup, so this must be kept in sync manually when the extension changes

@@ -959,7 +959,7 @@ function nodeEdgePoint(pos, toward, nodeRadius, nodeType) {
   const dx = toward.x - pos.x, dy = toward.y - pos.y;
   const len = Math.sqrt(dx * dx + dy * dy);
   // box half-diagonal ≈ nodeRadius * 1.08; add padding for a clear gap
-  const trim = nodeType === 'none' ? 0 : nodeType === 'box' ? nodeRadius * 1.2 : nodeRadius;
+  const trim = nodeType === 'none' ? nodeRadius * 0.6 : nodeType === 'box' ? nodeRadius * 1.2 : nodeRadius;
   return { x: pos.x + dx / len * trim, y: pos.y + dy / len * trim };
 }
 
