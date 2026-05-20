@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-45431c2918bd31147ddb3fa7038bb99f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/circle-flow-0.1.0/circle-flow.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/circle-flow-0.2.0/circle-flow.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -109,6 +109,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./pie.html">
  <span class="dropdown-text">Pie</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./process.html">
+ <span class="dropdown-text">Process</span></a>
   </li>  
     </ul>
   </li>
@@ -1093,6 +1097,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.setAttribute('data-cf-init', '1');
     initPie(el);
   });
+  document.querySelectorAll('.process').forEach(el => {
+    el.setAttribute('data-cf-init', '1');
+    initProcess(el);
+  });
 });
 
 if (typeof Reveal !== 'undefined') {
@@ -1104,6 +1112,10 @@ if (typeof Reveal !== 'undefined') {
     document.querySelectorAll('.pie:not([data-cf-init])').forEach(el => {
       el.setAttribute('data-cf-init', '1');
       initPie(el);
+    });
+    document.querySelectorAll('.process:not([data-cf-init])').forEach(el => {
+      el.setAttribute('data-cf-init', '1');
+      initProcess(el);
     });
   });
 }
@@ -1196,6 +1208,177 @@ function initPie(container) {
     const scaledSize = (baseFontSize * textMaxW / maxTextWidth) + 'px';
     labelEls.forEach(el => el.style.fontSize = scaledSize);
   }
+}
+
+// --- Process (linear flow) ---
+
+function initProcess(container) {
+  const items = Array.from(container.querySelectorAll('.item'));
+  if (items.length === 0) return;
+
+  const n = items.length;
+  const vertical = container.classList.contains('vertical');
+
+  const nodeType = container.classList.contains('node-circle') ? 'circle' :
+                   container.classList.contains('node-none')   ? 'none'   : 'box';
+  const arrowType = container.classList.contains('arrow-thin')   ? 'thin'   :
+                    container.classList.contains('arrow-double') ? 'double' : 'chevron';
+
+  const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
+  const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
+
+  // Read container size from CSS (allows user override)
+  container.style.position = 'relative';
+  const cs = getComputedStyle(container);
+  const totalW = parseFloat(cs.width)  || (vertical ? 200 : 900);
+  const totalH = parseFloat(cs.height) || (vertical ? 600 : 200);
+
+  const mainAxis = vertical ? totalH : totalW;
+  const crossAxis = vertical ? totalW : totalH;
+
+  // Per-item gap multiplier (extra space before .gap items, except the first)
+  const gapWeights = items.map((item, i) => (i > 0 && item.classList.contains('gap')) ? 1.6 : 1);
+  const totalGapWeight = gapWeights.slice(1).reduce((a, b) => a + b, 0);
+
+  // Allocate: n nodes + (sum of gap weights) arrow-slots fill mainAxis
+  // arrowSlot baseline ≈ 0.5 * nodeSize. Solve: n*nodeSize + 0.5*nodeSize*totalGapWeight = mainAxis
+  // => nodeSize = mainAxis / (n + 0.5 * totalGapWeight)
+  const denom = n + 0.5 * totalGapWeight;
+  let nodeSize = mainAxis / denom; // along main axis
+  // Cap so node doesn't exceed cross-axis (with some padding)
+  const maxAlongCross = crossAxis * 0.9;
+  if (nodeType === 'box') {
+    // box height (cross) = nodeSize * 0.55 (rectangle); keep nodeSize reasonable
+  }
+  // Node cross-axis size
+  const boxCross = nodeType === 'box' ? Math.min(maxAlongCross, nodeSize * 0.6) : Math.min(maxAlongCross, nodeSize * 0.85);
+  const boxMain  = nodeType === 'box' ? nodeSize * 0.85 : boxCross; // box is wider along main; circle/none stays square-ish
+  const arrowSlot = (mainAxis - n * boxMain) / Math.max(1, totalGapWeight);
+
+  // Compute center positions along main axis
+  const centers = [];
+  let cursor = boxMain / 2;
+  for (let i = 0; i < n; i++) {
+    if (i > 0) cursor += boxMain + arrowSlot * gapWeights[i];
+    centers.push(cursor);
+  }
+
+  const crossCenter = crossAxis / 2;
+
+  const positions = centers.map(c => vertical ? { x: crossCenter, y: c } : { x: c, y: crossCenter });
+
+  const nodeEls = items.map((item, i) => {
+    const { x, y } = positions[i];
+    const nodeColor = item.getAttribute('color') || item.dataset.color || defaultNodeColor;
+    const node = document.createElement('div');
+    node.className = 'node node-' + nodeType;
+    node.textContent = item.textContent.trim();
+    if (nodeType !== 'none') node.style.background = nodeColor;
+    node.style.left = x + 'px';
+    node.style.top  = y + 'px';
+    node.style.transform = 'translate(-50%, -50%)';
+
+    if (nodeType === 'box') {
+      const w = vertical ? boxCross : boxMain;
+      const h = vertical ? boxMain  : boxCross;
+      node.style.width  = w + 'px';
+      node.style.height = h + 'px';
+      node.style.borderRadius = (Math.min(w, h) * 0.15) + 'px';
+    } else if (nodeType === 'circle') {
+      const d = Math.min(boxMain, boxCross);
+      node.style.width  = d + 'px';
+      node.style.height = d + 'px';
+    } else {
+      node.style.width  = boxMain + 'px';
+      node.style.height = boxCross + 'px';
+    }
+
+    container.appendChild(node);
+    item.style.display = 'none';
+    return node;
+  });
+
+  // Font scaling — fit longest label within node along main axis
+  const textMaxW = (nodeType === 'box' ? (vertical ? boxCross : boxMain) : Math.min(boxMain, boxCross)) - 16;
+  const baseStyle    = getComputedStyle(nodeEls[0]);
+  const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+  const fontFamily   = baseStyle.fontFamily || 'sans-serif';
+  const fontWeight   = baseStyle.fontWeight || '500';
+  const cvs = document.createElement('canvas');
+  const cctx = cvs.getContext('2d');
+  cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+  const maxTextWidth = Math.max(...nodeEls.map(el => cctx.measureText(el.textContent).width));
+  if (maxTextWidth > textMaxW) {
+    const scaledSize = (baseFontSize * textMaxW / maxTextWidth) + 'px';
+    nodeEls.forEach(el => el.style.fontSize = scaledSize);
+  }
+
+  if (n === 1) return;
+
+  const uid = 'cfp' + (_cfCounter++);
+
+  if (arrowType === 'chevron') {
+    // Chevron sized to fit the arrow slot between nodes
+    positions.forEach((from, i) => {
+      if (i === n - 1) return;
+      const to = positions[i + 1];
+      const mx = (from.x + to.x) / 2;
+      const my = (from.y + to.y) / 2;
+      const slotLen = arrowSlot * gapWeights[i + 1];
+      const w = Math.min(slotLen * 0.7, boxCross * 0.7);
+      const h = w * 0.78;
+      const arrow = document.createElement('div');
+      arrow.className = 'arrow-shape';
+      arrow.style.background = arrowColor;
+      arrow.style.width  = w + 'px';
+      arrow.style.height = h + 'px';
+      arrow.style.left   = mx + 'px';
+      arrow.style.top    = my + 'px';
+      const rot = vertical ? 90 : 0;
+      arrow.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
+      container.appendChild(arrow);
+    });
+    return;
+  }
+
+  // thin / double — SVG lines with arrowheads
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', totalW);
+  svg.setAttribute('height', totalH);
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;pointer-events:none;';
+  container.insertBefore(svg, container.firstChild);
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  svg.appendChild(defs);
+
+  const markerSize = 12;
+  addArrowMarker(defs, uid + '-end', arrowColor, markerSize, false);
+  if (arrowType === 'double') addArrowMarker(defs, uid + '-start', arrowColor, markerSize, true);
+
+  positions.forEach((from, i) => {
+    if (i === n - 1) return;
+    const to = positions[i + 1];
+    // Trim line so it starts at node edge
+    const halfMain = boxMain / 2;
+    const trim = halfMain + 4;
+    let x1, y1, x2, y2;
+    if (vertical) {
+      x1 = from.x; y1 = from.y + trim;
+      x2 = to.x;   y2 = to.y   - trim;
+    } else {
+      x1 = from.x + trim; y1 = from.y;
+      x2 = to.x   - trim; y2 = to.y;
+    }
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('stroke', arrowColor);
+    line.setAttribute('stroke-width', '2');
+    line.setAttribute('marker-end', `url(#${uid}-end)`);
+    if (arrowType === 'double') line.setAttribute('marker-start', `url(#${uid}-start)`);
+    svg.appendChild(line);
+  });
 }
 </script>
 

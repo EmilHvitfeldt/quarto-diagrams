@@ -31,6 +31,46 @@
   clip-path: polygon(0 25%, 60% 25%, 60% 0%, 100% 50%, 60% 100%, 60% 75%, 0 75%);
 }
 
+.process {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 200px;
+  margin: auto;
+}
+
+.process.vertical {
+  width: 200px;
+  max-width: 200px;
+  height: 600px;
+}
+
+.process .node {
+  position: absolute;
+  background: #2e6b8a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.process .node.node-circle {
+  border-radius: 50%;
+}
+
+.process .node.node-none {
+  background: transparent;
+  color: #222222;
+}
+
+.process .arrow-shape {
+  position: absolute;
+  background: #2e6b8a;
+  clip-path: polygon(0 25%, 60% 25%, 60% 0%, 100% 50%, 60% 100%, 60% 75%, 0 75%);
+}
+
 .pie {
   position: relative;
   width: 500px;

@@ -19,6 +19,8 @@ website:
             href: circle-flow.qmd
           - text: "Pie"
             href: pie.qmd
+          - text: "Process"
+            href: process.qmd
       - text: "Concepts"
         menu:
           - text: "Node Shapes"

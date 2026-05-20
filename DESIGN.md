@@ -111,3 +111,43 @@ Bob
 - Same canvas `measureText` approach as circle-flow, but only scales *down* when the label would exceed `sliceWidth = 2·r·sin(π/n)·0.85` (with a 60px floor). Labels smaller than the slice keep their CSS size.
 
 **Init guard:** Pie containers use the same `data-cf-init` flag as circle-flow, so they also only initialize once across `DOMContentLoaded` and Reveal `slidechanged`.
+
+## Process layout
+
+A linear flow layout, triggered by `.process` on the container. Items become nodes connected by arrows, horizontally by default. Implemented by `initProcess` in `circle-flow.html`, with CSS for `.process` in `circle-flow.css`.
+
+```
+::: process
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+```
+
+**Class system:**
+- `.process` on container — linear flow layout
+- `.vertical` on container — flow top-to-bottom instead of left-to-right
+- Node shapes: `.node-box` (default), `.node-circle`, `.node-none`
+- Arrow types: `.arrow-chevron` (default, div with clip-path), `.arrow-thin`, `.arrow-double` (both SVG)
+- `.gap` on an item — enlarges the arrow slot *before* that item (gap weight 1.6 vs default 1)
+
+**Color system:** Same as circle-flow — `node-color=` / `arrow-color=` on the container, `color=` per item.
+
+**Sizing math:**
+- Container default: 900×200 horizontal, 200×600 vertical (read from computed CSS, so users can override).
+- Along the main axis: `n` nodes plus arrow slots between them. With per-item gap weights `w[i]` (1 by default, 1.6 if `.gap`), total gap weight is `Σ w[i]` for i=1..n-1.
+- `nodeSize = mainAxis / (n + 0.5 · totalGapWeight)`, then `boxMain = nodeSize · 0.85` and `arrowSlot = (mainAxis - n·boxMain) / totalGapWeight`. This gives the baseline arrow slot ≈ 0.5× nodeSize.
+- Box node cross-axis size = `boxMain · 0.6`; circle node is square at `min(boxMain, boxCross)`.
+- Centers are placed at `boxMain/2`, `+ boxMain + arrowSlot·w[1]`, `+ boxMain + arrowSlot·w[2]`, …
+
+**Arrow rendering:**
+- `arrow-chevron`: div with the same chevron clip-path as circle-flow; sized to fit its arrow slot (capped by `boxCross·0.7`). In vertical mode the chevron is rotated 90°.
+- `arrow-thin` / `arrow-double`: SVG `<line>` with arrow markers, trimmed by `boxMain/2 + 4` on each end so it starts at the node edge.
+
+**Init guard:** `.process` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.

@@ -1,0 +1,189 @@
+---
+title: "Process"
+---
+
+The `.process` style renders items as a linear flow of nodes connected by arrows — left to right by default, or top to bottom with the `.vertical` modifier. Like all styles in this extension, it is activated via `filters: [circle-flow]`.
+
+## Basic usage
+
+````markdown
+::: process
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: process
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+## Vertical orientation
+
+Add the `.vertical` modifier to flow top-to-bottom.
+
+````markdown
+::: {.process .vertical}
+::: item
+Input
+:::
+::: item
+Process
+:::
+::: item
+Output
+:::
+:::
+````
+
+::: {.process .vertical}
+::: item
+Input
+:::
+::: item
+Process
+:::
+::: item
+Output
+:::
+:::
+
+## Arrow types
+
+The default is `arrow-chevron`. Use `arrow-thin` or `arrow-double` for line-based arrows.
+
+````markdown
+::: {.process .arrow-thin}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Ship
+:::
+:::
+````
+
+::: {.process .arrow-thin}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Ship
+:::
+:::
+
+## Node shapes
+
+The default is `node-box`. Use `node-circle` or `node-none` for alternatives.
+
+````markdown
+::: {.process .node-circle}
+::: item
+Start
+:::
+::: item
+Middle
+:::
+::: item
+End
+:::
+:::
+````
+
+::: {.process .node-circle}
+::: item
+Start
+:::
+::: item
+Middle
+:::
+::: item
+End
+:::
+:::
+
+## Extra spacing with `.gap`
+
+Add `.gap` to an item to enlarge the gap *before* it — useful for visually separating stages.
+
+````markdown
+::: process
+::: item
+A
+:::
+::: item
+B
+:::
+::: {.item .gap}
+C
+:::
+::: item
+D
+:::
+:::
+````
+
+::: process
+::: item
+A
+:::
+::: item
+B
+:::
+::: {.item .gap}
+C
+:::
+::: item
+D
+:::
+:::
+
+## Colors
+
+Use `node-color=` / `arrow-color=` on the container, or `color=` on individual items.
+
+````markdown
+::: {.process node-color="#7a3b5c" arrow-color="#444"}
+::: item
+Plan
+:::
+::: {.item color="#3b7a5c"}
+Build
+:::
+::: item
+Ship
+:::
+:::
+````
+
+::: {.process node-color="#7a3b5c" arrow-color="#444"}
+::: item
+Plan
+:::
+::: {.item color="#3b7a5c"}
+Build
+:::
+::: item
+Ship
+:::
+:::
