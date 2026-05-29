@@ -92,6 +92,56 @@ Ship
 :::
 :::
 
+## Chevron style
+
+Add the `.chevron` modifier to render each step as an interlocking arrow tile, with no separate connectors. It works with `.vertical`, `.gap`, and the color system.
+
+````markdown
+::: {.process .chevron}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Ship
+:::
+::: item
+Measure
+:::
+:::
+````
+
+::: {.process .chevron}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Ship
+:::
+::: item
+Measure
+:::
+:::
+
+It also flows top-to-bottom with `.vertical`:
+
+::: {.process .chevron .vertical node-color="#7a3b5c"}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Ship
+:::
+:::
+
 ## Node shapes
 
 The default is `node-box`. Use `node-circle` or `node-none` for alternatives.

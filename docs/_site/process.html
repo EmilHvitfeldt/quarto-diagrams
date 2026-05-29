@@ -212,6 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link active" data-scroll-target="#basic-usage">Basic usage</a></li>
   <li><a href="#vertical-orientation" id="toc-vertical-orientation" class="nav-link" data-scroll-target="#vertical-orientation">Vertical orientation</a></li>
   <li><a href="#arrow-types" id="toc-arrow-types" class="nav-link" data-scroll-target="#arrow-types">Arrow types</a></li>
+  <li><a href="#chevron-style" id="toc-chevron-style" class="nav-link" data-scroll-target="#chevron-style">Chevron style</a></li>
   <li><a href="#node-shapes" id="toc-node-shapes" class="nav-link" data-scroll-target="#node-shapes">Node shapes</a></li>
   <li><a href="#extra-spacing-with-.gap" id="toc-extra-spacing-with-.gap" class="nav-link" data-scroll-target="#extra-spacing-with-.gap">Extra spacing with <code>.gap</code></a></li>
   <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
@@ -318,20 +319,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+<section id="chevron-style" class="level2">
+<h2 class="anchored" data-anchor-id="chevron-style">Chevron style</h2>
+<p>Add the <code>.chevron</code> modifier to render each step as an interlocking arrow tile, with no separate connectors. It works with <code>.vertical</code>, <code>.gap</code>, and the color system.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: {.process .chevron}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Plan</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Build</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>Ship</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>Measure</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="process chevron">
+<div class="item">
+<p>Plan</p>
+</div>
+<div class="item">
+<p>Build</p>
+</div>
+<div class="item">
+<p>Ship</p>
+</div>
+<div class="item">
+<p>Measure</p>
+</div>
+</div>
+<p>It also flows top-to-bottom with <code>.vertical</code>:</p>
+<div class="process chevron vertical" data-node-color="#7a3b5c">
+<div class="item">
+<p>Plan</p>
+</div>
+<div class="item">
+<p>Build</p>
+</div>
+<div class="item">
+<p>Ship</p>
+</div>
+</div>
+</section>
 <section id="node-shapes" class="level2">
 <h2 class="anchored" data-anchor-id="node-shapes">Node shapes</h2>
 <p>The default is <code>node-box</code>. Use <code>node-circle</code> or <code>node-none</code> for alternatives.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: {.process .node-circle}</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Start</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Middle</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>End</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: {.process .node-circle}</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Start</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>Middle</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>End</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="process node-circle">
 <div class="item">
 <p>Start</p>
@@ -347,20 +392,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="extra-spacing-with-.gap" class="level2">
 <h2 class="anchored" data-anchor-id="extra-spacing-with-.gap">Extra spacing with <code>.gap</code></h2>
 <p>Add <code>.gap</code> to an item to enlarge the gap <em>before</em> it — useful for visually separating stages.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: process</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>A</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>B</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>::: {.item .gap}</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>C</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>D</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>::: process</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>A</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>B</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>::: {.item .gap}</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>C</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>D</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="process">
 <div class="item">
 <p>A</p>
@@ -379,17 +424,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="colors" class="level2">
 <h2 class="anchored" data-anchor-id="colors">Colors</h2>
 <p>Use <code>node-color=</code> / <code>arrow-color=</code> on the container, or <code>color=</code> on individual items.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>::: {.process node-color="#7a3b5c" arrow-color="#444"}</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Plan</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#3b7a5c"}</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Build</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Ship</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>::: {.process node-color="#7a3b5c" arrow-color="#444"}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Plan</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#3b7a5c"}</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>Build</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>Ship</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="process" data-node-color="#7a3b5c" data-arrow-color="#444">
 <div class="item">
 <p>Plan</p>
@@ -1277,6 +1322,7 @@ function initProcess(container) {
                    container.classList.contains('node-none')   ? 'none'   : 'box';
   const arrowType = container.classList.contains('arrow-thin')   ? 'thin'   :
                     container.classList.contains('arrow-double') ? 'double' : 'chevron';
+  const chevron = container.classList.contains('chevron');
 
   const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
   const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
@@ -1294,24 +1340,45 @@ function initProcess(container) {
   const gapWeights = items.map((item, i) => (i > 0 && item.classList.contains('gap')) ? 1.6 : 1);
   const totalGapWeight = gapWeights.slice(1).reduce((a, b) => a + b, 0);
 
-  // Allocate: n nodes + (sum of gap weights) arrow-slots fill mainAxis
-  // arrowSlot baseline ≈ 0.5 * nodeSize. Solve: n*nodeSize + 0.5*nodeSize*totalGapWeight = mainAxis
-  // => nodeSize = mainAxis / (n + 0.5 * totalGapWeight)
-  const denom = n + 0.5 * totalGapWeight;
-  let nodeSize = mainAxis / denom; // along main axis
-  // Cap so node doesn't exceed cross-axis (with some padding)
-  const maxAlongCross = crossAxis * 0.9;
-  // Node cross-axis size
-  const boxCross = nodeType === 'box' ? Math.min(maxAlongCross, nodeSize * 0.6) : Math.min(maxAlongCross, nodeSize * 0.85);
-  const boxMain  = nodeType === 'box' ? nodeSize * 0.85 : boxCross; // box is wider along main; circle/none stays square-ish
-  const arrowSlot = (mainAxis - n * boxMain) / Math.max(1, totalGapWeight);
-
-  // Compute center positions along main axis
+  let boxCross, boxMain, arrowSlot = 0, notchPx = 0;
   const centers = [];
-  let cursor = boxMain / 2;
-  for (let i = 0; i < n; i++) {
-    if (i > 0) cursor += boxMain + arrowSlot * gapWeights[i];
-    centers.push(cursor);
+
+  if (chevron) {
+    // Chevrons are the steps themselves: big interlocking tiles, no connectors.
+    boxCross = Math.min(crossAxis * 0.9, (mainAxis / n) * 0.85);
+    boxMain  = mainAxis / n; // refined below to account for overlap + gaps
+    notchPx  = boxCross * 0.4;
+    const gutter = boxCross * 0.08; // thin slanted gap between tiles so seams read
+    const extraGap = boxCross * 0.35;
+    const gapPx = gapWeights.map(w => (w - 1) * extraGap);
+    const sumGap = gapPx.slice(1).reduce((a, b) => a + b, 0);
+    // Tiles interlock (tip nests in next notch) separated by a gutter; fill mainAxis:
+    // n*boxMain - (n-1)*(notchPx - gutter) + sumGap = mainAxis
+    boxMain = (mainAxis + (n - 1) * (notchPx - gutter) - sumGap) / n;
+    let cur = boxMain / 2;
+    for (let i = 0; i < n; i++) {
+      if (i > 0) cur += (boxMain - notchPx + gutter) + gapPx[i];
+      centers.push(cur);
+    }
+  } else {
+    // Allocate: n nodes + (sum of gap weights) arrow-slots fill mainAxis
+    // arrowSlot baseline ≈ 0.5 * nodeSize. Solve: n*nodeSize + 0.5*nodeSize*totalGapWeight = mainAxis
+    // => nodeSize = mainAxis / (n + 0.5 * totalGapWeight)
+    const denom = n + 0.5 * totalGapWeight;
+    let nodeSize = mainAxis / denom; // along main axis
+    // Cap so node doesn't exceed cross-axis (with some padding)
+    const maxAlongCross = crossAxis * 0.9;
+    // Node cross-axis size
+    boxCross = nodeType === 'box' ? Math.min(maxAlongCross, nodeSize * 0.6) : Math.min(maxAlongCross, nodeSize * 0.85);
+    boxMain  = nodeType === 'box' ? nodeSize * 0.85 : boxCross; // box is wider along main; circle/none stays square-ish
+    arrowSlot = (mainAxis - n * boxMain) / Math.max(1, totalGapWeight);
+
+    // Compute center positions along main axis
+    let cursor = boxMain / 2;
+    for (let i = 0; i < n; i++) {
+      if (i > 0) cursor += boxMain + arrowSlot * gapWeights[i];
+      centers.push(cursor);
+    }
   }
 
   const crossCenter = crossAxis / 2;
@@ -1329,7 +1396,37 @@ function initProcess(container) {
     node.style.top  = y + 'px';
     node.style.transform = 'translate(-50%, -50%)';
 
-    if (nodeType === 'box') {
+    if (chevron) {
+      node.classList.add('chevron-step');
+      node.style.background = nodeColor;
+      node.style.width  = (vertical ? boxCross : boxMain) + 'px';
+      node.style.height = (vertical ? boxMain  : boxCross) + 'px';
+      node.style.setProperty('--notch', notchPx + 'px');
+      const first = i === 0, last = i === n - 1;
+      // Center the label on each shape's centroid, not the bounding box.
+      // First (flat tail) → mass shifts toward start; last (flat head) → toward end.
+      // Derived: centroid offset = ±(N·W/4 − N²/6) / (W − N/2) along the main axis.
+      const pad = notchPx * 0.6;
+      const shift = (notchPx * boxMain / 4 - notchPx * notchPx / 6) / (boxMain - notchPx / 2);
+      const off = first ? -shift : last ? shift : 0;
+      const padMainStart = pad + off; // top (vertical) / left (horizontal)
+      const padMainEnd   = pad - off; // bottom / right
+      let clip;
+      if (vertical) {
+        const top = first ? '0 0, 100% 0' : '0 0, 50% var(--notch), 100% 0';
+        const bot = last ? '100% 100%, 0 100%'
+                         : '100% calc(100% - var(--notch)), 50% 100%, 0 calc(100% - var(--notch))';
+        clip = `polygon(${top}, ${bot})`;
+        node.style.padding = `${padMainStart}px 4px ${padMainEnd}px`;
+      } else {
+        const head = last ? '100% 0, 100% 100%'
+                          : 'calc(100% - var(--notch)) 0, 100% 50%, calc(100% - var(--notch)) 100%';
+        const tail = first ? '0 100%, 0 0' : '0 100%, var(--notch) 50%, 0 0';
+        clip = `polygon(0 0, ${head}, ${tail})`;
+        node.style.padding = `4px ${padMainEnd}px 4px ${padMainStart}px`;
+      }
+      node.style.clipPath = clip;
+    } else if (nodeType === 'box') {
       const w = vertical ? boxCross : boxMain;
       const h = vertical ? boxMain  : boxCross;
       node.style.width  = w + 'px';
@@ -1350,7 +1447,9 @@ function initProcess(container) {
   });
 
   // Font scaling — fit longest label within node along main axis
-  const textMaxW = (nodeType === 'box' ? (vertical ? boxCross : boxMain) : Math.min(boxMain, boxCross)) - 16;
+  const textMaxW = chevron
+    ? (vertical ? boxCross : boxMain) - 2 * notchPx - 8
+    : (nodeType === 'box' ? (vertical ? boxCross : boxMain) : Math.min(boxMain, boxCross)) - 16;
   const baseStyle    = getComputedStyle(nodeEls[0]);
   const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
   const fontFamily   = baseStyle.fontFamily || 'sans-serif';
@@ -1365,6 +1464,7 @@ function initProcess(container) {
   }
 
   if (n === 1) return;
+  if (chevron) return; // chevron tiles convey flow themselves — no connectors
 
   const uid = 'cfp' + (_cfCounter++);
 

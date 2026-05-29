@@ -65,6 +65,12 @@
   color: #222222;
 }
 
+.process .node.chevron-step {
+  --notch: 14px;
+  border-radius: 0;
+  text-align: center;
+}
+
 .process .arrow-shape {
   position: absolute;
   background: #2e6b8a;

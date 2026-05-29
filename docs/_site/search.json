@@ -399,6 +399,13 @@
     "text": "Arrow types\nThe default is arrow-chevron. Use arrow-thin or arrow-double for line-based arrows.\n::: {.process .arrow-thin}\n::: item\nPlan\n:::\n::: item\nBuild\n:::\n::: item\nShip\n:::\n:::\n\n\nPlan\n\n\nBuild\n\n\nShip"
   },
   {
+    "objectID": "process.html#chevron-style",
+    "href": "process.html#chevron-style",
+    "title": "Process",
+    "section": "Chevron style",
+    "text": "Chevron style\nAdd the .chevron modifier to render each step as an interlocking arrow tile, with no separate connectors. It works with .vertical, .gap, and the color system.\n::: {.process .chevron}\n::: item\nPlan\n:::\n::: item\nBuild\n:::\n::: item\nShip\n:::\n::: item\nMeasure\n:::\n:::\n\n\nPlan\n\n\nBuild\n\n\nShip\n\n\nMeasure\n\n\nIt also flows top-to-bottom with .vertical:\n\n\nPlan\n\n\nBuild\n\n\nShip"
+  },
+  {
     "objectID": "process.html#node-shapes",
     "href": "process.html#node-shapes",
     "title": "Process",

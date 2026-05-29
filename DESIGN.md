@@ -139,6 +139,7 @@ Carol
 - `.vertical` on container — flow top-to-bottom instead of left-to-right
 - Node shapes: `.node-box` (default), `.node-circle`, `.node-none`
 - Arrow types: `.arrow-chevron` (default, div with clip-path), `.arrow-thin`, `.arrow-double` (both SVG)
+- `.chevron` on container — chevron style: each step *is* an interlocking arrow tile (no separate connectors). Overrides node shape and arrow type; honors `.vertical`, `.gap`, and the color system.
 - `.gap` on an item — enlarges the arrow slot *before* that item (gap weight 1.6 vs default 1)
 
 **Color system:** Same as circle-flow — `node-color=` / `arrow-color=` on the container, `color=` per item.
@@ -153,6 +154,8 @@ Carol
 **Arrow rendering:**
 - `arrow-chevron`: div with the same chevron clip-path as circle-flow; sized to fit its arrow slot (capped by `boxCross·0.7`). In vertical mode the chevron is rotated 90°.
 - `arrow-thin` / `arrow-double`: SVG `<line>` with arrow markers, trimmed by `boxMain/2 + 4` on each end so it starts at the node edge.
+
+**Chevron style (`.chevron`):** Each step is rendered as a `.chevron-step` node with a `clip-path` polygon: middle steps point in the flow direction with an inward notch on the trailing edge; the first step has a flat tail, the last a flat head (`.vertical` points the chevrons downward). Tiles are sized `boxMain ≈ mainAxis/n` and interlock — the tip nests in the next notch — separated by a thin `gutter` (`boxCross·0.08`) so each seam reads against the page background. `notchPx = boxCross·0.4`; centers are spaced `boxMain − notchPx + gutter` apart. No connector divs/SVG are drawn (`initProcess` returns early). Labels are padded clear of the notch/tip.
 
 **Init guard:** `.process` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.
 

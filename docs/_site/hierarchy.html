@@ -1305,6 +1305,7 @@ function initProcess(container) {
                    container.classList.contains('node-none')   ? 'none'   : 'box';
   const arrowType = container.classList.contains('arrow-thin')   ? 'thin'   :
                     container.classList.contains('arrow-double') ? 'double' : 'chevron';
+  const chevron = container.classList.contains('chevron');
 
   const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
   const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
@@ -1322,24 +1323,45 @@ function initProcess(container) {
   const gapWeights = items.map((item, i) => (i > 0 && item.classList.contains('gap')) ? 1.6 : 1);
   const totalGapWeight = gapWeights.slice(1).reduce((a, b) => a + b, 0);
 
-  // Allocate: n nodes + (sum of gap weights) arrow-slots fill mainAxis
-  // arrowSlot baseline ≈ 0.5 * nodeSize. Solve: n*nodeSize + 0.5*nodeSize*totalGapWeight = mainAxis
-  // => nodeSize = mainAxis / (n + 0.5 * totalGapWeight)
-  const denom = n + 0.5 * totalGapWeight;
-  let nodeSize = mainAxis / denom; // along main axis
-  // Cap so node doesn't exceed cross-axis (with some padding)
-  const maxAlongCross = crossAxis * 0.9;
-  // Node cross-axis size
-  const boxCross = nodeType === 'box' ? Math.min(maxAlongCross, nodeSize * 0.6) : Math.min(maxAlongCross, nodeSize * 0.85);
-  const boxMain  = nodeType === 'box' ? nodeSize * 0.85 : boxCross; // box is wider along main; circle/none stays square-ish
-  const arrowSlot = (mainAxis - n * boxMain) / Math.max(1, totalGapWeight);
-
-  // Compute center positions along main axis
+  let boxCross, boxMain, arrowSlot = 0, notchPx = 0;
   const centers = [];
-  let cursor = boxMain / 2;
-  for (let i = 0; i < n; i++) {
-    if (i > 0) cursor += boxMain + arrowSlot * gapWeights[i];
-    centers.push(cursor);
+
+  if (chevron) {
+    // Chevrons are the steps themselves: big interlocking tiles, no connectors.
+    boxCross = Math.min(crossAxis * 0.9, (mainAxis / n) * 0.85);
+    boxMain  = mainAxis / n; // refined below to account for overlap + gaps
+    notchPx  = boxCross * 0.4;
+    const gutter = boxCross * 0.08; // thin slanted gap between tiles so seams read
+    const extraGap = boxCross * 0.35;
+    const gapPx = gapWeights.map(w => (w - 1) * extraGap);
+    const sumGap = gapPx.slice(1).reduce((a, b) => a + b, 0);
+    // Tiles interlock (tip nests in next notch) separated by a gutter; fill mainAxis:
+    // n*boxMain - (n-1)*(notchPx - gutter) + sumGap = mainAxis
+    boxMain = (mainAxis + (n - 1) * (notchPx - gutter) - sumGap) / n;
+    let cur = boxMain / 2;
+    for (let i = 0; i < n; i++) {
+      if (i > 0) cur += (boxMain - notchPx + gutter) + gapPx[i];
+      centers.push(cur);
+    }
+  } else {
+    // Allocate: n nodes + (sum of gap weights) arrow-slots fill mainAxis
+    // arrowSlot baseline ≈ 0.5 * nodeSize. Solve: n*nodeSize + 0.5*nodeSize*totalGapWeight = mainAxis
+    // => nodeSize = mainAxis / (n + 0.5 * totalGapWeight)
+    const denom = n + 0.5 * totalGapWeight;
+    let nodeSize = mainAxis / denom; // along main axis
+    // Cap so node doesn't exceed cross-axis (with some padding)
+    const maxAlongCross = crossAxis * 0.9;
+    // Node cross-axis size
+    boxCross = nodeType === 'box' ? Math.min(maxAlongCross, nodeSize * 0.6) : Math.min(maxAlongCross, nodeSize * 0.85);
+    boxMain  = nodeType === 'box' ? nodeSize * 0.85 : boxCross; // box is wider along main; circle/none stays square-ish
+    arrowSlot = (mainAxis - n * boxMain) / Math.max(1, totalGapWeight);
+
+    // Compute center positions along main axis
+    let cursor = boxMain / 2;
+    for (let i = 0; i < n; i++) {
+      if (i > 0) cursor += boxMain + arrowSlot * gapWeights[i];
+      centers.push(cursor);
+    }
   }
 
   const crossCenter = crossAxis / 2;
@@ -1357,7 +1379,37 @@ function initProcess(container) {
     node.style.top  = y + 'px';
     node.style.transform = 'translate(-50%, -50%)';
 
-    if (nodeType === 'box') {
+    if (chevron) {
+      node.classList.add('chevron-step');
+      node.style.background = nodeColor;
+      node.style.width  = (vertical ? boxCross : boxMain) + 'px';
+      node.style.height = (vertical ? boxMain  : boxCross) + 'px';
+      node.style.setProperty('--notch', notchPx + 'px');
+      const first = i === 0, last = i === n - 1;
+      // Center the label on each shape's centroid, not the bounding box.
+      // First (flat tail) → mass shifts toward start; last (flat head) → toward end.
+      // Derived: centroid offset = ±(N·W/4 − N²/6) / (W − N/2) along the main axis.
+      const pad = notchPx * 0.6;
+      const shift = (notchPx * boxMain / 4 - notchPx * notchPx / 6) / (boxMain - notchPx / 2);
+      const off = first ? -shift : last ? shift : 0;
+      const padMainStart = pad + off; // top (vertical) / left (horizontal)
+      const padMainEnd   = pad - off; // bottom / right
+      let clip;
+      if (vertical) {
+        const top = first ? '0 0, 100% 0' : '0 0, 50% var(--notch), 100% 0';
+        const bot = last ? '100% 100%, 0 100%'
+                         : '100% calc(100% - var(--notch)), 50% 100%, 0 calc(100% - var(--notch))';
+        clip = `polygon(${top}, ${bot})`;
+        node.style.padding = `${padMainStart}px 4px ${padMainEnd}px`;
+      } else {
+        const head = last ? '100% 0, 100% 100%'
+                          : 'calc(100% - var(--notch)) 0, 100% 50%, calc(100% - var(--notch)) 100%';
+        const tail = first ? '0 100%, 0 0' : '0 100%, var(--notch) 50%, 0 0';
+        clip = `polygon(0 0, ${head}, ${tail})`;
+        node.style.padding = `4px ${padMainEnd}px 4px ${padMainStart}px`;
+      }
+      node.style.clipPath = clip;
+    } else if (nodeType === 'box') {
       const w = vertical ? boxCross : boxMain;
       const h = vertical ? boxMain  : boxCross;
       node.style.width  = w + 'px';
@@ -1378,7 +1430,9 @@ function initProcess(container) {
   });
 
   // Font scaling — fit longest label within node along main axis
-  const textMaxW = (nodeType === 'box' ? (vertical ? boxCross : boxMain) : Math.min(boxMain, boxCross)) - 16;
+  const textMaxW = chevron
+    ? (vertical ? boxCross : boxMain) - 2 * notchPx - 8
+    : (nodeType === 'box' ? (vertical ? boxCross : boxMain) : Math.min(boxMain, boxCross)) - 16;
   const baseStyle    = getComputedStyle(nodeEls[0]);
   const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
   const fontFamily   = baseStyle.fontFamily || 'sans-serif';
@@ -1393,6 +1447,7 @@ function initProcess(container) {
   }
 
   if (n === 1) return;
+  if (chevron) return; // chevron tiles convey flow themselves — no connectors
 
   const uid = 'cfp' + (_cfCounter++);
 
