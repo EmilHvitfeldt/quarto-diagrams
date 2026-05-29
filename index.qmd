@@ -477,3 +477,47 @@ Delete
 Delegate
 :::
 :::
+
+## Hierarchy — org chart
+
+::::: {.hierarchy}
+:::: item
+CEO
+
+::: item
+CTO
+:::
+
+::: item
+CFO
+:::
+
+::: item
+COO
+:::
+::::
+:::::
+
+## Hierarchy — multi-level
+
+:::::: {.hierarchy}
+::::: item
+CEO
+
+:::: item
+CTO
+
+::: item
+Eng Lead
+:::
+::::
+
+:::: item
+COO
+
+::: item
+Ops Mgr
+:::
+::::
+:::::
+::::::

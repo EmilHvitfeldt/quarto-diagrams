@@ -2,7 +2,7 @@
 
 ## Goal
 
-Build reusable Quarto/Reveal.js diagram components. Five layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked triangle bands), and `.matrix` (2×2 quadrant matrix). Clean Quarto div syntax:
+Build reusable Quarto/Reveal.js diagram components. Six layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked triangle bands), `.matrix` (2×2 quadrant matrix), and `.hierarchy` (org chart / tree). Clean Quarto div syntax:
 
 ```
 ::: circle-flow
@@ -230,3 +230,44 @@ Cash Cows
 **Font scaling:** Global down-scale (cells are equal-sized), like pie — labels shrink only if the longest exceeds `cellW · 0.85` (60px floor).
 
 **Init guard:** `.matrix` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.
+
+## Hierarchy layout
+
+A top-down org chart / tree, triggered by `.hierarchy` on the container. This is the **only layout that reads DOM structure rather than a flat `.item` list** — `.item` divs are nested to express parent/child relationships. Implemented by `initHierarchy` in `diagrams.html`, with CSS for `.hierarchy .node` in `diagrams.css`. Connectors are SVG elbow paths behind the nodes; nodes are absolutely-positioned `div`s.
+
+```
+::::: hierarchy
+:::: item
+CEO
+::: item
+CTO
+:::
+::: item
+CFO
+:::
+::::
+:::::
+```
+
+**Tree parsing:** Two helpers drive this. `directItemChildren(el)` returns only direct-child `.item` divs (`querySelectorAll('.item')` would flatten the tree). `ownLabel(el)` clones the node, strips nested `.item` children, and reads the remaining text — so a parent's label excludes its descendants' text. The container's direct `.item` children are the roots (a forest is allowed; roots are laid out side by side).
+
+**Class system:**
+- `.hierarchy` on container — org-chart layout
+- `.horizontal` on container — grow left-to-right instead of top-down
+- `.outline` on container — transparent nodes, colored border, dark text
+- Node shapes: `.node-box` (default), `.node-circle`, `.node-none`
+
+**Color system:** `node-color=` on the container is the base color for all nodes, `color=` on an item overrides one node. Connector lines use `arrow-color=` (default `#333` like matrix).
+
+**Layout algorithm (pre-scale, then scaled to fit):**
+- "main axis" = the growth direction (vertical by default, horizontal with `.horizontal`); "cross axis" is perpendicular. `breadth` is the node's extent along the cross axis.
+- Baseline box: `130×54` (`90×90` for circles). `gap=24` between sibling subtrees, `levelGap=56` between depth levels.
+- **Width pass** (post-order): leaf `extent = breadth`; parent `extent = max(breadth, Σ children extent + gap·(n−1))`.
+- **Position pass** (pre-order): each parent is centered over the span of its children; leaves are placed left-to-right within their allotted extent. `node.c` (cross-axis center) = midpoint of first/last child centers; `node.m` (main-axis center) = `depth · level + box/2`.
+- `(c, m)` is mapped to `(x, y)` depending on orientation, then the whole tree's bounding box is computed and scaled by `min(900/rawW, 520/rawH, 1)` to fit the viewport. Container width/height are set to the scaled bbox.
+
+**Connectors:** One SVG elbow `path` per non-root node, from the parent's bottom-center (or right-center when horizontal) to the child's top-center (or left-center), routed through the midpoint between levels: `M … V mid H … V …` (vertical) or `M … H mid V … H …` (horizontal). Inserted before the node divs so they sit behind.
+
+**Font scaling:** Per-node canvas `measureText` down-scale to fit `boxW·scale − 16` (boxes are uniform width), like pyramid but with a single shared max width.
+
+**Init guard:** `.hierarchy` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.

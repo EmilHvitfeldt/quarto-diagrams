@@ -25,6 +25,8 @@ website:
             href: pyramid.qmd
           - text: "Matrix"
             href: matrix.qmd
+          - text: "Hierarchy"
+            href: hierarchy.qmd
       - text: "Concepts"
         menu:
           - text: "Node Shapes"

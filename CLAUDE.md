@@ -4,7 +4,7 @@ See `DESIGN.md` for full design documentation, class system, color system, and d
 
 ## Key files
 
-- `_extensions/diagrams/` — the extension (CSS, JS, Lua filter). Provides two layouts: `.circle-flow` (nodes-on-a-ring with arrows) and `.pie` (pie chart). Both initialize from the same JS file (`initCircleFlow` / `initPie`).
+- `_extensions/diagrams/` — the extension (CSS, JS, Lua filter). Provides six layouts: `.circle-flow` (nodes-on-a-ring), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked bands), `.matrix` (2×2 quadrants), and `.hierarchy` (org chart / tree). Each initializes from the same JS file (`initCircleFlow` / `initPie` / `initProcess` / `initPyramid` / `initMatrix` / `initHierarchy`). `.hierarchy` is the only one that reads nested `.item` structure rather than a flat list.
 - `index.qmd` — demo slides; activate extension with `filters: [diagrams]`
 - `docs/` — documentation website (`quarto render docs/` to build, output in `docs/_site/`)
 - `docs/_extensions/diagrams/` — **copy** of `_extensions/diagrams/`; Quarto does not follow symlinks for extension lookup, so this must be kept in sync manually when the extension changes

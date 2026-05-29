@@ -157,6 +157,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./matrix.html">
  <span class="dropdown-text">Matrix</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./hierarchy.html">
+ <span class="dropdown-text">Hierarchy</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -1138,6 +1142,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.setAttribute('data-cf-init', '1');
     initMatrix(el);
   });
+  document.querySelectorAll('.hierarchy').forEach(el => {
+    el.setAttribute('data-cf-init', '1');
+    initHierarchy(el);
+  });
 });
 
 if (typeof Reveal !== 'undefined') {
@@ -1161,6 +1169,10 @@ if (typeof Reveal !== 'undefined') {
     document.querySelectorAll('.matrix:not([data-cf-init])').forEach(el => {
       el.setAttribute('data-cf-init', '1');
       initMatrix(el);
+    });
+    document.querySelectorAll('.hierarchy:not([data-cf-init])').forEach(el => {
+      el.setAttribute('data-cf-init', '1');
+      initHierarchy(el);
     });
   });
 }
@@ -1682,6 +1694,179 @@ function initMatrix(container) {
     el.style.whiteSpace = 'nowrap';
     container.appendChild(el);
   }
+}
+
+// --- Hierarchy (org chart / tree) ---
+
+// Direct-child .item divs only (querySelectorAll would flatten the tree)
+function directItemChildren(el) {
+  return Array.from(el.children).filter(c => c.classList.contains('item'));
+}
+
+// A node's own label = its text excluding any nested .item children
+function ownLabel(el) {
+  const clone = el.cloneNode(true);
+  Array.from(clone.children)
+    .filter(c => c.classList.contains('item'))
+    .forEach(c => clone.removeChild(c));
+  return clone.textContent.trim();
+}
+
+function initHierarchy(container) {
+  const roots = directItemChildren(container);
+  if (roots.length === 0) return;
+
+  const horizontal = container.classList.contains('horizontal');
+  const outline = container.classList.contains('outline');
+  const nodeType = container.classList.contains('node-circle') ? 'circle' :
+                   container.classList.contains('node-none')   ? 'none'   : 'box';
+  const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
+  const lineColor        = container.dataset.arrowColor || '#333333';
+
+  // Baseline geometry (pre-scale)
+  const boxW = nodeType === 'circle' ? 90 : 130;
+  const boxH = nodeType === 'circle' ? 90 : 54;
+  const gap = 24;          // min gap between sibling subtrees (along cross axis)
+  const levelGap = 56;     // gap between depth levels (along main axis)
+  const level = (horizontal ? boxW : boxH) + levelGap;
+  const breadth = horizontal ? boxH : boxW;  // node extent along the cross axis
+
+  // Build tree { el, label, color, children }
+  function build(el) {
+    return {
+      el,
+      label: ownLabel(el),
+      color: el.getAttribute('color') || el.dataset.color || defaultNodeColor,
+      children: directItemChildren(el).map(build)
+    };
+  }
+  const tree = roots.map(build);
+
+  // Width pass (extent along cross axis), post-order
+  function measure(node) {
+    if (node.children.length === 0) { node.extent = breadth; return; }
+    node.children.forEach(measure);
+    const childrenExtent = node.children.reduce((s, c) => s + c.extent, 0) +
+                           gap * (node.children.length - 1);
+    node.extent = Math.max(breadth, childrenExtent);
+  }
+  tree.forEach(measure);
+
+  // Position pass: `cross` = position along cross axis (left edge of subtree),
+  // `depth` = level index. node.c = cross-axis center, node.m = main-axis center.
+  let maxDepth = 0;
+  function place(node, cross, depth) {
+    maxDepth = Math.max(maxDepth, depth);
+    node.m = depth * level + (horizontal ? boxW : boxH) / 2;
+    if (node.children.length === 0) {
+      node.c = cross + breadth / 2;
+    } else {
+      const childrenExtent = node.children.reduce((s, c) => s + c.extent, 0) +
+                             gap * (node.children.length - 1);
+      let cursor = cross + (node.extent - childrenExtent) / 2;
+      node.children.forEach(ch => { place(ch, cursor, depth + 1); cursor += ch.extent + gap; });
+      const first = node.children[0], last = node.children[node.children.length - 1];
+      node.c = (first.c + last.c) / 2;
+    }
+  }
+  // Lay the roots out side by side along the cross axis
+  let rootCursor = 0;
+  tree.forEach(r => { place(r, rootCursor, 0); rootCursor += r.extent + gap; });
+
+  // Flatten and convert (cross, main) -> (x, y)
+  const flat = [];
+  function collect(node, parent) {
+    node.parent = parent || null;
+    node.x = horizontal ? node.m : node.c;
+    node.y = horizontal ? node.c : node.m;
+    flat.push(node);
+    node.children.forEach(ch => collect(ch, node));
+  }
+  tree.forEach(r => collect(r, null));
+
+  // Raw bounding box, then scale to fit a viewport
+  const halfW = boxW / 2, halfH = boxH / 2;
+  const minX = Math.min(...flat.map(n => n.x - halfW));
+  const maxX = Math.max(...flat.map(n => n.x + halfW));
+  const minY = Math.min(...flat.map(n => n.y - halfH));
+  const maxY = Math.max(...flat.map(n => n.y + halfH));
+  const rawW = maxX - minX, rawH = maxY - minY;
+
+  const maxW = 900, maxH = 520;
+  const scale = Math.min(maxW / rawW, maxH / rawH, 1);
+  const W = rawW * scale, H = rawH * scale;
+  const sx = v => (v - minX) * scale;
+  const sy = v => (v - minY) * scale;
+
+  container.style.position = 'relative';
+  container.style.width = W + 'px';
+  container.style.height = H + 'px';
+
+  // SVG connectors (behind nodes)
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;pointer-events:none;';
+  container.appendChild(svg);
+
+  flat.forEach(node => {
+    if (!node.parent) return;
+    const p = node.parent;
+    let d;
+    if (horizontal) {
+      const x1 = sx(p.x + halfW), y1 = sy(p.y);
+      const x2 = sx(node.x - halfW), y2 = sy(node.y);
+      const mx = (x1 + x2) / 2;
+      d = `M ${x1} ${y1} H ${mx} V ${y2} H ${x2}`;
+    } else {
+      const x1 = sx(p.x), y1 = sy(p.y + halfH);
+      const x2 = sx(node.x), y2 = sy(node.y - halfH);
+      const my = (y1 + y2) / 2;
+      d = `M ${x1} ${y1} V ${my} H ${x2} V ${y2}`;
+    }
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', lineColor);
+    path.setAttribute('stroke-width', '2');
+    svg.appendChild(path);
+  });
+
+  // Node divs
+  const nodeEls = flat.map(node => {
+    const el = document.createElement('div');
+    el.className = 'node node-' + nodeType;
+    el.textContent = node.label;
+    if (nodeType !== 'none' && !outline) el.style.background = node.color;
+    if (outline) {
+      el.style.background = 'transparent';
+      el.style.border = '2px solid ' + node.color;
+      el.style.color = '#222222';
+    }
+    el.style.width  = (boxW * scale) + 'px';
+    el.style.height = (boxH * scale) + 'px';
+    if (nodeType === 'box') el.style.borderRadius = (Math.min(boxW, boxH) * 0.12 * scale) + 'px';
+    el.style.left = sx(node.x) + 'px';
+    el.style.top  = sy(node.y) + 'px';
+    el.style.transform = 'translate(-50%, -50%)';
+    container.appendChild(el);
+    node.el.style.display = 'none';
+    return el;
+  });
+
+  // Font scaling — shrink each label to fit its box (boxes are uniform width)
+  const textMaxW = boxW * scale - 16;
+  const baseStyle = getComputedStyle(nodeEls[0]);
+  const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+  const fontFamily = baseStyle.fontFamily || 'sans-serif';
+  const fontWeight = baseStyle.fontWeight || '500';
+  const cvs = document.createElement('canvas');
+  const cctx = cvs.getContext('2d');
+  cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+  nodeEls.forEach(el => {
+    const w = cctx.measureText(el.textContent).width;
+    if (w > textMaxW && w > 0) el.style.fontSize = (baseFontSize * textMaxW / w) + 'px';
+  });
 }
 </script>
 

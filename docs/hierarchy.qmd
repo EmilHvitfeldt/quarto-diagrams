@@ -1,0 +1,233 @@
+---
+title: "Hierarchy"
+---
+
+The `.hierarchy` style renders nested items as an org chart / tree — a parent node above its children, connected by elbow lines. Unlike the other styles, it reads the **nesting** of your `.item` divs rather than a flat list, so structure comes directly from how you nest the fences. Activate it via `filters: [diagrams]`.
+
+## Basic usage
+
+Nest `.item` divs inside one another to express parent/child relationships. Use more colons on the outer fences so they wrap the inner ones.
+
+````markdown
+::::: {.hierarchy}
+:::: item
+CEO
+
+::: item
+CTO
+:::
+
+::: item
+CFO
+:::
+
+::: item
+CPO
+:::
+::::
+:::::
+````
+
+::::: {.hierarchy}
+:::: item
+CEO
+
+::: item
+CTO
+:::
+
+::: item
+CFO
+:::
+
+::: item
+CPO
+:::
+::::
+:::::
+
+## Multiple levels
+
+Nesting can go as deep as you like; the layout centers each parent over its children and auto-scales the whole tree to fit.
+
+````markdown
+:::::: {.hierarchy}
+::::: item
+CEO
+
+:::: item
+CTO
+
+::: item
+Eng Lead
+:::
+::::
+
+:::: item
+COO
+
+::: item
+Ops Mgr
+:::
+::::
+:::::
+::::::
+````
+
+:::::: {.hierarchy}
+::::: item
+CEO
+
+:::: item
+CTO
+
+::: item
+Eng Lead
+:::
+::::
+
+:::: item
+COO
+
+::: item
+Ops Mgr
+:::
+::::
+:::::
+::::::
+
+## Horizontal
+
+Add `.horizontal` to grow the tree left-to-right instead of top-down.
+
+````markdown
+::::: {.hierarchy .horizontal}
+:::: item
+Root
+
+::: item
+Branch A
+:::
+
+::: item
+Branch B
+:::
+::::
+:::::
+````
+
+::::: {.hierarchy .horizontal}
+:::: item
+Root
+
+::: item
+Branch A
+:::
+
+::: item
+Branch B
+:::
+::::
+:::::
+
+## Node shapes
+
+Use `.node-circle` or `.node-none` to change the node style (default is `.node-box`).
+
+````markdown
+::::: {.hierarchy .node-none}
+:::: item
+Root
+
+::: item
+Child A
+:::
+
+::: item
+Child B
+:::
+::::
+:::::
+````
+
+::::: {.hierarchy .node-none}
+:::: item
+Root
+
+::: item
+Child A
+:::
+
+::: item
+Child B
+:::
+::::
+:::::
+
+## Outline
+
+Add `.outline` for transparent nodes with a colored border and dark text.
+
+````markdown
+::::: {.hierarchy .outline}
+:::: item
+Root
+
+::: item
+Child A
+:::
+
+::: item
+Child B
+:::
+::::
+:::::
+````
+
+::::: {.hierarchy .outline}
+:::: item
+Root
+
+::: item
+Child A
+:::
+
+::: item
+Child B
+:::
+::::
+:::::
+
+## Colors
+
+Use `node-color=` on the container to set the color for all nodes, or `color=` on an individual item to override a single node. Connector lines use `arrow-color=` (default a neutral gray).
+
+````markdown
+::::: {.hierarchy node-color="#7a3b5c" arrow-color="#7a3b5c"}
+:::: item
+Root
+
+::: {.item color="#3b7a5c"}
+Child A
+:::
+
+::: item
+Child B
+:::
+::::
+:::::
+````
+
+::::: {.hierarchy node-color="#7a3b5c" arrow-color="#7a3b5c"}
+:::: item
+Root
+
+::: {.item color="#3b7a5c"}
+Child A
+:::
+
+::: item
+Child B
+:::
+::::
+:::::

@@ -71,6 +71,42 @@
   clip-path: polygon(0 25%, 60% 25%, 60% 0%, 100% 50%, 60% 100%, 60% 75%, 0 75%);
 }
 
+.hierarchy {
+  position: relative;
+  margin: auto;
+}
+
+.hierarchy svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hierarchy .node {
+  position: absolute;
+  background: #2e6b8a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-sizing: border-box;
+  padding: 4px 8px;
+}
+
+.hierarchy .node.node-circle {
+  border-radius: 50%;
+}
+
+.hierarchy .node.node-none {
+  background: transparent;
+  color: #222222;
+}
+
 .pie,
 .pyramid,
 .matrix {
