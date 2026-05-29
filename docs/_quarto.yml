@@ -8,7 +8,7 @@ filters:
   - diagrams
 
 website:
-  title: "quarto-chevrons"
+  title: "quarto-diagrams"
   navbar:
     left:
       - text: "Get Started"
@@ -33,7 +33,7 @@ website:
             href: customization.qmd
     right:
       - icon: github
-        href: https://github.com/EmilHvitfeldt/quarto-chevrons
+        href: https://github.com/EmilHvitfeldt/quarto-diagrams
         aria-label: GitHub
 
 format:

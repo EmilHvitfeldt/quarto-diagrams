@@ -51,28 +51,28 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "quarto-chevrons",
+    "title": "quarto-diagrams",
     "section": "",
-    "text": "quarto-chevrons is a Quarto extension that adds a collection of circular diagram styles to your documents and Reveal.js presentations. Each style shares the same authoring model — a container div with nested item divs — but renders differently."
+    "text": "quarto-diagrams is a Quarto extension that adds a collection of circular diagram styles to your documents and Reveal.js presentations. Each style shares the same authoring model — a container div with nested item divs — but renders differently."
   },
   {
     "objectID": "index.html#installation",
     "href": "index.html#installation",
-    "title": "quarto-chevrons",
+    "title": "quarto-diagrams",
     "section": "Installation",
-    "text": "Installation\nquarto add EmilHvitfeldt/quarto-chevrons\nActivate the extension in your document YAML:\nfilters:\n  - diagrams"
+    "text": "Installation\nquarto add EmilHvitfeldt/quarto-diagrams\nActivate the extension in your document YAML:\nfilters:\n  - diagrams"
   },
   {
     "objectID": "index.html#styles",
     "href": "index.html#styles",
-    "title": "quarto-chevrons",
+    "title": "quarto-diagrams",
     "section": "Styles",
     "text": "Styles\n\n\n\nCircle Flow\nNodes arranged on a ring, connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPie\nItems rendered as equal-sized wedges of a circle.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\nEve"
   },
   {
     "objectID": "index.html#shared-concepts",
     "href": "index.html#shared-concepts",
-    "title": "quarto-chevrons",
+    "title": "quarto-diagrams",
     "section": "Shared concepts",
     "text": "Shared concepts\nAcross all styles:\n\nNode Shapes — circle, box, and text-only nodes\nArrow Types — chevron, curved, thin, ring, arc, and double arrows\nColors — global and per-item color control\nCustomization — full class and attribute reference"
   },

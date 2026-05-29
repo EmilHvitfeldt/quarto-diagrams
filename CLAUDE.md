@@ -1,4 +1,4 @@
-# quarto-chevrons
+# quarto-diagrams
 
 See `DESIGN.md` for full design documentation, class system, color system, and decision log.
 

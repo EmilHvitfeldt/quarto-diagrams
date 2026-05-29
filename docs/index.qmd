@@ -1,15 +1,15 @@
 ---
-title: "quarto-chevrons"
+title: "quarto-diagrams"
 subtitle: "Circular diagram styles for Quarto"
 toc: false
 ---
 
-`quarto-chevrons` is a Quarto extension that adds a collection of circular diagram styles to your documents and Reveal.js presentations. Each style shares the same authoring model — a container div with nested `item` divs — but renders differently.
+`quarto-diagrams` is a Quarto extension that adds a collection of circular diagram styles to your documents and Reveal.js presentations. Each style shares the same authoring model — a container div with nested `item` divs — but renders differently.
 
 ## Installation
 
 ```bash
-quarto add EmilHvitfeldt/quarto-chevrons
+quarto add EmilHvitfeldt/quarto-diagrams
 ```
 
 Activate the extension in your document YAML:
