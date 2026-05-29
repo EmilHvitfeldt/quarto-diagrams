@@ -1,0 +1,187 @@
+---
+title: "Matrix"
+---
+
+The `.matrix` style renders a 2×2 matrix — a square split into four quadrants, with optional axis end-labels and named axis titles. It is well suited to classification and prioritization frameworks (BCG matrix, Eisenhower matrix, effort–impact grids). Like all styles in this extension, it is activated via `filters: [diagrams]`.
+
+The container expects exactly **four `.item` divs**, mapped to quadrants in reading order: **top-left, top-right, bottom-left, bottom-right**.
+
+## Basic usage
+
+Axis labels are set with attributes on the container: end labels via `x-low=` / `x-high=` / `y-low=` / `y-high=`, and named axis titles via `x-axis=` / `y-axis=`. All are optional.
+
+````markdown
+::: {.matrix x-axis="Market Share" y-axis="Growth" x-low="Low" x-high="High" y-low="Low" y-high="High"}
+::: item
+Question Marks
+:::
+::: item
+Stars
+:::
+::: item
+Dogs
+:::
+::: item
+Cash Cows
+:::
+:::
+````
+
+::: {.matrix x-axis="Market Share" y-axis="Growth" x-low="Low" x-high="High" y-low="Low" y-high="High"}
+::: item
+Question Marks
+:::
+::: item
+Stars
+:::
+::: item
+Dogs
+:::
+::: item
+Cash Cows
+:::
+:::
+
+## Arrowed axes
+
+Add the `.arrows` modifier to draw axis lines along the bottom and left edges, with arrowheads pointing toward the "high" direction.
+
+````markdown
+::: {.matrix .arrows x-axis="Effort" y-axis="Impact" x-high="High" y-high="High"}
+::: item
+Quick Wins
+:::
+::: item
+Major Projects
+:::
+::: item
+Thankless Tasks
+:::
+::: item
+Fill-Ins
+:::
+:::
+````
+
+::: {.matrix .arrows x-axis="Effort" y-axis="Impact" x-high="High" y-high="High"}
+::: item
+Quick Wins
+:::
+::: item
+Major Projects
+:::
+::: item
+Thankless Tasks
+:::
+::: item
+Fill-Ins
+:::
+:::
+
+## Outlined cells
+
+Add the `.outline` modifier for transparent cells with border and divider lines instead of filled quadrants.
+
+````markdown
+::: {.matrix .outline x-axis="Urgency" y-axis="Importance"}
+::: item
+Do
+:::
+::: item
+Schedule
+:::
+::: item
+Delete
+:::
+::: item
+Delegate
+:::
+:::
+````
+
+::: {.matrix .outline x-axis="Urgency" y-axis="Importance"}
+::: item
+Do
+:::
+::: item
+Schedule
+:::
+::: item
+Delete
+:::
+::: item
+Delegate
+:::
+:::
+
+## Separated cells with `.gap`
+
+Add `.gap` to the container to separate the four cells with a gap, removing the center divider lines.
+
+````markdown
+::: {.matrix .gap}
+::: item
+A
+:::
+::: item
+B
+:::
+::: item
+C
+:::
+::: item
+D
+:::
+:::
+````
+
+::: {.matrix .gap}
+::: item
+A
+:::
+::: item
+B
+:::
+::: item
+C
+:::
+::: item
+D
+:::
+:::
+
+## Colors
+
+Use `node-color=` on the container to set the base fill for all quadrants, or `color=` on an individual item to override a single quadrant. The axis and divider lines use `arrow-color=`.
+
+````markdown
+::: {.matrix node-color="#7a3b5c" arrow-color="#444"}
+::: item
+A
+:::
+::: {.item color="#3b7a5c"}
+B
+:::
+::: item
+C
+:::
+::: item
+D
+:::
+:::
+````
+
+::: {.matrix node-color="#7a3b5c" arrow-color="#444"}
+::: item
+A
+:::
+::: {.item color="#3b7a5c"}
+B
+:::
+::: item
+C
+:::
+::: item
+D
+:::
+:::

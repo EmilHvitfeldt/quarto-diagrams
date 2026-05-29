@@ -161,6 +161,48 @@
     "text": "arrow-double\nSVG thin lines with arrowheads on both ends.\n::: {.circle-flow .node-box .arrow-double}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
+    "objectID": "matrix.html",
+    "href": "matrix.html",
+    "title": "Matrix",
+    "section": "",
+    "text": "The .matrix style renders a 2×2 matrix — a square split into four quadrants, with optional axis end-labels and named axis titles. It is well suited to classification and prioritization frameworks (BCG matrix, Eisenhower matrix, effort–impact grids). Like all styles in this extension, it is activated via filters: [diagrams].\nThe container expects exactly four .item divs, mapped to quadrants in reading order: top-left, top-right, bottom-left, bottom-right."
+  },
+  {
+    "objectID": "matrix.html#basic-usage",
+    "href": "matrix.html#basic-usage",
+    "title": "Matrix",
+    "section": "Basic usage",
+    "text": "Basic usage\nAxis labels are set with attributes on the container: end labels via x-low= / x-high= / y-low= / y-high=, and named axis titles via x-axis= / y-axis=. All are optional.\n::: {.matrix x-axis=\"Market Share\" y-axis=\"Growth\" x-low=\"Low\" x-high=\"High\" y-low=\"Low\" y-high=\"High\"}\n::: item\nQuestion Marks\n:::\n::: item\nStars\n:::\n::: item\nDogs\n:::\n::: item\nCash Cows\n:::\n:::\n\n\nQuestion Marks\n\n\nStars\n\n\nDogs\n\n\nCash Cows"
+  },
+  {
+    "objectID": "matrix.html#arrowed-axes",
+    "href": "matrix.html#arrowed-axes",
+    "title": "Matrix",
+    "section": "Arrowed axes",
+    "text": "Arrowed axes\nAdd the .arrows modifier to draw axis lines along the bottom and left edges, with arrowheads pointing toward the “high” direction.\n::: {.matrix .arrows x-axis=\"Effort\" y-axis=\"Impact\" x-high=\"High\" y-high=\"High\"}\n::: item\nQuick Wins\n:::\n::: item\nMajor Projects\n:::\n::: item\nThankless Tasks\n:::\n::: item\nFill-Ins\n:::\n:::\n\n\nQuick Wins\n\n\nMajor Projects\n\n\nThankless Tasks\n\n\nFill-Ins"
+  },
+  {
+    "objectID": "matrix.html#outlined-cells",
+    "href": "matrix.html#outlined-cells",
+    "title": "Matrix",
+    "section": "Outlined cells",
+    "text": "Outlined cells\nAdd the .outline modifier for transparent cells with border and divider lines instead of filled quadrants.\n::: {.matrix .outline x-axis=\"Urgency\" y-axis=\"Importance\"}\n::: item\nDo\n:::\n::: item\nSchedule\n:::\n::: item\nDelete\n:::\n::: item\nDelegate\n:::\n:::\n\n\nDo\n\n\nSchedule\n\n\nDelete\n\n\nDelegate"
+  },
+  {
+    "objectID": "matrix.html#separated-cells-with-.gap",
+    "href": "matrix.html#separated-cells-with-.gap",
+    "title": "Matrix",
+    "section": "Separated cells with .gap",
+    "text": "Separated cells with .gap\nAdd .gap to the container to separate the four cells with a gap, removing the center divider lines.\n::: {.matrix .gap}\n::: item\nA\n:::\n::: item\nB\n:::\n::: item\nC\n:::\n::: item\nD\n:::\n:::\n\n\nA\n\n\nB\n\n\nC\n\n\nD"
+  },
+  {
+    "objectID": "matrix.html#colors",
+    "href": "matrix.html#colors",
+    "title": "Matrix",
+    "section": "Colors",
+    "text": "Colors\nUse node-color= on the container to set the base fill for all quadrants, or color= on an individual item to override a single quadrant. The axis and divider lines use arrow-color=.\n::: {.matrix node-color=\"#7a3b5c\" arrow-color=\"#444\"}\n::: item\nA\n:::\n::: {.item color=\"#3b7a5c\"}\nB\n:::\n::: item\nC\n:::\n::: item\nD\n:::\n:::\n\n\nA\n\n\nB\n\n\nC\n\n\nD"
+  },
+  {
     "objectID": "customization.html",
     "href": "customization.html",
     "title": "Customization",

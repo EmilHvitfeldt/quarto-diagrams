@@ -2,7 +2,7 @@
 
 ## Goal
 
-Build reusable Quarto/Reveal.js diagram components. Four layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), and `.pyramid` (stacked triangle bands). Clean Quarto div syntax:
+Build reusable Quarto/Reveal.js diagram components. Five layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked triangle bands), and `.matrix` (2×2 quadrant matrix). Clean Quarto div syntax:
 
 ```
 ::: circle-flow
@@ -187,3 +187,46 @@ Strategy
 **Font scaling:** Per-label (not global), because band widths vary widely. Each label is scaled *down* with canvas `measureText` only if it exceeds `max(40, bandMidWidth · 0.85)`, where `bandMidWidth = 2 · halfAt((pTop+pBot)/2)`.
 
 **Init guard:** `.pyramid` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.
+
+## Matrix layout
+
+A 2×2 matrix, triggered by `.matrix` on the container. The container expects exactly four `.item` divs, mapped to quadrants in reading order: **TL, TR, BL, BR**. Implemented by `initMatrix` in `diagrams.html`, reusing the `.slice-label` CSS for quadrant labels. SVG-based (one overlay holds the quadrant rects, divider/axis lines, and arrowheads); axis labels are positioned `div`s.
+
+```
+::: {.matrix x-axis="Market Share" y-axis="Growth" x-high="High" y-high="High"}
+::: item
+Question Marks
+:::
+::: item
+Stars
+:::
+::: item
+Dogs
+:::
+::: item
+Cash Cows
+:::
+:::
+```
+
+**Class system:**
+- `.matrix` on container — 2×2 quadrant layout
+- `.arrows` — draws axis lines along the bottom and left edges with arrowheads pointing toward the "high" direction (right on x, up on y); end labels move outward to clear the axes (`offEnd` 40 vs 16)
+- `.outline` — transparent cells with border + divider lines, dark labels, no fills
+- `.gap` — separates the four cells (inset `6px` each side), removes the center divider lines
+
+**Attributes (all optional, read via `dataset.*`; write WITHOUT the `data-` prefix in source):**
+- End labels: `x-low` / `x-high` / `y-low` / `y-high` (`dataset.xLow`, etc.)
+- Axis titles: `x-axis` / `y-axis` (`dataset.xAxis`, `dataset.yAxis`). `x-axis` is centered below the square; `y-axis` is centered on the left, rotated −90°.
+
+**Color system:** Filled by default — `node-color=` on the container is the base fill for all four quadrants, `color=` on an item overrides one quadrant (same as pie/pyramid). Divider/axis lines use `arrow-color=` (default `#333`). In `.outline` mode there are no fills.
+
+**Sizing math (500×500 SVG):**
+- Square bounds `x0=70, y0=60, x1=430, y1=420`, center `cx=250, cy=240`. The gutter leaves room for axis labels/titles.
+- Quadrants are the four equal rects around the center. `.gap` insets each by `6px`.
+- Center cross is two `<line>`s through `cx`/`cy`, skipped in `.gap` mode. `.outline` draws per-cell border rects plus the center cross.
+- `.arrows` draws the y-axis (bottom→top) at `x0-22` and the x-axis (left→right) at `y1+22`, each with an `addArrowMarker` arrowhead.
+
+**Font scaling:** Global down-scale (cells are equal-sized), like pie — labels shrink only if the longest exceeds `cellW · 0.85` (60px floor).
+
+**Init guard:** `.matrix` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.

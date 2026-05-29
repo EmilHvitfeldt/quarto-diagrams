@@ -426,3 +426,54 @@ Middle
 Base
 :::
 :::
+
+## Matrix
+
+::: {.matrix x-axis="Market Share" y-axis="Growth" x-low="Low" x-high="High" y-low="Low" y-high="High"}
+::: item
+Question Marks
+:::
+::: item
+Stars
+:::
+::: item
+Dogs
+:::
+::: item
+Cash Cows
+:::
+:::
+
+## Matrix — arrowed axes
+
+::: {.matrix .arrows x-axis="Effort" y-axis="Impact" x-high="High" y-high="High"}
+::: item
+Quick Wins
+:::
+::: item
+Major Projects
+:::
+::: item
+Thankless Tasks
+:::
+::: item
+Fill-Ins
+:::
+:::
+
+## Matrix — outline
+
+::: {.matrix .outline x-axis="Urgency" y-axis="Importance"}
+::: item
+Do
+:::
+::: item
+Schedule
+:::
+::: item
+Delete
+:::
+::: item
+Delegate
+:::
+:::

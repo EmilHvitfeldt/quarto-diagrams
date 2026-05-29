@@ -23,6 +23,8 @@ website:
             href: process.qmd
           - text: "Pyramid"
             href: pyramid.qmd
+          - text: "Matrix"
+            href: matrix.qmd
       - text: "Concepts"
         menu:
           - text: "Node Shapes"

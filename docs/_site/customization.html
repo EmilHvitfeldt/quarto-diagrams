@@ -118,6 +118,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./pyramid.html">
  <span class="dropdown-text">Pyramid</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./matrix.html">
+ <span class="dropdown-text">Matrix</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -1112,6 +1116,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.setAttribute('data-cf-init', '1');
     initPyramid(el);
   });
+  document.querySelectorAll('.matrix').forEach(el => {
+    el.setAttribute('data-cf-init', '1');
+    initMatrix(el);
+  });
 });
 
 if (typeof Reveal !== 'undefined') {
@@ -1131,6 +1139,10 @@ if (typeof Reveal !== 'undefined') {
     document.querySelectorAll('.pyramid:not([data-cf-init])').forEach(el => {
       el.setAttribute('data-cf-init', '1');
       initPyramid(el);
+    });
+    document.querySelectorAll('.matrix:not([data-cf-init])').forEach(el => {
+      el.setAttribute('data-cf-init', '1');
+      initMatrix(el);
     });
   });
 }
@@ -1477,6 +1489,181 @@ function initPyramid(container) {
       el.style.fontSize = (baseFontSize * textMaxW / w) + 'px';
     }
   });
+}
+
+// --- Matrix (2x2 quadrants) ---
+
+function initMatrix(container) {
+  const items = Array.from(container.querySelectorAll('.item'));
+  if (items.length === 0) return;
+
+  const outline = container.classList.contains('outline');
+  const arrows  = container.classList.contains('arrows');
+  const hasGap  = container.classList.contains('gap');
+  const defaultColor = container.dataset.nodeColor  || '#2e6b8a';
+  const lineColor    = container.dataset.arrowColor || '#333333';
+
+  // Square bounds (leave a gutter for axis labels/titles)
+  const x0 = 70, y0 = 60, x1 = 430, y1 = 420;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+
+  container.style.position = 'relative';
+  container.style.width = '500px';
+  container.style.height = '500px';
+  container.style.margin = '0 auto';
+  container.style.display = 'block';
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '500');
+  svg.setAttribute('height', '500');
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;';
+  container.appendChild(svg);
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  svg.appendChild(defs);
+
+  // Quadrant rects in item order: TL, TR, BL, BR
+  const quads = [
+    { x: x0, y: y0, w: cx - x0, h: cy - y0 },
+    { x: cx, y: y0, w: x1 - cx, h: cy - y0 },
+    { x: x0, y: cy, w: cx - x0, h: y1 - cy },
+    { x: cx, y: cy, w: x1 - cx, h: y1 - cy }
+  ];
+  const gapInset = 6;
+
+  const labelEls = [];
+  quads.forEach((q, i) => {
+    const item = items[i];
+    let rx = q.x, ry = q.y, rw = q.w, rh = q.h;
+    if (hasGap) { rx += gapInset; ry += gapInset; rw -= 2 * gapInset; rh -= 2 * gapInset; }
+
+    if (!outline) {
+      const color = (item && (item.getAttribute('color') || item.dataset.color)) || defaultColor;
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', rx); rect.setAttribute('y', ry);
+      rect.setAttribute('width', rw); rect.setAttribute('height', rh);
+      rect.setAttribute('fill', color);
+      if (!hasGap) { rect.setAttribute('stroke', 'white'); rect.setAttribute('stroke-width', '3'); }
+      svg.appendChild(rect);
+    } else {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', rx); rect.setAttribute('y', ry);
+      rect.setAttribute('width', rw); rect.setAttribute('height', rh);
+      rect.setAttribute('fill', 'none');
+      rect.setAttribute('stroke', lineColor);
+      rect.setAttribute('stroke-width', '2');
+      svg.appendChild(rect);
+    }
+
+    if (item) {
+      const label = document.createElement('div');
+      label.className = 'slice-label';
+      label.textContent = item.textContent.trim();
+      label.style.left = (q.x + q.w / 2) + 'px';
+      label.style.top  = (q.y + q.h / 2) + 'px';
+      if (outline) label.style.color = '#222222';
+      container.appendChild(label);
+      labelEls.push(label);
+      item.style.display = 'none';
+    }
+  });
+
+  // Center cross lines (skipped in gap mode; outline mode draws its own cell borders)
+  if (!hasGap && !outline) {
+    [['v', cx, y0, cx, y1], ['h', x0, cy, x1, cy]].forEach(([, ax, ay, bx, by]) => {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', ax); line.setAttribute('y1', ay);
+      line.setAttribute('x2', bx); line.setAttribute('y2', by);
+      line.setAttribute('stroke', lineColor);
+      line.setAttribute('stroke-width', '2');
+      svg.appendChild(line);
+    });
+  } else if (!hasGap && outline) {
+    [[cx, y0, cx, y1], [x0, cy, x1, cy]].forEach(([ax, ay, bx, by]) => {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', ax); line.setAttribute('y1', ay);
+      line.setAttribute('x2', bx); line.setAttribute('y2', by);
+      line.setAttribute('stroke', lineColor);
+      line.setAttribute('stroke-width', '2');
+      svg.appendChild(line);
+    });
+  }
+
+  // Arrowed axes — drawn outside the square along the bottom and left edges,
+  // pointing toward the "high" direction (right on x, up on y).
+  if (arrows) {
+    const uid = 'cfm' + (_cfCounter++);
+    addArrowMarker(defs, uid + '-end', lineColor, 12, false);
+    const ax = 22; // axis offset outside the square
+    const axisLines = [
+      [x0 - ax, y1, x0 - ax, y0],   // y-axis: bottom -> top (up = high)
+      [x0, y1 + ax, x1, y1 + ax]    // x-axis: left -> right (right = high)
+    ];
+    axisLines.forEach(([px1, py1, px2, py2]) => {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', px1); line.setAttribute('y1', py1);
+      line.setAttribute('x2', px2); line.setAttribute('y2', py2);
+      line.setAttribute('stroke', lineColor);
+      line.setAttribute('stroke-width', '2');
+      line.setAttribute('marker-end', `url(#${uid}-end)`);
+      svg.appendChild(line);
+    });
+  }
+
+  // Scale quadrant labels down to fit a cell (cells are equal-sized)
+  const cellW = (x1 - x0) / 2 - (hasGap ? 2 * gapInset : 0);
+  const textMaxW = Math.max(60, cellW * 0.85);
+  if (labelEls.length) {
+    const baseStyle = getComputedStyle(labelEls[0]);
+    const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+    const fontFamily = baseStyle.fontFamily || 'sans-serif';
+    const fontWeight = baseStyle.fontWeight || '500';
+    const cvs = document.createElement('canvas');
+    const cctx = cvs.getContext('2d');
+    cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+    const maxTextWidth = Math.max(...labelEls.map(el => cctx.measureText(el.textContent).width));
+    if (maxTextWidth > textMaxW && maxTextWidth > 0) {
+      const scaledSize = (baseFontSize * textMaxW / maxTextWidth) + 'px';
+      labelEls.forEach(el => el.style.fontSize = scaledSize);
+    }
+  }
+
+  // Axis end labels (Low/High) and named axis titles
+  const d = container.dataset;
+  const offEnd = arrows ? 40 : 16;
+  const mkEnd = (text, left, top) => {
+    if (!text) return;
+    const el = document.createElement('div');
+    el.className = 'axis-end';
+    el.textContent = text;
+    el.style.left = left + 'px';
+    el.style.top  = top + 'px';
+    container.appendChild(el);
+  };
+  mkEnd(d.xLow,  x0 - offEnd, cy);
+  mkEnd(d.xHigh, x1 + offEnd, cy);
+  mkEnd(d.yLow,  cx, y1 + offEnd);
+  mkEnd(d.yHigh, cx, y0 - offEnd);
+
+  if (d.xAxis) {
+    const el = document.createElement('div');
+    el.className = 'axis-title';
+    el.textContent = d.xAxis;
+    el.style.left = '0';
+    el.style.width = '500px';
+    el.style.top = (y1 + offEnd + 20) + 'px';
+    container.appendChild(el);
+  }
+  if (d.yAxis) {
+    const el = document.createElement('div');
+    el.className = 'axis-title';
+    el.textContent = d.yAxis;
+    el.style.left = (x0 - offEnd - 28) + 'px';
+    el.style.top = cy + 'px';
+    el.style.transform = 'translate(-50%, -50%) rotate(-90deg)';
+    el.style.transformOrigin = 'center';
+    el.style.whiteSpace = 'nowrap';
+    container.appendChild(el);
+  }
 }
 </script>
 
