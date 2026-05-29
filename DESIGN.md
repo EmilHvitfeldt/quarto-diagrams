@@ -1,8 +1,8 @@
-# quarto-chevrons
+# quarto-diagrams
 
 ## Goal
 
-Build reusable Quarto/Reveal.js components for circular flow diagrams. Clean Quarto div syntax:
+Build reusable Quarto/Reveal.js diagram components. Three layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), and `.process` (linear flow). Clean Quarto div syntax:
 
 ```
 ::: circle-flow
@@ -27,6 +27,10 @@ Packaged as a Quarto extension in `_extensions/diagrams/`:
 Users activate with `filters: [diagrams]` in their document YAML.
 
 - **`index.qmd`** — Demo slides covering item counts, node shapes, arrow types, and colors
+
+## Limitations
+
+- **Items are plain text only.** All layouts read `item.textContent.trim()`, so any rich markup inside an `.item` (bold, links, math, images) is flattened to plain text.
 
 ## How the JS works
 

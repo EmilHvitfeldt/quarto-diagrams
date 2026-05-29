@@ -869,8 +869,11 @@ function initCircleFlow(container) {
   const cctx = cvs.getContext('2d');
   cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
   const maxTextWidth = Math.max(...nodeEls.map(el => cctx.measureText(el.textContent).width));
-  const scaledSize = (baseFontSize * textMaxW / maxTextWidth) + 'px';
-  nodeEls.forEach(el => el.style.fontSize = scaledSize);
+  if (maxTextWidth > 0) {
+    // Scale to fill the node, but cap upscaling so short labels don't balloon
+    const scale = Math.min(textMaxW / maxTextWidth, 2.5);
+    nodeEls.forEach(el => el.style.fontSize = (baseFontSize * scale) + 'px');
+  }
 
   if (n === 1) return;
 
@@ -1165,7 +1168,7 @@ function initPie(container) {
     const endAngle   = ((i + 1) / n) * 2 * Math.PI - Math.PI / 2;
     const midAngle   = (startAngle + endAngle) / 2;
 
-    const itemOffset = (hasGap || item.classList.contains('gap')) ? sliceOffset || 20 : 0;
+    const itemOffset = (hasGap || item.classList.contains('gap')) ? sliceOffset : 0;
     const dx = itemOffset * Math.cos(midAngle);
     const dy = itemOffset * Math.sin(midAngle);
     const ox = cx + dx, oy = cy + dy;
@@ -1215,7 +1218,7 @@ function initPie(container) {
   const cctx = cvs.getContext('2d');
   cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
   const maxTextWidth = Math.max(...labelEls.map(el => cctx.measureText(el.textContent).width));
-  if (maxTextWidth > textMaxW) {
+  if (maxTextWidth > textMaxW && maxTextWidth > 0) {
     const scaledSize = (baseFontSize * textMaxW / maxTextWidth) + 'px';
     labelEls.forEach(el => el.style.fontSize = scaledSize);
   }
@@ -1258,9 +1261,6 @@ function initProcess(container) {
   let nodeSize = mainAxis / denom; // along main axis
   // Cap so node doesn't exceed cross-axis (with some padding)
   const maxAlongCross = crossAxis * 0.9;
-  if (nodeType === 'box') {
-    // box height (cross) = nodeSize * 0.55 (rectangle); keep nodeSize reasonable
-  }
   // Node cross-axis size
   const boxCross = nodeType === 'box' ? Math.min(maxAlongCross, nodeSize * 0.6) : Math.min(maxAlongCross, nodeSize * 0.85);
   const boxMain  = nodeType === 'box' ? nodeSize * 0.85 : boxCross; // box is wider along main; circle/none stays square-ish
@@ -1319,7 +1319,7 @@ function initProcess(container) {
   const cctx = cvs.getContext('2d');
   cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
   const maxTextWidth = Math.max(...nodeEls.map(el => cctx.measureText(el.textContent).width));
-  if (maxTextWidth > textMaxW) {
+  if (maxTextWidth > textMaxW && maxTextWidth > 0) {
     const scaledSize = (baseFontSize * textMaxW / maxTextWidth) + 'px';
     nodeEls.forEach(el => el.style.fontSize = scaledSize);
   }
