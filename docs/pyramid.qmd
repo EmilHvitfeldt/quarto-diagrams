@@ -1,0 +1,129 @@
+---
+title: "Pyramid"
+---
+
+The `.pyramid` style renders items as horizontal bands of a triangle — the first item at the narrow top, the last at the wide base. It is well suited to showing hierarchy, proportion, or foundational layers. Like all styles in this extension, it is activated via `filters: [diagrams]`.
+
+## Basic usage
+
+````markdown
+::: pyramid
+::: item
+Vision
+:::
+::: item
+Strategy
+:::
+::: item
+Tactics
+:::
+::: item
+Operations
+:::
+:::
+````
+
+::: pyramid
+::: item
+Vision
+:::
+::: item
+Strategy
+:::
+::: item
+Tactics
+:::
+::: item
+Operations
+:::
+:::
+
+## Inverted
+
+Add the `.inverted` modifier to flip the triangle so the first item is the wide top — useful for funnels.
+
+````markdown
+::: {.pyramid .inverted}
+::: item
+Awareness
+:::
+::: item
+Interest
+:::
+::: item
+Decision
+:::
+:::
+````
+
+::: {.pyramid .inverted}
+::: item
+Awareness
+:::
+::: item
+Interest
+:::
+::: item
+Decision
+:::
+:::
+
+## Separated bands with `.gap`
+
+Add `.gap` to the container to separate every band, or to an individual item to detach just that band.
+
+````markdown
+::: {.pyramid .gap}
+::: item
+Top
+:::
+::: item
+Middle
+:::
+::: item
+Base
+:::
+:::
+````
+
+::: {.pyramid .gap}
+::: item
+Top
+:::
+::: item
+Middle
+:::
+::: item
+Base
+:::
+:::
+
+## Colors
+
+Use `node-color=` on the container to set the base color for all bands, or `color=` on an individual item to override a single band.
+
+````markdown
+::: {.pyramid node-color="#7a3b5c"}
+::: item
+Top
+:::
+::: {.item color="#3b7a5c"}
+Middle
+:::
+::: item
+Base
+:::
+:::
+````
+
+::: {.pyramid node-color="#7a3b5c"}
+::: item
+Top
+:::
+::: {.item color="#3b7a5c"}
+Middle
+:::
+::: item
+Base
+:::
+:::

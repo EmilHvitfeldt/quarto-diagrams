@@ -2,7 +2,7 @@
 
 ## Goal
 
-Build reusable Quarto/Reveal.js diagram components. Three layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), and `.process` (linear flow). Clean Quarto div syntax:
+Build reusable Quarto/Reveal.js diagram components. Four layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), and `.pyramid` (stacked triangle bands). Clean Quarto div syntax:
 
 ```
 ::: circle-flow
@@ -155,3 +155,35 @@ Carol
 - `arrow-thin` / `arrow-double`: SVG `<line>` with arrow markers, trimmed by `boxMain/2 + 4` on each end so it starts at the node edge.
 
 **Init guard:** `.process` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.
+
+## Pyramid layout
+
+A stacked-triangle layout, triggered by `.pyramid` on the container. Items become horizontal bands of a triangle — the first item is the narrow apex, the last is the wide base. Implemented by `initPyramid` in `diagrams.html`, reusing the `.slice-label` CSS from the pie layout. Like the pie, it is SVG-based (the bands are non-rectangular).
+
+```
+::: pyramid
+::: item
+Vision
+:::
+::: item
+Strategy
+:::
+:::
+```
+
+**Class system:**
+- `.pyramid` on container — stacked-triangle layout
+- `.inverted` on container — flips the triangle so the first item is the wide top (funnel)
+- `.gap` on container — separates every band; `.gap` on an item separates just that band
+
+**Color system:** Same as pie — `node-color=` on the container is the base color for all bands, `color=` on an item overrides one band. No white stroke between bands when in gap mode.
+
+**Sizing math (500×500 SVG):**
+- Triangle: apex `y=20`, base `y=480` (`H=460`), base half-width `230`, centered at `cx=250`.
+- Band `i` of `n` spans `pTop=i/n` to `pBot=(i+1)/n` vertically. Half-width at fraction `p` is `halfAt(p) = (inverted ? 1-p : p) · 230`.
+- Each band is a 4-point path `(cx∓topHalf, yTop)` → `(cx∓botHalf, yBot)`. The apex band's narrow end has half-width 0, so it renders as a triangle (degenerate trapezoid).
+- `.gap` insets each band by `5px` top and bottom.
+
+**Font scaling:** Per-label (not global), because band widths vary widely. Each label is scaled *down* with canvas `measureText` only if it exceeds `max(40, bandMidWidth · 0.85)`, where `bandMidWidth = 2 · halfAt((pTop+pBot)/2)`.
+
+**Init guard:** `.pyramid` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.

@@ -114,6 +114,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./process.html">
  <span class="dropdown-text">Process</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./pyramid.html">
+ <span class="dropdown-text">Pyramid</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -1104,6 +1108,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.setAttribute('data-cf-init', '1');
     initProcess(el);
   });
+  document.querySelectorAll('.pyramid').forEach(el => {
+    el.setAttribute('data-cf-init', '1');
+    initPyramid(el);
+  });
 });
 
 if (typeof Reveal !== 'undefined') {
@@ -1119,6 +1127,10 @@ if (typeof Reveal !== 'undefined') {
     document.querySelectorAll('.process:not([data-cf-init])').forEach(el => {
       el.setAttribute('data-cf-init', '1');
       initProcess(el);
+    });
+    document.querySelectorAll('.pyramid:not([data-cf-init])').forEach(el => {
+      el.setAttribute('data-cf-init', '1');
+      initPyramid(el);
     });
   });
 }
@@ -1378,6 +1390,92 @@ function initProcess(container) {
     line.setAttribute('marker-end', `url(#${uid}-end)`);
     if (arrowType === 'double') line.setAttribute('marker-start', `url(#${uid}-start)`);
     svg.appendChild(line);
+  });
+}
+
+// --- Pyramid (stacked triangle bands) ---
+
+function initPyramid(container) {
+  const items = Array.from(container.querySelectorAll('.item'));
+  if (items.length === 0) return;
+
+  const n = items.length;
+  const cx = 250;
+  const apexY = 20, baseY = 480, H = baseY - apexY;
+  const baseHalf = 230;
+  const inverted = container.classList.contains('inverted');
+  const hasGap = container.classList.contains('gap');
+  const defaultColor = container.dataset.nodeColor || '#2e6b8a';
+
+  container.style.position = 'relative';
+  container.style.width = '500px';
+  container.style.height = '500px';
+  container.style.margin = '0 auto';
+  container.style.display = 'block';
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '500');
+  svg.setAttribute('height', '500');
+  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  container.appendChild(svg);
+
+  // half-width of the triangle at vertical fraction p (0 = top, 1 = bottom)
+  const halfAt = p => (inverted ? (1 - p) : p) * baseHalf;
+
+  const labelEls = [];
+  const bandWidths = [];
+
+  items.forEach((item, i) => {
+    const color = item.getAttribute('color') || item.dataset.color || defaultColor;
+    const itemGap = hasGap || item.classList.contains('gap');
+    const inset = itemGap ? 5 : 0;
+
+    const pTop = i / n, pBot = (i + 1) / n;
+    let yTop = apexY + pTop * H + inset;
+    let yBot = apexY + pBot * H - inset;
+    const topHalf = halfAt(pTop);
+    const botHalf = halfAt(pBot);
+
+    const d = `M ${cx - topHalf} ${yTop} L ${cx + topHalf} ${yTop} ` +
+              `L ${cx + botHalf} ${yBot} L ${cx - botHalf} ${yBot} Z`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', color);
+    if (!hasGap) {
+      path.setAttribute('stroke', 'white');
+      path.setAttribute('stroke-width', '3');
+    }
+    svg.appendChild(path);
+
+    const ly = (yTop + yBot) / 2;
+    const label = document.createElement('div');
+    label.className = 'slice-label';
+    label.textContent = item.textContent.trim();
+    label.style.left = cx + 'px';
+    label.style.top  = ly + 'px';
+    container.appendChild(label);
+    labelEls.push(label);
+
+    // usable width at the label's vertical midpoint
+    bandWidths.push(2 * halfAt((pTop + pBot) / 2));
+    item.style.display = 'none';
+  });
+
+  // Scale each label down to fit its own band width (bands vary a lot in width)
+  const baseStyle = getComputedStyle(labelEls[0]);
+  const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+  const fontFamily = baseStyle.fontFamily || 'sans-serif';
+  const fontWeight = baseStyle.fontWeight || '500';
+  const cvs = document.createElement('canvas');
+  const cctx = cvs.getContext('2d');
+  cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+  labelEls.forEach((el, i) => {
+    const textMaxW = Math.max(40, bandWidths[i] * 0.85);
+    const w = cctx.measureText(el.textContent).width;
+    if (w > textMaxW && w > 0) {
+      el.style.fontSize = (baseFontSize * textMaxW / w) + 'px';
+    }
   });
 }
 </script>

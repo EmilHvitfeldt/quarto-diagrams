@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quarto-diagrams</title>
+<title>Pyramid – quarto-diagrams</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -111,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -129,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -196,14 +196,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link active" data-scroll-target="#basic-usage">Basic usage</a></li>
+  <li><a href="#inverted" id="toc-inverted" class="nav-link" data-scroll-target="#inverted">Inverted</a></li>
+  <li><a href="#separated-bands-with-.gap" id="toc-separated-bands-with-.gap" class="nav-link" data-scroll-target="#separated-bands-with-.gap">Separated bands with <code>.gap</code></a></li>
+  <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">quarto-diagrams</h1>
-<p class="subtitle lead">Circular diagram styles for Quarto</p>
+<h1 class="title">Pyramid</h1>
 </div>
 
 
@@ -220,68 +230,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><code>quarto-diagrams</code> is a Quarto extension that adds a collection of circular diagram styles to your documents and Reveal.js presentations. Each style shares the same authoring model — a container div with nested <code>item</code> divs — but renders differently.</p>
-<section id="installation" class="level2">
-<h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> add EmilHvitfeldt/quarto-diagrams</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Activate the extension in your document YAML:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> diagrams</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="styles" class="level2">
-<h2 class="anchored" data-anchor-id="styles">Styles</h2>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<section id="circle-flow" class="level3 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<h3 class="anchored" data-anchor-id="circle-flow"><a href="./circle-flow.html">Circle Flow</a></h3>
-<p>Nodes arranged on a ring, connected by arrows.</p>
-</section>
-<div class="circle-flow quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>The <code>.pyramid</code> style renders items as horizontal bands of a triangle — the first item at the narrow top, the last at the wide base. It is well suited to showing hierarchy, proportion, or foundational layers. Like all styles in this extension, it is activated via <code>filters: [diagrams]</code>.</p>
+<section id="basic-usage" class="level2">
+<h2 class="anchored" data-anchor-id="basic-usage">Basic usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: pyramid</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Vision</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Strategy</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Tactics</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Operations</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="pyramid">
 <div class="item">
-<p>Alice</p>
-</div>
-<div class="item">
-<p>Bob</p>
+<p>Vision</p>
 </div>
 <div class="item">
-<p>Carol</p>
-</div>
-</div>
-</div>
-<div class="quarto-layout-row">
-<section id="pie" class="level3 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<h3 class="anchored" data-anchor-id="pie"><a href="./pie.html">Pie</a></h3>
-<p>Items rendered as equal-sized wedges of a circle.</p>
-</section>
-<div class="pie quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="item">
-<p>Alice</p>
+<p>Strategy</p>
 </div>
 <div class="item">
-<p>Bob</p>
+<p>Tactics</p>
 </div>
 <div class="item">
-<p>Carol</p>
-</div>
-<div class="item">
-<p>David</p>
-</div>
-<div class="item">
-<p>Eve</p>
-</div>
-</div>
+<p>Operations</p>
 </div>
 </div>
 </section>
-<section id="shared-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="shared-concepts">Shared concepts</h2>
-<p>Across all styles:</p>
-<ul>
-<li><a href="./node-shapes.html">Node Shapes</a> — circle, box, and text-only nodes</li>
-<li><a href="./arrow-types.html">Arrow Types</a> — chevron, curved, thin, ring, arc, and double arrows</li>
-<li><a href="./colors.html">Colors</a> — global and per-item color control</li>
-<li><a href="./customization.html">Customization</a> — full class and attribute reference</li>
-</ul>
+<section id="inverted" class="level2">
+<h2 class="anchored" data-anchor-id="inverted">Inverted</h2>
+<p>Add the <code>.inverted</code> modifier to flip the triangle so the first item is the wide top — useful for funnels.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: {.pyramid .inverted}</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Awareness</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Interest</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Decision</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="pyramid inverted">
+<div class="item">
+<p>Awareness</p>
+</div>
+<div class="item">
+<p>Interest</p>
+</div>
+<div class="item">
+<p>Decision</p>
+</div>
+</div>
+</section>
+<section id="separated-bands-with-.gap" class="level2">
+<h2 class="anchored" data-anchor-id="separated-bands-with-.gap">Separated bands with <code>.gap</code></h2>
+<p>Add <code>.gap</code> to the container to separate every band, or to an individual item to detach just that band.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.pyramid .gap}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Top</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Middle</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Base</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="pyramid gap">
+<div class="item">
+<p>Top</p>
+</div>
+<div class="item">
+<p>Middle</p>
+</div>
+<div class="item">
+<p>Base</p>
+</div>
+</div>
+</section>
+<section id="colors" class="level2">
+<h2 class="anchored" data-anchor-id="colors">Colors</h2>
+<p>Use <code>node-color=</code> on the container to set the base color for all bands, or <code>color=</code> on an individual item to override a single band.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: {.pyramid node-color="#7a3b5c"}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Top</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#3b7a5c"}</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Middle</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>Base</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="pyramid" data-node-color="#7a3b5c">
+<div class="item">
+<p>Top</p>
+</div>
+<div class="item" color="#3b7a5c">
+<p>Middle</p>
+</div>
+<div class="item">
+<p>Base</p>
+</div>
+</div>
 
 
 </section>

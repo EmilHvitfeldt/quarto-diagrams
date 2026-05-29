@@ -381,3 +381,48 @@ Carol
 Dave
 :::
 :::
+
+## Pyramid
+
+::: pyramid
+::: item
+Vision
+:::
+::: item
+Strategy
+:::
+::: item
+Tactics
+:::
+::: item
+Operations
+:::
+:::
+
+## Pyramid — inverted (funnel)
+
+::: {.pyramid .inverted}
+::: item
+Awareness
+:::
+::: item
+Interest
+:::
+::: item
+Decision
+:::
+:::
+
+## Pyramid — gap + colors
+
+::: {.pyramid .gap node-color="#7a3b5c"}
+::: item
+Top
+:::
+::: {.item color="#3b7a5c"}
+Middle
+:::
+::: item
+Base
+:::
+:::

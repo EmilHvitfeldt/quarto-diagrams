@@ -21,6 +21,8 @@ website:
             href: pie.qmd
           - text: "Process"
             href: process.qmd
+          - text: "Pyramid"
+            href: pyramid.qmd
       - text: "Concepts"
         menu:
           - text: "Node Shapes"
