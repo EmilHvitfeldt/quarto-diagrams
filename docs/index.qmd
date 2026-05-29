@@ -150,6 +150,22 @@ Backend
 :::
 :::
 
+### [Stacked Venn](stacked-venn.qmd)
+
+Nested circles for subset relationships.
+
+::: stacked-venn
+::: item
+Everyone
+:::
+::: item
+Customers
+:::
+::: item
+Subscribers
+:::
+:::
+
 :::
 
 ## Shared concepts

@@ -29,6 +29,8 @@ website:
             href: hierarchy.qmd
           - text: "Venn"
             href: venn.qmd
+          - text: "Stacked Venn"
+            href: stacked-venn.qmd
       - text: "Concepts"
         menu:
           - text: "Node Shapes"

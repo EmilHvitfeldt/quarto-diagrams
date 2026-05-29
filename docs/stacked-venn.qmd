@@ -1,0 +1,73 @@
+---
+title: "Stacked Venn"
+---
+
+The `.stacked-venn` style renders **nested concentric circles** that share a common bottom edge, modeled on PowerPoint's "Stacked Venn" SmartArt. The first item is the largest outer circle and each subsequent item nests inside the previous one, making it well suited to **containment / subset relationships** — successively narrower segments of a population, tiers of membership, or scopes that fit inside one another. Like all styles in this extension, it is activated via `filters: [diagrams]`.
+
+The container takes **two or more `.item` divs**, ordered from outermost (largest) to innermost (smallest). Each item's text becomes a label placed in that circle's exclusive band.
+
+## Basic usage
+
+````markdown
+::: stacked-venn
+::: item
+Total Population
+:::
+::: item
+Vitamin D Deficiency
+:::
+::: item
+Deficiency
+:::
+::: item
+Insufficiency
+:::
+:::
+````
+
+::: stacked-venn
+::: item
+Total Population
+:::
+::: item
+Vitamin D Deficiency
+:::
+::: item
+Deficiency
+:::
+::: item
+Insufficiency
+:::
+:::
+
+Add or remove `.item` divs to change the number of circles — the radii adjust automatically to fit.
+
+## Colors
+
+Each circle defaults to a distinct color. Use `color=` on an individual item to override one circle, or `node-color=` on the container to set a single shared base color for every circle.
+
+````markdown
+::: stacked-venn
+::: {.item color="#1b3a5b"}
+Everyone
+:::
+::: {.item color="#2e6b8a"}
+Customers
+:::
+::: {.item color="#5aa0c4"}
+Subscribers
+:::
+:::
+````
+
+::: stacked-venn
+::: {.item color="#1b3a5b"}
+Everyone
+:::
+::: {.item color="#2e6b8a"}
+Customers
+:::
+::: {.item color="#5aa0c4"}
+Subscribers
+:::
+:::

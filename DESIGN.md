@@ -2,7 +2,7 @@
 
 ## Goal
 
-Build reusable Quarto/Reveal.js diagram components. Seven layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked triangle bands), `.matrix` (2×2 quadrant matrix), `.hierarchy` (org chart / tree), and `.venn` (2- or 3-set overlapping circles). Clean Quarto div syntax:
+Build reusable Quarto/Reveal.js diagram components. Eight layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked triangle bands), `.matrix` (2×2 quadrant matrix), `.hierarchy` (org chart / tree), `.venn` (2- or 3-set overlapping circles), and `.stacked-venn` (nested concentric circles). Clean Quarto div syntax:
 
 ```
 ::: circle-flow
@@ -307,3 +307,36 @@ Backend
 **Font scaling:** Global down-scale of set labels (like pie/matrix) — shrinks only if the longest exceeds a fixed lobe width (`150` for 2-set, `130` for 3-set). Overlap labels are not scaled.
 
 **Init guard:** `.venn` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.
+
+## Stacked Venn layout
+
+**Nested concentric circles** sharing a common bottom edge, triggered by `.stacked-venn` on the container (modeled on PowerPoint's "Stacked Venn" SmartArt). Unlike `.venn` (which shows set intersections), this expresses a **containment / subset relationship**: the first item is the largest outer circle and each subsequent item nests inside the previous one. Takes **any number of circles** (≥2). Each `.item` is one circle whose label sits in its exclusive band. Implemented by `initStackedVenn` in `diagrams.html`, with its own white `.stacked-venn .set-label` CSS. SVG-based with **opaque fills painted largest-first** so inner (smaller) circles sit on top — no blend mode, since the relationship is containment, not intersection.
+
+```
+::: stacked-venn
+::: item
+Total Population
+:::
+::: item
+Vitamin D Deficiency
+:::
+::: item
+Deficiency
+:::
+:::
+```
+
+**Class system:**
+- `.stacked-venn` on container — nested concentric circles
+
+**Color system:** Each circle defaults to a distinct palette color (`['#c0584f', '#5a9367', '#7a5a9b', '#2e6b8a', '#b8893a']`, cycled for n>5). `color=` on an item overrides that circle. `node-color=` on the container sets one shared base color for all circles. No `arrow-color` (no lines), no overlap-label attributes.
+
+**Sizing math (500×500 SVG):**
+- Outer radius `R = 250 − margin` (`margin = 10`), centered at `cx = 250`. All circles share a common bottom edge `B = 250 + R`.
+- Circle `i` (0 = outermost) has radius `r_i = R·(n−i)/n` and center `cy = B − r_i`. Its top edge is `top_i = B − 2·r_i` (so radii and bands are evenly spaced).
+
+**Labels:** Placed at the midpoint between a circle's top edge and the next inner circle's top edge — i.e. centered in its exclusive crescent band. The innermost circle's label is centered between its top edge and the shared bottom `B` (its lower body).
+
+**Font scaling:** Per-label down-scale (bands vary in width) to fit `0.8 ×` the circle's chord width at the label's y-position (`40px` floor), via canvas `measureText`.
+
+**Init guard:** `.stacked-venn` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.

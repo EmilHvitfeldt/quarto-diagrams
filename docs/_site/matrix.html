@@ -165,6 +165,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./venn.html">
  <span class="dropdown-text">Venn</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./stacked-venn.html">
+ <span class="dropdown-text">Stacked Venn</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -1150,6 +1154,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.setAttribute('data-cf-init', '1');
     initVenn(el);
   });
+  document.querySelectorAll('.stacked-venn').forEach(el => {
+    el.setAttribute('data-cf-init', '1');
+    initStackedVenn(el);
+  });
 });
 
 if (typeof Reveal !== 'undefined') {
@@ -1181,6 +1189,10 @@ if (typeof Reveal !== 'undefined') {
     document.querySelectorAll('.venn:not([data-cf-init])').forEach(el => {
       el.setAttribute('data-cf-init', '1');
       initVenn(el);
+    });
+    document.querySelectorAll('.stacked-venn:not([data-cf-init])').forEach(el => {
+      el.setAttribute('data-cf-init', '1');
+      initStackedVenn(el);
     });
   });
 }
@@ -1997,6 +2009,7 @@ function initVenn(container) {
     labelEls.push(label);
   });
 
+  const overlapColor = container.dataset.overlapColor;
   overlaps.forEach(o => {
     const text = container.dataset[o.key];
     if (!text) return;
@@ -2005,6 +2018,7 @@ function initVenn(container) {
     label.textContent = text;
     label.style.left = o.x + 'px';
     label.style.top  = o.y + 'px';
+    if (overlapColor) label.style.color = overlapColor;
     container.appendChild(label);
   });
 
@@ -2022,6 +2036,88 @@ function initVenn(container) {
     const scaled = (baseFontSize * textMaxW / maxW) + 'px';
     labelEls.forEach(el => el.style.fontSize = scaled);
   }
+}
+
+function initStackedVenn(container) {
+  const items = Array.from(container.querySelectorAll('.item'));
+  if (items.length < 2) return;  // need at least 2 circles
+  const n = items.length;
+
+  const palette = ['#c0584f', '#5a9367', '#7a5a9b', '#2e6b8a', '#b8893a'];
+  const baseColor = container.dataset.nodeColor;
+
+  const SIZE = 500;
+  container.style.position = 'relative';
+  container.style.width = SIZE + 'px';
+  container.style.height = SIZE + 'px';
+  container.style.margin = '0 auto';
+  container.style.display = 'block';
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', SIZE);
+  svg.setAttribute('height', SIZE);
+  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  container.appendChild(svg);
+
+  // Nested concentric circles sharing a common bottom edge (containment): the
+  // first item is the largest outer circle, each later item nests inside it.
+  // Circle i (0 = outermost) has radius R·(n−i)/n; all share bottom edge B, so
+  // its center is at cy = B − r. Painted largest-first so smaller ones sit on top.
+  const margin = 10;
+  const cx = SIZE / 2;
+  const R = SIZE / 2 - margin;       // outer radius
+  const B = SIZE / 2 + R;            // shared bottom edge
+
+  const radii = items.map((_, i) => R * (n - i) / n);
+  const tops  = radii.map(r => B - 2 * r);   // top edge of each circle
+
+  items.forEach((item, i) => {
+    const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i % palette.length];
+    const r = radii[i];
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', B - r);
+    circle.setAttribute('r', r);
+    circle.setAttribute('fill', color);
+    svg.appendChild(circle);
+    item.style.display = 'none';
+  });
+
+  // Labels sit in each circle's exclusive band — the crescent between its own
+  // top edge and the next (inner) circle's top edge. The innermost circle's
+  // label is centered in its lower body.
+  const labelEls = [];
+  const labelY = [];
+  items.forEach((item, i) => {
+    const yMid = (i < n - 1)
+      ? (tops[i] + tops[i + 1]) / 2
+      : (tops[i] + B) / 2;
+    const label = document.createElement('div');
+    label.className = 'set-label';
+    label.textContent = item.textContent.trim();
+    label.style.left = cx + 'px';
+    label.style.top  = yMid + 'px';
+    container.appendChild(label);
+    labelEls.push(label);
+    labelY.push(yMid);
+  });
+
+  // Per-label down-scale to fit the chord width of its circle at the label's y.
+  const baseStyle = getComputedStyle(labelEls[0]);
+  const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+  const fontFamily = baseStyle.fontFamily || 'sans-serif';
+  const fontWeight = baseStyle.fontWeight || '600';
+  const cvs = document.createElement('canvas');
+  const cctx = cvs.getContext('2d');
+  cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+  labelEls.forEach((el, i) => {
+    const r = radii[i];
+    const dy = (B - r) - labelY[i];                       // vertical offset from center
+    const chord = 2 * Math.sqrt(Math.max(0, r * r - dy * dy));
+    const maxW = Math.max(40, chord * 0.8);
+    const w = cctx.measureText(el.textContent).width;
+    if (w > maxW && w > 0) el.style.fontSize = (baseFontSize * maxW / w) + 'px';
+  });
 }
 </script>
 

@@ -116,7 +116,8 @@
 .pie,
 .pyramid,
 .matrix,
-.venn {
+.venn,
+.stacked-venn {
   position: relative;
   width: 500px;
   height: 500px;
@@ -126,7 +127,8 @@
 .pie svg,
 .pyramid svg,
 .matrix svg,
-.venn svg {
+.venn svg,
+.stacked-venn svg {
   position: absolute;
   left: 0;
   top: 0;
@@ -138,6 +140,17 @@
   font-size: 1.1rem;
   font-weight: 600;
   text-align: center;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.stacked-venn .set-label {
+  position: absolute;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.15;
   pointer-events: none;
   transform: translate(-50%, -50%);
 }
