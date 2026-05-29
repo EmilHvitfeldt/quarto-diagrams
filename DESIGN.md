@@ -329,14 +329,19 @@ Deficiency
 **Class system:**
 - `.stacked-venn` on container — nested concentric circles
 
+**Attributes (orientation, optional, read via `dataset.*`; write WITHOUT the `data-` prefix in source):**
+- `direction` — which edge the circles nest toward: `down` (default), `up`, `left`, `right`.
+- `angle` — extra clockwise rotation in degrees, added on top of `direction`. The diagram rotates but **labels stay upright** (they are absolutely-positioned divs, never rotated).
+
 **Color system:** Each circle defaults to a distinct palette color (`['#c0584f', '#5a9367', '#7a5a9b', '#2e6b8a', '#b8893a']`, cycled for n>5). `color=` on an item overrides that circle. `node-color=` on the container sets one shared base color for all circles. No `arrow-color` (no lines), no overlap-label attributes.
 
 **Sizing math (500×500 SVG):**
-- Outer radius `R = 250 − margin` (`margin = 10`), centered at `cx = 250`. All circles share a common bottom edge `B = 250 + R`.
-- Circle `i` (0 = outermost) has radius `r_i = R·(n−i)/n` and center `cy = B − r_i`. Its top edge is `top_i = B − 2·r_i` (so radii and bands are evenly spaced).
+- Outer radius `R = 250 − margin` (`margin = 10`), figure centered at `C0 = (250, 250)`. The outer circle always fills the box regardless of orientation, so no fitting/scaling pass is needed.
+- The shared tangent point sits in direction `u = (cos θ, sin θ)`, where `θ = baseDeg(direction) + angle` (`down→90°`, `up→−90°`, `left→180°`, `right→0°`, in y-down screen coords).
+- Circle `i` (0 = outermost) has radius `r_i = R·(n−i)/n` and center `C0 + (R − r_i)·u`, so all circles are internally tangent at `P = C0 + R·u`.
 
-**Labels:** Placed at the midpoint between a circle's top edge and the next inner circle's top edge — i.e. centered in its exclusive crescent band. The innermost circle's label is centered between its top edge and the shared bottom `B` (its lower body).
+**Labels:** Placed along the `−u` axis through `C0`, at distance `R − r_i − r_{i+1}` from `C0` — the middle of circle `i`'s exclusive crescent (the band on the far side from `P`, between its far rim and the next inner circle's far rim). The innermost label is at `R − r_last` (the middle of its body). Labels are never rotated.
 
-**Font scaling:** Per-label down-scale (bands vary in width) to fit `0.8 ×` the circle's chord width at the label's y-position (`40px` floor), via canvas `measureText`.
+**Font scaling:** Per-label down-scale (bands vary in width) to fit `0.8 ×` the circle's chord width at the label's position — `dist` is the label's distance from that circle's center — with a `40px` floor, via canvas `measureText`.
 
 **Init guard:** `.stacked-venn` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.

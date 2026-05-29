@@ -218,6 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul class="collapse">
   <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link active" data-scroll-target="#basic-usage">Basic usage</a></li>
+  <li><a href="#orientation" id="toc-orientation" class="nav-link" data-scroll-target="#orientation">Orientation</a></li>
   <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
   </ul>
 </nav>
@@ -278,20 +279,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Add or remove <code>.item</code> divs to change the number of circles — the radii adjust automatically to fit.</p>
 </section>
-<section id="colors" class="level2">
-<h2 class="anchored" data-anchor-id="colors">Colors</h2>
-<p>Each circle defaults to a distinct color. Use <code>color=</code> on an individual item to override one circle, or <code>node-color=</code> on the container to set a single shared base color for every circle.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: stacked-venn</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>::: {.item color="#1b3a5b"}</span>
+<section id="orientation" class="level2">
+<h2 class="anchored" data-anchor-id="orientation">Orientation</h2>
+<p>By default the circles nest toward the bottom. Use <code>direction=</code> to anchor them to a different edge — <code>down</code> (default), <code>up</code>, <code>left</code>, or <code>right</code>. The circles rotate but the <strong>labels always stay upright and horizontal</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: {.stacked-venn direction="right"}</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Everyone</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#2e6b8a"}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Customers</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>::: {.item color="#5aa0c4"}</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Subscribers</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="stacked-venn" data-direction="right">
+<div class="item">
+<p>Everyone</p>
+</div>
+<div class="item">
+<p>Customers</p>
+</div>
+<div class="item">
+<p>Subscribers</p>
+</div>
+</div>
+<p>For finer control, <code>angle=</code> adds a clockwise rotation (in degrees) on top of <code>direction</code>. For example <code>angle="45"</code> tucks the nesting toward the bottom-left corner.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.stacked-venn angle="45"}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Everyone</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Customers</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Subscribers</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="stacked-venn" data-angle="45">
+<div class="item">
+<p>Everyone</p>
+</div>
+<div class="item">
+<p>Customers</p>
+</div>
+<div class="item">
+<p>Subscribers</p>
+</div>
+</div>
+</section>
+<section id="colors" class="level2">
+<h2 class="anchored" data-anchor-id="colors">Colors</h2>
+<p>Each circle defaults to a distinct color. Use <code>color=</code> on an individual item to override one circle, or <code>node-color=</code> on the container to set a single shared base color for every circle.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: stacked-venn</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>::: {.item color="#1b3a5b"}</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Everyone</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#2e6b8a"}</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Customers</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>::: {.item color="#5aa0c4"}</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>Subscribers</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="stacked-venn">
 <div class="item" color="#1b3a5b">
 <p>Everyone</p>
@@ -1954,50 +2004,61 @@ function initStackedVenn(container) {
   svg.style.cssText = 'position:absolute;left:0;top:0;';
   container.appendChild(svg);
 
-  // Nested concentric circles sharing a common bottom edge (containment): the
-  // first item is the largest outer circle, each later item nests inside it.
-  // Circle i (0 = outermost) has radius R·(n−i)/n; all share bottom edge B, so
-  // its center is at cy = B − r. Painted largest-first so smaller ones sit on top.
+  // Nested concentric circles sharing a common edge point (containment): the
+  // first item is the largest outer circle, each later item nests inside it,
+  // internally tangent at a shared point P on the outer rim. Circle i (0 =
+  // outermost) has radius R·(n−i)/n and center C0 + (R−r_i)·u, where u points
+  // toward the shared edge. Painted largest-first so smaller ones sit on top.
+  //
+  // The diagram rotates by anchoring P in any direction without rotating the
+  // labels (they are upright divs). `direction=` picks an edge; `angle=` adds
+  // a clockwise rotation (degrees) on top of it.
   const margin = 10;
-  const cx = SIZE / 2;
+  const cx = SIZE / 2, cy = SIZE / 2;
   const R = SIZE / 2 - margin;       // outer radius
-  const B = SIZE / 2 + R;            // shared bottom edge
+
+  const dirDeg = { down: 90, up: -90, left: 180, right: 0 };
+  const baseDeg = dirDeg[(container.dataset.direction || 'down').toLowerCase()] ?? 90;
+  const rot = parseFloat(container.dataset.angle) || 0;
+  const rad = (baseDeg + rot) * Math.PI / 180;
+  const ux = Math.cos(rad), uy = Math.sin(rad);   // unit vector toward shared edge
 
   const radii = items.map((_, i) => R * (n - i) / n);
-  const tops  = radii.map(r => B - 2 * r);   // top edge of each circle
 
   items.forEach((item, i) => {
     const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i % palette.length];
-    const r = radii[i];
+    const d = R - radii[i];                       // center offset from C0 toward edge
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', cx);
-    circle.setAttribute('cy', B - r);
-    circle.setAttribute('r', r);
+    circle.setAttribute('cx', cx + d * ux);
+    circle.setAttribute('cy', cy + d * uy);
+    circle.setAttribute('r', radii[i]);
     circle.setAttribute('fill', color);
     svg.appendChild(circle);
     item.style.display = 'none';
   });
 
-  // Labels sit in each circle's exclusive band — the crescent between its own
-  // top edge and the next (inner) circle's top edge. The innermost circle's
-  // label is centered in its lower body.
+  // Labels sit in each circle's exclusive crescent — the band on the far side
+  // from the shared edge, between this circle's far rim and the next inner
+  // circle's far rim. They are placed along the −u axis through C0 and never
+  // rotated. Distance from C0 along u: dLabel = R − r_i − r_{i+1} (innermost:
+  // R − r_last, i.e. the middle of its body).
   const labelEls = [];
-  const labelY = [];
+  const labelPos = [];
   items.forEach((item, i) => {
-    const yMid = (i < n - 1)
-      ? (tops[i] + tops[i + 1]) / 2
-      : (tops[i] + B) / 2;
+    const dLabel = (i < n - 1) ? (R - radii[i] - radii[i + 1]) : (R - radii[i]);
+    const lx = cx + dLabel * ux, ly = cy + dLabel * uy;
     const label = document.createElement('div');
     label.className = 'set-label';
     label.textContent = item.textContent.trim();
-    label.style.left = cx + 'px';
-    label.style.top  = yMid + 'px';
+    label.style.left = lx + 'px';
+    label.style.top  = ly + 'px';
     container.appendChild(label);
     labelEls.push(label);
-    labelY.push(yMid);
+    labelPos.push({ x: lx, y: ly });
   });
 
-  // Per-label down-scale to fit the chord width of its circle at the label's y.
+  // Per-label down-scale to fit the chord width of its circle at the label's
+  // position (distance from that circle's center, projected across the rim).
   const baseStyle = getComputedStyle(labelEls[0]);
   const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
   const fontFamily = baseStyle.fontFamily || 'sans-serif';
@@ -2007,8 +2068,10 @@ function initStackedVenn(container) {
   cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
   labelEls.forEach((el, i) => {
     const r = radii[i];
-    const dy = (B - r) - labelY[i];                       // vertical offset from center
-    const chord = 2 * Math.sqrt(Math.max(0, r * r - dy * dy));
+    const d = R - r;
+    const ccx = cx + d * ux, ccy = cy + d * uy;
+    const dist = Math.hypot(labelPos[i].x - ccx, labelPos[i].y - ccy);
+    const chord = 2 * Math.sqrt(Math.max(0, r * r - dist * dist));
     const maxW = Math.max(40, chord * 0.8);
     const w = cctx.measureText(el.textContent).width;
     if (w > maxW && w > 0) el.style.fontSize = (baseFontSize * maxW / w) + 'px';

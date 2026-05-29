@@ -481,5 +481,19 @@
     "title": "Stacked Venn",
     "section": "Colors",
     "text": "Colors\nEach circle defaults to a distinct color. Use color= on an individual item to override one circle, or node-color= on the container to set a single shared base color for every circle.\n::: stacked-venn\n::: {.item color=\"#1b3a5b\"}\nEveryone\n:::\n::: {.item color=\"#2e6b8a\"}\nCustomers\n:::\n::: {.item color=\"#5aa0c4\"}\nSubscribers\n:::\n:::\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers"
+  },
+  {
+    "objectID": "stacked-venn.html#horizontal",
+    "href": "stacked-venn.html#horizontal",
+    "title": "Stacked Venn",
+    "section": "Horizontal",
+    "text": "Horizontal\nAdd the .horizontal class to stack the circles left-to-right instead of top-to-bottom.\n::: {.stacked-venn .horizontal}\n::: item\nPlan\n:::\n::: item\nBuild\n:::\n::: item\nShip\n:::\n:::\n\n\nPlan\n\n\nBuild\n\n\nShip"
+  },
+  {
+    "objectID": "stacked-venn.html#orientation",
+    "href": "stacked-venn.html#orientation",
+    "title": "Stacked Venn",
+    "section": "Orientation",
+    "text": "Orientation\nBy default the circles nest toward the bottom. Use direction= to anchor them to a different edge — down (default), up, left, or right. The circles rotate but the labels always stay upright and horizontal.\n::: {.stacked-venn direction=\"right\"}\n::: item\nEveryone\n:::\n::: item\nCustomers\n:::\n::: item\nSubscribers\n:::\n:::\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers\n\n\nFor finer control, angle= adds a clockwise rotation (in degrees) on top of direction. For example angle=\"45\" tucks the nesting toward the bottom-left corner.\n::: {.stacked-venn angle=\"45\"}\n::: item\nEveryone\n:::\n::: item\nCustomers\n:::\n::: item\nSubscribers\n:::\n:::\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers"
   }
 ]

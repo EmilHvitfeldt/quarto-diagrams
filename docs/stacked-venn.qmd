@@ -42,6 +42,64 @@ Insufficiency
 
 Add or remove `.item` divs to change the number of circles — the radii adjust automatically to fit.
 
+## Orientation
+
+By default the circles nest toward the bottom. Use `direction=` to anchor them to a different edge — `down` (default), `up`, `left`, or `right`. The circles rotate but the **labels always stay upright and horizontal**.
+
+````markdown
+::: {.stacked-venn direction="right"}
+::: item
+Everyone
+:::
+::: item
+Customers
+:::
+::: item
+Subscribers
+:::
+:::
+````
+
+::: {.stacked-venn direction="right"}
+::: item
+Everyone
+:::
+::: item
+Customers
+:::
+::: item
+Subscribers
+:::
+:::
+
+For finer control, `angle=` adds a clockwise rotation (in degrees) on top of `direction`. For example `angle="45"` tucks the nesting toward the bottom-left corner.
+
+````markdown
+::: {.stacked-venn angle="45"}
+::: item
+Everyone
+:::
+::: item
+Customers
+:::
+::: item
+Subscribers
+:::
+:::
+````
+
+::: {.stacked-venn angle="45"}
+::: item
+Everyone
+:::
+::: item
+Customers
+:::
+::: item
+Subscribers
+:::
+:::
+
 ## Colors
 
 Each circle defaults to a distinct color. Use `color=` on an individual item to override one circle, or `node-color=` on the container to set a single shared base color for every circle.
