@@ -115,7 +115,8 @@
 
 .pie,
 .pyramid,
-.matrix {
+.matrix,
+.venn {
   position: relative;
   width: 500px;
   height: 500px;
@@ -124,10 +125,31 @@
 
 .pie svg,
 .pyramid svg,
-.matrix svg {
+.matrix svg,
+.venn svg {
   position: absolute;
   left: 0;
   top: 0;
+}
+
+.venn .set-label {
+  position: absolute;
+  color: #222222;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.venn .overlap-label {
+  position: absolute;
+  color: #222222;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
 }
 
 .matrix .axis-end {

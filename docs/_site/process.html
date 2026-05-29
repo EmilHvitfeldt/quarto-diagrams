@@ -161,6 +161,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./hierarchy.html">
  <span class="dropdown-text">Hierarchy</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./venn.html">
+ <span class="dropdown-text">Venn</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -1188,6 +1192,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.setAttribute('data-cf-init', '1');
     initHierarchy(el);
   });
+  document.querySelectorAll('.venn').forEach(el => {
+    el.setAttribute('data-cf-init', '1');
+    initVenn(el);
+  });
 });
 
 if (typeof Reveal !== 'undefined') {
@@ -1215,6 +1223,10 @@ if (typeof Reveal !== 'undefined') {
     document.querySelectorAll('.hierarchy:not([data-cf-init])').forEach(el => {
       el.setAttribute('data-cf-init', '1');
       initHierarchy(el);
+    });
+    document.querySelectorAll('.venn:not([data-cf-init])').forEach(el => {
+      el.setAttribute('data-cf-init', '1');
+      initVenn(el);
     });
   });
 }
@@ -1964,6 +1976,98 @@ function initHierarchy(container) {
     const w = cctx.measureText(el.textContent).width;
     if (w > textMaxW && w > 0) el.style.fontSize = (baseFontSize * textMaxW / w) + 'px';
   });
+}
+
+// --- Venn (2- and 3-set overlapping circles) ---
+
+function initVenn(container) {
+  const items = Array.from(container.querySelectorAll('.item'));
+  if (items.length < 2 || items.length > 3) return;  // only 2- and 3-set
+  const n = items.length;
+
+  const palette = ['#2e6b8a', '#c0584f', '#5a9367'];
+  const baseColor = container.dataset.nodeColor;
+
+  container.style.position = 'relative';
+  container.style.width = '500px';
+  container.style.height = '500px';
+  container.style.margin = '0 auto';
+  container.style.display = 'block';
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '500');
+  svg.setAttribute('height', '500');
+  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  container.appendChild(svg);
+
+  // Circle centers/radius per set count
+  const circles = n === 2
+    ? [{ cx: 175, cy: 250, r: 150 }, { cx: 325, cy: 250, r: 150 }]
+    : [{ cx: 250, cy: 155, r: 140 }, { cx: 320, cy: 275, r: 140 }, { cx: 180, cy: 275, r: 140 }];
+
+  items.forEach((item, i) => {
+    const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i];
+    const c = circles[i];
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', c.cx);
+    circle.setAttribute('cy', c.cy);
+    circle.setAttribute('r', c.r);
+    circle.setAttribute('fill', color);
+    circle.setAttribute('fill-opacity', '0.45');
+    circle.style.mixBlendMode = 'multiply';
+    svg.appendChild(circle);
+    item.style.display = 'none';
+  });
+
+  // Labels: set labels (from item text) + overlap labels (from container attrs)
+  const setLabels = n === 2
+    ? [{ x: 120, y: 250 }, { x: 380, y: 250 }]
+    : [{ x: 250, y: 95 }, { x: 380, y: 330 }, { x: 120, y: 330 }];
+
+  const overlaps = n === 2
+    ? [{ key: 'ab', x: 250, y: 250 }]
+    : [{ key: 'ab', x: 320, y: 200 },
+       { key: 'ac', x: 180, y: 200 },
+       { key: 'bc', x: 250, y: 330 },
+       { key: 'abc', x: 250, y: 245 }];
+
+  const labelEls = [];
+
+  items.forEach((item, i) => {
+    const label = document.createElement('div');
+    label.className = 'set-label';
+    label.textContent = item.textContent.trim();
+    label.style.left = setLabels[i].x + 'px';
+    label.style.top  = setLabels[i].y + 'px';
+    container.appendChild(label);
+    labelEls.push(label);
+  });
+
+  overlaps.forEach(o => {
+    const text = container.dataset[o.key];
+    if (!text) return;
+    const label = document.createElement('div');
+    label.className = 'overlap-label';
+    label.textContent = text;
+    label.style.left = o.x + 'px';
+    label.style.top  = o.y + 'px';
+    container.appendChild(label);
+  });
+
+  // Shrink set labels so the longest fits within a circle's exclusive lobe
+  const textMaxW = (n === 2 ? 150 : 130);
+  const baseStyle = getComputedStyle(labelEls[0]);
+  const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+  const fontFamily = baseStyle.fontFamily || 'sans-serif';
+  const fontWeight = baseStyle.fontWeight || '600';
+  const cvs = document.createElement('canvas');
+  const cctx = cvs.getContext('2d');
+  cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+  const maxW = Math.max(...labelEls.map(el => cctx.measureText(el.textContent).width));
+  if (maxW > textMaxW && maxW > 0) {
+    const scaled = (baseFontSize * textMaxW / maxW) + 'px';
+    labelEls.forEach(el => el.style.fontSize = scaled);
+  }
 }
 </script>
 

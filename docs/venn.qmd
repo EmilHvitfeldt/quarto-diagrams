@@ -1,0 +1,117 @@
+---
+title: "Venn"
+---
+
+The `.venn` style renders overlapping circles for **2 or 3 sets**, with the intersections shaded by blending the circle fills. It is well suited to showing shared traits, responsibilities, or skill overlaps. Like all styles in this extension, it is activated via `filters: [diagrams]`.
+
+The container expects **two or three `.item` divs** — one per set. Each item's text becomes a set label placed in that circle's exclusive lobe. Labels for the overlapping regions are optional and set with attributes on the container (see below).
+
+## Two sets
+
+````markdown
+::: {.venn ab="Shared"}
+::: item
+Frontend
+:::
+::: item
+Backend
+:::
+:::
+````
+
+::: {.venn ab="Shared"}
+::: item
+Frontend
+:::
+::: item
+Backend
+:::
+:::
+
+The `ab=` attribute labels the intersection of the two circles. It is optional — omit it to leave the overlap unlabeled.
+
+## Three sets
+
+For three items, the circles are arranged in the classic trefoil. Label any region with the attributes `ab=`, `bc=`, `ac=`, and `abc=` (the triple overlap), where **a**, **b**, **c** are the first, second, and third items in order.
+
+````markdown
+::: {.venn ab="A∩B" bc="B∩C" ac="A∩C" abc="All three"}
+::: item
+Design
+:::
+::: item
+Engineering
+:::
+::: item
+Product
+:::
+:::
+````
+
+::: {.venn ab="A∩B" bc="B∩C" ac="A∩C" abc="All three"}
+::: item
+Design
+:::
+::: item
+Engineering
+:::
+::: item
+Product
+:::
+:::
+
+All overlap attributes are optional — supply only the ones you want to label.
+
+## Intersection label color
+
+The intersection labels render in a dark color by default, which can be hard to read against darker overlaps. Use `overlap-color=` on the container to recolor every intersection label at once.
+
+````markdown
+::: {.venn ab="A∩B" bc="B∩C" ac="A∩C" abc="All three" overlap-color="#ffffff"}
+::: item
+Design
+:::
+::: item
+Engineering
+:::
+::: item
+Product
+:::
+:::
+````
+
+::: {.venn ab="A∩B" bc="B∩C" ac="A∩C" abc="All three" overlap-color="#ffffff"}
+::: item
+Design
+:::
+::: item
+Engineering
+:::
+::: item
+Product
+:::
+:::
+
+## Colors
+
+Each set defaults to a distinct color. Use `color=` on an individual item to override one circle, or `node-color=` on the container to set a single shared base color for every circle.
+
+````markdown
+::: {.venn}
+::: {.item color="#7a3b5c"}
+Tea
+:::
+::: {.item color="#3b7a5c"}
+Coffee
+:::
+:::
+````
+
+::: {.venn}
+::: {.item color="#7a3b5c"}
+Tea
+:::
+::: {.item color="#3b7a5c"}
+Coffee
+:::
+:::

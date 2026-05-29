@@ -2,7 +2,7 @@
 
 ## Goal
 
-Build reusable Quarto/Reveal.js diagram components. Six layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked triangle bands), `.matrix` (2×2 quadrant matrix), and `.hierarchy` (org chart / tree). Clean Quarto div syntax:
+Build reusable Quarto/Reveal.js diagram components. Seven layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked triangle bands), `.matrix` (2×2 quadrant matrix), `.hierarchy` (org chart / tree), and `.venn` (2- or 3-set overlapping circles). Clean Quarto div syntax:
 
 ```
 ::: circle-flow
@@ -274,3 +274,36 @@ CFO
 **Font scaling:** Per-node canvas `measureText` down-scale to fit `boxW·scale − 16` (boxes are uniform width), like pyramid but with a single shared max width.
 
 **Init guard:** `.hierarchy` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.
+
+## Venn layout
+
+Overlapping circles for **2 or 3 sets**, triggered by `.venn` on the container. Each `.item` is one set; the layout returns early for fewer than 2 or more than 3 items. Implemented by `initVenn` in `diagrams.html`, with CSS for `.venn .set-label` / `.venn .overlap-label` in `diagrams.css`. SVG-based: each set is an SVG `<circle>` with `fill-opacity: 0.45` and `mix-blend-mode: multiply`, so overlaps darken automatically without computing intersection geometry.
+
+```
+::: {.venn ab="Shared"}
+::: item
+Frontend
+:::
+::: item
+Backend
+:::
+:::
+```
+
+**Class system:**
+- `.venn` on container — 2-/3-set Venn layout
+
+**Attributes (overlap labels, all optional, read via `dataset.*`; write WITHOUT the `data-` prefix in source):**
+- 2-set: `ab` — intersection label.
+- 3-set: `ab`, `bc`, `ac` — pairwise intersections; `abc` — triple overlap. `a`/`b`/`c` are the 1st/2nd/3rd items in order.
+- `overlap-color` (`dataset.overlapColor`) — text color applied to all intersection labels (default `#222222` from CSS).
+
+**Color system:** Each set defaults to a distinct palette color (`['#2e6b8a', '#c0584f', '#5a9367']`). `color=` on an item overrides that circle. `node-color=` on the container sets one shared base color for all circles (overrides the palette). No `arrow-color` (no lines).
+
+**Sizing math (500×500 container, SVG):**
+- 2-set: two circles `r=150` at `(175,250)` and `(325,250)` (center distance 150 → symmetric lens). Set labels at `(120,250)` / `(380,250)`; overlap `ab` at `(250,250)`.
+- 3-set: three circles `r=140` in a trefoil at `(250,155)`, `(320,275)`, `(180,275)`. Set labels at `(250,95)` / `(380,330)` / `(120,330)`; overlaps `ab`=`(320,200)`, `ac`=`(180,200)`, `bc`=`(250,330)`, `abc`=`(250,245)`.
+
+**Font scaling:** Global down-scale of set labels (like pie/matrix) — shrinks only if the longest exceeds a fixed lobe width (`150` for 2-set, `130` for 3-set). Overlap labels are not scaled.
+
+**Init guard:** `.venn` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.

@@ -27,6 +27,8 @@ website:
             href: matrix.qmd
           - text: "Hierarchy"
             href: hierarchy.qmd
+          - text: "Venn"
+            href: venn.qmd
       - text: "Concepts"
         menu:
           - text: "Node Shapes"
