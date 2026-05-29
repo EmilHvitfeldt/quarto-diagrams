@@ -2,7 +2,7 @@
 title: "Pie Chart"
 ---
 
-The `.pie` style renders items as equal-sized wedges of a circle. Like all styles in this extension, it is activated via `filters: [circle-flow]`.
+The `.pie` style renders items as equal-sized wedges of a circle. Like all styles in this extension, it is activated via `filters: [diagrams]`.
 
 ## Basic usage
 

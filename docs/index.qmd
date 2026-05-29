@@ -16,7 +16,7 @@ Activate the extension in your document YAML:
 
 ```yaml
 filters:
-  - circle-flow
+  - diagrams
 ```
 
 ## Styles

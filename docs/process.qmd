@@ -2,7 +2,7 @@
 title: "Process"
 ---
 
-The `.process` style renders items as a linear flow of nodes connected by arrows — left to right by default, or top to bottom with the `.vertical` modifier. Like all styles in this extension, it is activated via `filters: [circle-flow]`.
+The `.process` style renders items as a linear flow of nodes connected by arrows — left to right by default, or top to bottom with the `.vertical` modifier. Like all styles in this extension, it is activated via `filters: [diagrams]`.
 
 ## Basic usage
 

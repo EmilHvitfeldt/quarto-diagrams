@@ -4,7 +4,7 @@
     "href": "process.html",
     "title": "Process",
     "section": "",
-    "text": "The .process style renders items as a linear flow of nodes connected by arrows — left to right by default, or top to bottom with the .vertical modifier. Like all styles in this extension, it is activated via filters: [circle-flow]."
+    "text": "The .process style renders items as a linear flow of nodes connected by arrows — left to right by default, or top to bottom with the .vertical modifier. Like all styles in this extension, it is activated via filters: [diagrams]."
   },
   {
     "objectID": "process.html#basic-usage",
@@ -60,7 +60,7 @@
     "href": "index.html#installation",
     "title": "quarto-chevrons",
     "section": "Installation",
-    "text": "Installation\nquarto add EmilHvitfeldt/quarto-chevrons\nActivate the extension in your document YAML:\nfilters:\n  - circle-flow"
+    "text": "Installation\nquarto add EmilHvitfeldt/quarto-chevrons\nActivate the extension in your document YAML:\nfilters:\n  - diagrams"
   },
   {
     "objectID": "index.html#styles",
@@ -263,7 +263,7 @@
     "href": "pie.html",
     "title": "Pie Chart",
     "section": "",
-    "text": "The .pie style renders items as equal-sized wedges of a circle. Like all styles in this extension, it is activated via filters: [circle-flow]."
+    "text": "The .pie style renders items as equal-sized wedges of a circle. Like all styles in this extension, it is activated via filters: [diagrams]."
   },
   {
     "objectID": "pie.html#basic-usage",

@@ -17,14 +17,14 @@ Bob
 
 ## Current state
 
-Packaged as a Quarto extension in `_extensions/circle-flow/`:
+Packaged as a Quarto extension in `_extensions/diagrams/`:
 
 - **`_extension.yml`** — declares the Lua filter; no format contributions (those are done in the filter)
-- **`circle-flow.lua`** — injects CSS via `quarto.doc.add_html_dependency` and JS via `quarto.doc.include_file("after-body", ...)`. Only runs for HTML-based formats. Do NOT use `contributes.format` in `_extension.yml` for this — it only works for defining new formats, not adding to existing ones.
-- **`circle-flow.css`** — plain CSS for `.circle-flow`, `.node`, `.arrow-shape`
-- **`circle-flow.html`** — JS that reads `.item` divs, positions them in a circle, and draws arrows
+- **`diagrams.lua`** — injects CSS via `quarto.doc.add_html_dependency` and JS via `quarto.doc.include_file("after-body", ...)`. Only runs for HTML-based formats. Do NOT use `contributes.format` in `_extension.yml` for this — it only works for defining new formats, not adding to existing ones.
+- **`diagrams.css`** — plain CSS for `.circle-flow`, `.node`, `.arrow-shape`
+- **`diagrams.html`** — JS that reads `.item` divs, positions them in a circle, and draws arrows
 
-Users activate with `filters: [circle-flow]` in their document YAML.
+Users activate with `filters: [diagrams]` in their document YAML.
 
 - **`index.qmd`** — Demo slides covering item counts, node shapes, arrow types, and colors
 
@@ -79,7 +79,7 @@ SVG arrows use a unique `uid` per container to avoid marker ID collisions across
 
 ## Pie layout
 
-A separate layout, triggered by `.pie` on the container (instead of `.circle-flow`). Items become pie slices instead of nodes-on-a-ring. Implemented by `initPie` in `circle-flow.html`, with CSS for `.pie` and `.slice-label` in `circle-flow.css`.
+A separate layout, triggered by `.pie` on the container (instead of `.circle-flow`). Items become pie slices instead of nodes-on-a-ring. Implemented by `initPie` in `diagrams.html`, with CSS for `.pie` and `.slice-label` in `diagrams.css`.
 
 ```
 ::: pie
@@ -114,7 +114,7 @@ Bob
 
 ## Process layout
 
-A linear flow layout, triggered by `.process` on the container. Items become nodes connected by arrows, horizontally by default. Implemented by `initProcess` in `circle-flow.html`, with CSS for `.process` in `circle-flow.css`.
+A linear flow layout, triggered by `.process` on the container. Items become nodes connected by arrows, horizontally by default. Implemented by `initProcess` in `diagrams.html`, with CSS for `.process` in `diagrams.css`.
 
 ```
 ::: process

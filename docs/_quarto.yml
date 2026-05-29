@@ -5,7 +5,7 @@ execute:
   freeze: auto
 
 filters:
-  - circle-flow
+  - diagrams
 
 website:
   title: "quarto-chevrons"
