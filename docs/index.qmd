@@ -61,6 +61,95 @@ Eve
 :::
 :::
 
+### [Process](process.qmd)
+
+A linear flow of steps connected by arrows.
+
+::: process
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+### [Pyramid](pyramid.qmd)
+
+Stacked bands narrowing toward the top.
+
+::: pyramid
+::: item
+Vision
+:::
+::: item
+Strategy
+:::
+::: item
+Tactics
+:::
+::: item
+Operations
+:::
+:::
+
+### [Matrix](matrix.qmd)
+
+A 2×2 grid of quadrants along two axes.
+
+::: {.matrix x-axis="Market Share" y-axis="Growth" x-low="Low" x-high="High" y-low="Low" y-high="High"}
+::: item
+Question Marks
+:::
+::: item
+Stars
+:::
+::: item
+Dogs
+:::
+::: item
+Cash Cows
+:::
+:::
+
+### [Hierarchy](hierarchy.qmd)
+
+An org chart / tree from nested items.
+
+::::: {.hierarchy}
+:::: item
+CEO
+
+::: item
+CTO
+:::
+
+::: item
+CFO
+:::
+
+::: item
+CPO
+:::
+::::
+:::::
+
+### [Venn](venn.qmd)
+
+Two or three overlapping sets.
+
+::: {.venn ab="Shared"}
+::: item
+Frontend
+:::
+::: item
+Backend
+:::
+:::
+
 :::
 
 ## Shared concepts

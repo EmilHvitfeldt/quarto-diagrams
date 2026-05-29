@@ -14,7 +14,8 @@ See `DESIGN.md` for full design documentation, class system, color system, and d
 When adding or changing extension features:
 1. Copy changed files to `docs/_extensions/diagrams/`
 2. Update `docs/` source files to document the new feature
-3. Run `quarto render docs/` to rebuild the site
+3. When adding a new layout type, also add it to the **Styles** section of `docs/index.qmd` (the front page) with a link to its page and a live example, and add it to the navbar/sidebar in `docs/_quarto.yml`
+4. Run `quarto render docs/` to rebuild the site
 
 ## Testing with Playwright
 

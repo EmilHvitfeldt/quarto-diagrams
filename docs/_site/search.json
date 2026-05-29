@@ -361,7 +361,7 @@
     "href": "index.html#styles",
     "title": "quarto-diagrams",
     "section": "Styles",
-    "text": "Styles\n\n\n\nCircle Flow\nNodes arranged on a ring, connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPie\nItems rendered as equal-sized wedges of a circle.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\nEve"
+    "text": "Styles\n\n\n\nCircle Flow\nNodes arranged on a ring, connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPie\nItems rendered as equal-sized wedges of a circle.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\nEve\n\n\n\n\n\nProcess\nA linear flow of steps connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPyramid\nStacked bands narrowing toward the top.\n\n\n\nVision\n\n\nStrategy\n\n\nTactics\n\n\nOperations\n\n\n\n\n\nMatrix\nA 2×2 grid of quadrants along two axes.\n\n\n\nQuestion Marks\n\n\nStars\n\n\nDogs\n\n\nCash Cows\n\n\n\n\n\nHierarchy\nAn org chart / tree from nested items.\n\n\n\nCEO\n\nCTO\n\n\nCFO\n\n\nCPO\n\n\n\n\n\n\nVenn\nTwo or three overlapping sets.\n\n\n\nFrontend\n\n\nBackend"
   },
   {
     "objectID": "index.html#shared-concepts",
