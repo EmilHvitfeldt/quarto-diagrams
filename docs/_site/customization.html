@@ -134,6 +134,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./stacked-venn.html">
  <span class="dropdown-text">Stacked Venn</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./funnel.html">
+ <span class="dropdown-text">Funnel</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cycle.html">
+ <span class="dropdown-text">Cycle</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -1144,6 +1152,14 @@ document.addEventListener('DOMContentLoaded', () => {
     el.setAttribute('data-cf-init', '1');
     initStackedVenn(el);
   });
+  document.querySelectorAll('.funnel').forEach(el => {
+    el.setAttribute('data-cf-init', '1');
+    initFunnel(el);
+  });
+  document.querySelectorAll('.cycle').forEach(el => {
+    el.setAttribute('data-cf-init', '1');
+    initCycle(el);
+  });
 });
 
 if (typeof Reveal !== 'undefined') {
@@ -1179,6 +1195,14 @@ if (typeof Reveal !== 'undefined') {
     document.querySelectorAll('.stacked-venn:not([data-cf-init])').forEach(el => {
       el.setAttribute('data-cf-init', '1');
       initStackedVenn(el);
+    });
+    document.querySelectorAll('.funnel:not([data-cf-init])').forEach(el => {
+      el.setAttribute('data-cf-init', '1');
+      initFunnel(el);
+    });
+    document.querySelectorAll('.cycle:not([data-cf-init])').forEach(el => {
+      el.setAttribute('data-cf-init', '1');
+      initCycle(el);
     });
   });
 }
@@ -2045,50 +2069,61 @@ function initStackedVenn(container) {
   svg.style.cssText = 'position:absolute;left:0;top:0;';
   container.appendChild(svg);
 
-  // Nested concentric circles sharing a common bottom edge (containment): the
-  // first item is the largest outer circle, each later item nests inside it.
-  // Circle i (0 = outermost) has radius R·(n−i)/n; all share bottom edge B, so
-  // its center is at cy = B − r. Painted largest-first so smaller ones sit on top.
+  // Nested concentric circles sharing a common edge point (containment): the
+  // first item is the largest outer circle, each later item nests inside it,
+  // internally tangent at a shared point P on the outer rim. Circle i (0 =
+  // outermost) has radius R·(n−i)/n and center C0 + (R−r_i)·u, where u points
+  // toward the shared edge. Painted largest-first so smaller ones sit on top.
+  //
+  // The diagram rotates by anchoring P in any direction without rotating the
+  // labels (they are upright divs). `direction=` picks an edge; `angle=` adds
+  // a clockwise rotation (degrees) on top of it.
   const margin = 10;
-  const cx = SIZE / 2;
+  const cx = SIZE / 2, cy = SIZE / 2;
   const R = SIZE / 2 - margin;       // outer radius
-  const B = SIZE / 2 + R;            // shared bottom edge
+
+  const dirDeg = { down: 90, up: -90, left: 180, right: 0 };
+  const baseDeg = dirDeg[(container.dataset.direction || 'down').toLowerCase()] ?? 90;
+  const rot = parseFloat(container.dataset.angle) || 0;
+  const rad = (baseDeg + rot) * Math.PI / 180;
+  const ux = Math.cos(rad), uy = Math.sin(rad);   // unit vector toward shared edge
 
   const radii = items.map((_, i) => R * (n - i) / n);
-  const tops  = radii.map(r => B - 2 * r);   // top edge of each circle
 
   items.forEach((item, i) => {
     const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i % palette.length];
-    const r = radii[i];
+    const d = R - radii[i];                       // center offset from C0 toward edge
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', cx);
-    circle.setAttribute('cy', B - r);
-    circle.setAttribute('r', r);
+    circle.setAttribute('cx', cx + d * ux);
+    circle.setAttribute('cy', cy + d * uy);
+    circle.setAttribute('r', radii[i]);
     circle.setAttribute('fill', color);
     svg.appendChild(circle);
     item.style.display = 'none';
   });
 
-  // Labels sit in each circle's exclusive band — the crescent between its own
-  // top edge and the next (inner) circle's top edge. The innermost circle's
-  // label is centered in its lower body.
+  // Labels sit in each circle's exclusive crescent — the band on the far side
+  // from the shared edge, between this circle's far rim and the next inner
+  // circle's far rim. They are placed along the −u axis through C0 and never
+  // rotated. Distance from C0 along u: dLabel = R − r_i − r_{i+1} (innermost:
+  // R − r_last, i.e. the middle of its body).
   const labelEls = [];
-  const labelY = [];
+  const labelPos = [];
   items.forEach((item, i) => {
-    const yMid = (i < n - 1)
-      ? (tops[i] + tops[i + 1]) / 2
-      : (tops[i] + B) / 2;
+    const dLabel = (i < n - 1) ? (R - radii[i] - radii[i + 1]) : (R - radii[i]);
+    const lx = cx + dLabel * ux, ly = cy + dLabel * uy;
     const label = document.createElement('div');
     label.className = 'set-label';
     label.textContent = item.textContent.trim();
-    label.style.left = cx + 'px';
-    label.style.top  = yMid + 'px';
+    label.style.left = lx + 'px';
+    label.style.top  = ly + 'px';
     container.appendChild(label);
     labelEls.push(label);
-    labelY.push(yMid);
+    labelPos.push({ x: lx, y: ly });
   });
 
-  // Per-label down-scale to fit the chord width of its circle at the label's y.
+  // Per-label down-scale to fit the chord width of its circle at the label's
+  // position (distance from that circle's center, projected across the rim).
   const baseStyle = getComputedStyle(labelEls[0]);
   const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
   const fontFamily = baseStyle.fontFamily || 'sans-serif';
@@ -2098,11 +2133,197 @@ function initStackedVenn(container) {
   cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
   labelEls.forEach((el, i) => {
     const r = radii[i];
-    const dy = (B - r) - labelY[i];                       // vertical offset from center
-    const chord = 2 * Math.sqrt(Math.max(0, r * r - dy * dy));
+    const d = R - r;
+    const ccx = cx + d * ux, ccy = cy + d * uy;
+    const dist = Math.hypot(labelPos[i].x - ccx, labelPos[i].y - ccy);
+    const chord = 2 * Math.sqrt(Math.max(0, r * r - dist * dist));
     const maxW = Math.max(40, chord * 0.8);
     const w = cctx.measureText(el.textContent).width;
     if (w > maxW && w > 0) el.style.fontSize = (baseFontSize * maxW / w) + 'px';
+  });
+}
+
+// --- Funnel (flat-bottomed narrowing stages) ---
+
+function initFunnel(container) {
+  const items = Array.from(container.querySelectorAll('.item'));
+  if (items.length === 0) return;
+
+  const n = items.length;
+  const cx = 250;
+  const topY = 20, botY = 480, H = botY - topY;
+  const fullHalf = 230;
+  const hasGap = container.classList.contains('gap');
+  const defaultColor = container.dataset.nodeColor || '#2e6b8a';
+
+  container.style.position = 'relative';
+  container.style.width = '500px';
+  container.style.height = '500px';
+  container.style.margin = '0 auto';
+  container.style.display = 'block';
+
+  // Band widths: proportional to value= if any item supplies one, otherwise a
+  // smooth linear narrowing from full width down to 35%.
+  const rawVals = items.map(it => parseFloat(it.getAttribute('value') ?? it.dataset.value));
+  const hasVals = rawVals.some(v => !isNaN(v));
+  let fracs;
+  if (hasVals) {
+    const vals = rawVals.map(v => isNaN(v) ? 0 : v);
+    const maxV = Math.max(...vals, 0);
+    fracs = vals.map(v => maxV > 0 ? v / maxV : 0);
+  } else {
+    fracs = items.map((_, i) => n === 1 ? 1 : 1 - (i / (n - 1)) * 0.65);
+  }
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '500');
+  svg.setAttribute('height', '500');
+  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  container.appendChild(svg);
+
+  const labelEls = [];
+  const bandWidths = [];
+
+  items.forEach((item, i) => {
+    const color = item.getAttribute('color') || item.dataset.color || defaultColor;
+    const itemGap = hasGap || item.classList.contains('gap');
+    const inset = itemGap ? 5 : 0;
+
+    const yTop = topY + (i / n) * H + inset;
+    const yBot = topY + ((i + 1) / n) * H - inset;
+    // Trapezoid: top edge = this stage, bottom edge = next stage (last is a rectangle)
+    const topHalf = fullHalf * fracs[i];
+    const botHalf = fullHalf * (i < n - 1 ? fracs[i + 1] : fracs[i]);
+
+    const d = `M ${cx - topHalf} ${yTop} L ${cx + topHalf} ${yTop} ` +
+              `L ${cx + botHalf} ${yBot} L ${cx - botHalf} ${yBot} Z`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', color);
+    if (!hasGap) {
+      path.setAttribute('stroke', 'white');
+      path.setAttribute('stroke-width', '3');
+    }
+    svg.appendChild(path);
+
+    const ly = (yTop + yBot) / 2;
+    const label = document.createElement('div');
+    label.className = 'slice-label';
+    label.textContent = item.textContent.trim();
+    label.style.left = cx + 'px';
+    label.style.top  = ly + 'px';
+    container.appendChild(label);
+    labelEls.push(label);
+
+    // usable width at the label's vertical midpoint (the narrower, bottom edge)
+    bandWidths.push(2 * Math.min(topHalf, botHalf));
+    item.style.display = 'none';
+  });
+
+  // Scale each label down to fit its own band width (bands vary in width)
+  const baseStyle = getComputedStyle(labelEls[0]);
+  const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+  const fontFamily = baseStyle.fontFamily || 'sans-serif';
+  const fontWeight = baseStyle.fontWeight || '500';
+  const cvs = document.createElement('canvas');
+  const cctx = cvs.getContext('2d');
+  cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+  labelEls.forEach((el, i) => {
+    const textMaxW = Math.max(40, bandWidths[i] * 0.85);
+    const w = cctx.measureText(el.textContent).width;
+    if (w > textMaxW && w > 0) {
+      el.style.fontSize = (baseFontSize * textMaxW / w) + 'px';
+    }
+  });
+}
+
+// --- Cycle (ring of arc-shaped arrow segments) ---
+
+function initCycle(container) {
+  const items = Array.from(container.querySelectorAll('.item'));
+  if (items.length === 0) return;
+
+  const n = items.length;
+  const cx = 250, cy = 250;
+  const defaultColor = container.dataset.nodeColor || '#2e6b8a';
+
+  container.style.position = 'relative';
+  container.style.width = '500px';
+  container.style.height = '500px';
+  container.style.margin = '0 auto';
+  container.style.display = 'block';
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '500');
+  svg.setAttribute('height', '500');
+  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  container.appendChild(svg);
+
+  const ro = 225, ri = 150;          // outer / inner radius of the ring band
+  const rm = (ro + ri) / 2;          // mid radius (labels + arrow tip)
+  const wing = (ro - ri) * 0.45;     // how far the arrowhead overhangs the band
+  const step = 2 * Math.PI / n;      // angular span per segment
+  const gapAngle = Math.min(step * 0.18, 0.22);  // gap between segments (centered)
+  const headAngle = Math.min(step * 0.28, 0.4);  // angular length of the arrowhead
+  const start = -Math.PI / 2;        // first segment begins at the top
+  const p = (r, a) => `${cx + r * Math.cos(a)} ${cy + r * Math.sin(a)}`;
+
+  const labelEls = [];
+  const labelArc = [];
+
+  items.forEach((item, i) => {
+    const color = item.getAttribute('color') || item.dataset.color || defaultColor;
+    const a0 = start + i * step + gapAngle / 2;        // trailing edge of the band
+    const a1 = start + (i + 1) * step - gapAngle / 2;  // arrowhead tip
+    const aBody = a1 - headAngle;                      // where the body ends / head begins
+    const largeArc = (aBody - a0) > Math.PI ? 1 : 0;
+
+    // Body is a constant-width arc band; the head is a triangle whose wings
+    // overhang both rims and taper to a tip at the mid radius.
+    const d = [
+      `M ${p(ro, a0)}`,
+      `A ${ro} ${ro} 0 ${largeArc} 1 ${p(ro, aBody)}`,
+      `L ${p(ro + wing, aBody)}`,
+      `L ${p(rm, a1)}`,
+      `L ${p(ri - wing, aBody)}`,
+      `L ${p(ri, aBody)}`,
+      `A ${ri} ${ri} 0 ${largeArc} 0 ${p(ri, a0)}`,
+      'Z'
+    ].join(' ');
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', color);
+    svg.appendChild(path);
+
+    const aMid = (a0 + aBody) / 2;
+    const lx = cx + rm * Math.cos(aMid), ly = cy + rm * Math.sin(aMid);
+    const label = document.createElement('div');
+    label.className = 'slice-label';
+    label.textContent = item.textContent.trim();
+    label.style.left = lx + 'px';
+    label.style.top  = ly + 'px';
+    container.appendChild(label);
+    labelEls.push(label);
+    labelArc.push(aBody - a0);
+    item.style.display = 'none';
+  });
+
+  // Scale labels to fit the arc length of the band body (minus the head)
+  const baseStyle = getComputedStyle(labelEls[0]);
+  const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
+  const fontFamily = baseStyle.fontFamily || 'sans-serif';
+  const fontWeight = baseStyle.fontWeight || '500';
+  const cvs = document.createElement('canvas');
+  const cctx = cvs.getContext('2d');
+  cctx.font = `${fontWeight} ${baseFontSize}px ${fontFamily}`;
+  labelEls.forEach((el, i) => {
+    const textMaxW = Math.max(40, rm * labelArc[i] * 0.85);
+    const w = cctx.measureText(el.textContent).width;
+    if (w > textMaxW && w > 0) {
+      el.style.fontSize = (baseFontSize * textMaxW / w) + 'px';
+    }
   });
 }
 </script>

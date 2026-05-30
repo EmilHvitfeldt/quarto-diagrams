@@ -117,7 +117,9 @@
 .pyramid,
 .matrix,
 .venn,
-.stacked-venn {
+.stacked-venn,
+.funnel,
+.cycle {
   position: relative;
   width: 500px;
   height: 500px;
@@ -128,7 +130,9 @@
 .pyramid svg,
 .matrix svg,
 .venn svg,
-.stacked-venn svg {
+.stacked-venn svg,
+.funnel svg,
+.cycle svg {
   position: absolute;
   left: 0;
   top: 0;
@@ -185,7 +189,9 @@
 
 .pie .slice-label,
 .pyramid .slice-label,
-.matrix .slice-label {
+.matrix .slice-label,
+.funnel .slice-label,
+.cycle .slice-label {
   position: absolute;
   color: white;
   font-size: 1.1rem;

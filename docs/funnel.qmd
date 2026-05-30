@@ -1,0 +1,141 @@
+---
+title: "Funnel"
+---
+
+The `.funnel` style renders items as stacked, narrowing bands — wide at the top, flat at the bottom. It is built for conversion and drop-off stories where each stage carries fewer items than the one above it. Band widths can be driven by real numbers via `value=`. Like all styles in this extension, it is activated via `filters: [diagrams]`.
+
+::: callout-tip
+For a pointed, triangular shape instead of a flat-bottomed funnel, use [`.pyramid`](pyramid.qmd) with the `.inverted` modifier.
+:::
+
+## Basic usage
+
+Without values, the funnel narrows smoothly from full width down to a neck.
+
+````markdown
+::: funnel
+::: item
+Awareness
+:::
+::: item
+Interest
+:::
+::: item
+Evaluation
+:::
+::: item
+Purchase
+:::
+:::
+````
+
+::: funnel
+::: item
+Awareness
+:::
+::: item
+Interest
+:::
+::: item
+Evaluation
+:::
+::: item
+Purchase
+:::
+:::
+
+## Sized by value
+
+Add `value=` to each item and the band widths become proportional to those numbers — each stage's top edge matches its own value and its bottom edge matches the next stage, so the slope shows the real drop-off. The largest value spans the full width.
+
+````markdown
+::: funnel
+::: {.item value="1000"}
+Visitors
+:::
+::: {.item value="600"}
+Leads
+:::
+::: {.item value="250"}
+Qualified
+:::
+::: {.item value="80"}
+Customers
+:::
+:::
+````
+
+::: funnel
+::: {.item value="1000"}
+Visitors
+:::
+::: {.item value="600"}
+Leads
+:::
+::: {.item value="250"}
+Qualified
+:::
+::: {.item value="80"}
+Customers
+:::
+:::
+
+## Separated bands with `.gap`
+
+Add `.gap` to the container to separate every band, or to an individual item to detach just that band.
+
+````markdown
+::: {.funnel .gap}
+::: item
+Top
+:::
+::: item
+Middle
+:::
+::: item
+Base
+:::
+:::
+````
+
+::: {.funnel .gap}
+::: item
+Top
+:::
+::: item
+Middle
+:::
+::: item
+Base
+:::
+:::
+
+## Colors
+
+Use `node-color=` on the container to set the base color for all bands, or `color=` on an individual item to override a single band.
+
+````markdown
+::: {.funnel node-color="#7a3b5c"}
+::: item
+Top
+:::
+::: {.item color="#3b7a5c"}
+Middle
+:::
+::: item
+Base
+:::
+:::
+````
+
+::: {.funnel node-color="#7a3b5c"}
+::: item
+Top
+:::
+::: {.item color="#3b7a5c"}
+Middle
+:::
+::: item
+Base
+:::
+:::

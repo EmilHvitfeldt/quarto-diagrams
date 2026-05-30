@@ -1,0 +1,121 @@
+---
+title: "Cycle"
+---
+
+The `.cycle` style arranges items as arc-shaped arrows around a ring, each pointing to the next and the last looping back to the first. It is the classic "process wheel" for continuous, repeating processes. Like all styles in this extension, it is activated via `filters: [diagrams]`.
+
+::: callout-tip
+For nodes positioned on a ring connected by separate arrows, use [`.circle-flow`](circle-flow.qmd) instead. `.cycle` makes the stages *themselves* the arrows.
+:::
+
+## Basic usage
+
+````markdown
+::: cycle
+::: item
+Plan
+:::
+::: item
+Do
+:::
+::: item
+Check
+:::
+::: item
+Act
+:::
+:::
+````
+
+::: cycle
+::: item
+Plan
+:::
+::: item
+Do
+:::
+::: item
+Check
+:::
+::: item
+Act
+:::
+:::
+
+## Any number of stages
+
+The ring divides evenly across however many items you provide.
+
+````markdown
+::: cycle
+::: item
+Strategy
+:::
+::: item
+Design
+:::
+::: item
+Build
+:::
+::: item
+Test
+:::
+::: item
+Launch
+:::
+::: item
+Review
+:::
+:::
+````
+
+::: cycle
+::: item
+Strategy
+:::
+::: item
+Design
+:::
+::: item
+Build
+:::
+::: item
+Test
+:::
+::: item
+Launch
+:::
+::: item
+Review
+:::
+:::
+
+## Colors
+
+Use `node-color=` on the container to set the base color for all segments, or `color=` on an individual item to override a single segment.
+
+````markdown
+::: {.cycle node-color="#7a3b5c"}
+::: item
+Build
+:::
+::: {.item color="#3b7a5c"}
+Measure
+:::
+::: item
+Learn
+:::
+:::
+````
+
+::: {.cycle node-color="#7a3b5c"}
+::: item
+Build
+:::
+::: {.item color="#3b7a5c"}
+Measure
+:::
+::: item
+Learn
+:::
+:::

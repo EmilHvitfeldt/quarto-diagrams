@@ -140,109 +140,144 @@
     "text": "Colors\nEach set defaults to a distinct color. Use color= on an individual item to override one circle, or node-color= on the container to set a single shared base color for every circle.\n::: {.venn}\n::: {.item color=\"#7a3b5c\"}\nTea\n:::\n::: {.item color=\"#3b7a5c\"}\nCoffee\n:::\n:::\n\n\nTea\n\n\nCoffee"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "quarto-diagrams",
+    "objectID": "cycle.html",
+    "href": "cycle.html",
+    "title": "Cycle",
     "section": "",
-    "text": "quarto-diagrams is a Quarto extension that adds a collection of circular diagram styles to your documents and Reveal.js presentations. Each style shares the same authoring model — a container div with nested item divs — but renders differently."
+    "text": "The .cycle style arranges items as arc-shaped arrows around a ring, each pointing to the next and the last looping back to the first. It is the classic “process wheel” for continuous, repeating processes. Like all styles in this extension, it is activated via filters: [diagrams]."
   },
   {
-    "objectID": "index.html#installation",
-    "href": "index.html#installation",
-    "title": "quarto-diagrams",
-    "section": "Installation",
-    "text": "Installation\nquarto add EmilHvitfeldt/quarto-diagrams\nActivate the extension in your document YAML:\nfilters:\n  - diagrams"
-  },
-  {
-    "objectID": "index.html#styles",
-    "href": "index.html#styles",
-    "title": "quarto-diagrams",
-    "section": "Styles",
-    "text": "Styles\n\n\n\nCircle Flow\nNodes arranged on a ring, connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPie\nItems rendered as equal-sized wedges of a circle.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\nEve\n\n\n\n\n\nProcess\nA linear flow of steps connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPyramid\nStacked bands narrowing toward the top.\n\n\n\nVision\n\n\nStrategy\n\n\nTactics\n\n\nOperations\n\n\n\n\n\nMatrix\nA 2×2 grid of quadrants along two axes.\n\n\n\nQuestion Marks\n\n\nStars\n\n\nDogs\n\n\nCash Cows\n\n\n\n\n\nHierarchy\nAn org chart / tree from nested items.\n\n\n\nCEO\n\nCTO\n\n\nCFO\n\n\nCPO\n\n\n\n\n\n\nVenn\nTwo or three overlapping sets.\n\n\n\nFrontend\n\n\nBackend\n\n\n\n\n\nStacked Venn\nNested circles for subset relationships.\n\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers"
-  },
-  {
-    "objectID": "index.html#shared-concepts",
-    "href": "index.html#shared-concepts",
-    "title": "quarto-diagrams",
-    "section": "Shared concepts",
-    "text": "Shared concepts\nAcross all styles:\n\nNode Shapes — circle, box, and text-only nodes\nArrow Types — chevron, curved, thin, ring, arc, and double arrows\nColors — global and per-item color control\nCustomization — full class and attribute reference"
-  },
-  {
-    "objectID": "circle-flow.html",
-    "href": "circle-flow.html",
-    "title": "Circle Flow",
-    "section": "",
-    "text": "The .circle-flow style arranges items as nodes on a ring, connected by arrows. It is the original style and the namesake of the extension."
-  },
-  {
-    "objectID": "circle-flow.html#basic-usage",
-    "href": "circle-flow.html#basic-usage",
-    "title": "Circle Flow",
+    "objectID": "cycle.html#basic-usage",
+    "href": "cycle.html#basic-usage",
+    "title": "Cycle",
     "section": "Basic usage",
-    "text": "Basic usage\n::: circle-flow\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "text": "Basic usage\n::: cycle\n::: item\nPlan\n:::\n::: item\nDo\n:::\n::: item\nCheck\n:::\n::: item\nAct\n:::\n:::\n\n\nPlan\n\n\nDo\n\n\nCheck\n\n\nAct"
   },
   {
-    "objectID": "circle-flow.html#item-count",
-    "href": "circle-flow.html#item-count",
-    "title": "Circle Flow",
-    "section": "Item count",
-    "text": "Item count\nThe layout automatically adjusts to any number of items. With a single item there is no arrow.\n\n\nAlice\n\n\nWith two items, arrows are offset so they don’t overlap.\n\n\nAlice\n\n\nBob\n\n\nThree or more items are arranged evenly around the circle.\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nNode size scales down automatically as more items are added.\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nEthan\n\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nEthan\n\n\nFiona"
+    "objectID": "cycle.html#any-number-of-stages",
+    "href": "cycle.html#any-number-of-stages",
+    "title": "Cycle",
+    "section": "Any number of stages",
+    "text": "Any number of stages\nThe ring divides evenly across however many items you provide.\n::: cycle\n::: item\nStrategy\n:::\n::: item\nDesign\n:::\n::: item\nBuild\n:::\n::: item\nTest\n:::\n::: item\nLaunch\n:::\n::: item\nReview\n:::\n:::\n\n\nStrategy\n\n\nDesign\n\n\nBuild\n\n\nTest\n\n\nLaunch\n\n\nReview"
   },
   {
-    "objectID": "circle-flow.html#whats-next",
-    "href": "circle-flow.html#whats-next",
-    "title": "Circle Flow",
-    "section": "What’s next",
-    "text": "What’s next\n\nNode Shapes — change how individual nodes look\nArrow Types — change how items are connected\nColors — control node and arrow colors"
+    "objectID": "cycle.html#colors",
+    "href": "cycle.html#colors",
+    "title": "Cycle",
+    "section": "Colors",
+    "text": "Colors\nUse node-color= on the container to set the base color for all segments, or color= on an individual item to override a single segment.\n::: {.cycle node-color=\"#7a3b5c\"}\n::: item\nBuild\n:::\n::: {.item color=\"#3b7a5c\"}\nMeasure\n:::\n::: item\nLearn\n:::\n:::\n\n\nBuild\n\n\nMeasure\n\n\nLearn"
   },
   {
-    "objectID": "colors.html",
-    "href": "colors.html",
-    "title": "Colors",
+    "objectID": "node-shapes.html",
+    "href": "node-shapes.html",
+    "title": "Node Shapes",
     "section": "",
-    "text": "Applies to: Circle Flow, Pie\nColors work the same way across every style: node-color on the container sets a base color, and color on an item overrides for that item. arrow-color is Circle-Flow-only.\nIn Quarto source, write attributes without a data- prefix (e.g. node-color=\"#27ae60\") — Pandoc auto-prefixes them in the emitted HTML."
+    "text": "Applies to: Circle Flow\nThe node shape is controlled by a modifier class on the .circle-flow container. The default is node-circle."
   },
   {
-    "objectID": "colors.html#all-nodes-the-same-color",
-    "href": "colors.html#all-nodes-the-same-color",
-    "title": "Colors",
-    "section": "All nodes the same color",
-    "text": "All nodes the same color\nSet node-color on the container to apply one color to all nodes.\n::: {.circle-flow .node-box node-color=\"#27ae60\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "node-shapes.html#node-circle-default",
+    "href": "node-shapes.html#node-circle-default",
+    "title": "Node Shapes",
+    "section": "node-circle (default)",
+    "text": "node-circle (default)\nFilled circle nodes. No class needed — this is the default.\n::: circle-flow\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "colors.html#arrow-color-only",
-    "href": "colors.html#arrow-color-only",
-    "title": "Colors",
-    "section": "Arrow color only",
-    "text": "Arrow color only\nSet arrow-color on the container. Arrow color is always global — per-arrow color is not supported.\n::: {.circle-flow .node-box arrow-color=\"#e74c3c\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "node-shapes.html#node-box",
+    "href": "node-shapes.html#node-box",
+    "title": "Node Shapes",
+    "section": "node-box",
+    "text": "node-box\nRounded rectangle nodes. Width is nodeRadius × 1.8, height is nodeRadius × 1.2.\n::: {.circle-flow .node-box}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "colors.html#node-and-arrow-color-together",
-    "href": "colors.html#node-and-arrow-color-together",
-    "title": "Colors",
-    "section": "Node and arrow color together",
-    "text": "Node and arrow color together\n::: {.circle-flow .node-box node-color=\"#e67e22\" arrow-color=\"#c0392b\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "node-shapes.html#node-none",
+    "href": "node-shapes.html#node-none",
+    "title": "Node Shapes",
+    "section": "node-none",
+    "text": "node-none\nText-only nodes with a transparent background. Labels are capped at 80px width regardless of item count.\n::: {.circle-flow .node-none}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "colors.html#per-node-color",
-    "href": "colors.html#per-node-color",
-    "title": "Colors",
-    "section": "Per-node color",
-    "text": "Per-node color\nSet color on individual item divs to override that node’s color.\n::: {.circle-flow .node-box}\n::: {.item color=\"#e74c3c\"}\nAlice\n:::\n::: {.item color=\"#e67e22\"}\nBob\n:::\n::: {.item color=\"#27ae60\"}\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "arrow-types.html",
+    "href": "arrow-types.html",
+    "title": "Arrow Types",
+    "section": "",
+    "text": "Applies to: Circle Flow\nThe arrow style is controlled by a modifier class on the .circle-flow container. The default is arrow-chevron."
   },
   {
-    "objectID": "colors.html#mixed-base-color-with-overrides",
-    "href": "colors.html#mixed-base-color-with-overrides",
-    "title": "Colors",
-    "section": "Mixed: base color with overrides",
-    "text": "Mixed: base color with overrides\nSet a base color on the container and override specific nodes individually.\n::: {.circle-flow .node-box node-color=\"#2980b9\"}\n::: item\nAlice\n:::\n::: {.item color=\"#e74c3c\"}\nBob\n:::\n::: item\nCarol\n:::\n:::"
+    "objectID": "arrow-types.html#arrow-chevron-default",
+    "href": "arrow-types.html#arrow-chevron-default",
+    "title": "Arrow Types",
+    "section": "arrow-chevron (default)",
+    "text": "arrow-chevron (default)\nDiv-based filled chevron shapes, scaled proportionally with node size.\n::: {.circle-flow .node-box}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "colors.html#colors-in-pie-charts",
-    "href": "colors.html#colors-in-pie-charts",
-    "title": "Colors",
-    "section": "Colors in pie charts",
-    "text": "Colors in pie charts\nThe same node-color and color attributes work on .pie containers and items.\n::: pie\n::: {.item color=\"#e74c3c\"}\nAlice\n:::\n::: {.item color=\"#e67e22\"}\nBob\n:::\n::: {.item color=\"#27ae60\"}\nCarol\n:::\n::: {.item color=\"#2980b9\"}\nDavid\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\n(See the Pie page for more pie-specific examples.)\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "arrow-types.html#arrow-curved",
+    "href": "arrow-types.html#arrow-curved",
+    "title": "Arrow Types",
+    "section": "arrow-curved",
+    "text": "arrow-curved\nFilled SVG arrow shapes — an outer arc, inner arc, and pointed tip between each pair of nodes.\n::: {.circle-flow .node-box .arrow-curved}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "arrow-types.html#arrow-thin",
+    "href": "arrow-types.html#arrow-thin",
+    "title": "Arrow Types",
+    "section": "arrow-thin",
+    "text": "arrow-thin\nSVG thin straight lines with arrowheads.\n::: {.circle-flow .node-box .arrow-thin}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "arrow-types.html#arrow-ring",
+    "href": "arrow-types.html#arrow-ring",
+    "title": "Arrow Types",
+    "section": "arrow-ring",
+    "text": "arrow-ring\nA single SVG circle behind all nodes, with a mask to cleanly hide the ring inside each node.\n::: {.circle-flow .node-box .arrow-ring}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "arrow-types.html#arrow-arc",
+    "href": "arrow-types.html#arrow-arc",
+    "title": "Arrow Types",
+    "section": "arrow-arc",
+    "text": "arrow-arc\nA single filled SVG arrow shape going clockwise around all nodes.\n::: {.circle-flow .node-box .arrow-arc}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "arrow-types.html#arrow-double",
+    "href": "arrow-types.html#arrow-double",
+    "title": "Arrow Types",
+    "section": "arrow-double",
+    "text": "arrow-double\nSVG thin lines with arrowheads on both ends.\n::: {.circle-flow .node-box .arrow-double}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+  },
+  {
+    "objectID": "funnel.html",
+    "href": "funnel.html",
+    "title": "Funnel",
+    "section": "",
+    "text": "The .funnel style renders items as stacked, narrowing bands — wide at the top, flat at the bottom. It is built for conversion and drop-off stories where each stage carries fewer items than the one above it. Band widths can be driven by real numbers via value=. Like all styles in this extension, it is activated via filters: [diagrams]."
+  },
+  {
+    "objectID": "funnel.html#basic-usage",
+    "href": "funnel.html#basic-usage",
+    "title": "Funnel",
+    "section": "Basic usage",
+    "text": "Basic usage\nWithout values, the funnel narrows smoothly from full width down to a neck.\n::: funnel\n::: item\nAwareness\n:::\n::: item\nInterest\n:::\n::: item\nEvaluation\n:::\n::: item\nPurchase\n:::\n:::\n\n\nAwareness\n\n\nInterest\n\n\nEvaluation\n\n\nPurchase"
+  },
+  {
+    "objectID": "funnel.html#sized-by-value",
+    "href": "funnel.html#sized-by-value",
+    "title": "Funnel",
+    "section": "Sized by value",
+    "text": "Sized by value\nAdd value= to each item and the band widths become proportional to those numbers — each stage’s top edge matches its own value and its bottom edge matches the next stage, so the slope shows the real drop-off. The largest value spans the full width.\n::: funnel\n::: {.item value=\"1000\"}\nVisitors\n:::\n::: {.item value=\"600\"}\nLeads\n:::\n::: {.item value=\"250\"}\nQualified\n:::\n::: {.item value=\"80\"}\nCustomers\n:::\n:::\n\n\nVisitors\n\n\nLeads\n\n\nQualified\n\n\nCustomers"
+  },
+  {
+    "objectID": "funnel.html#separated-bands-with-.gap",
+    "href": "funnel.html#separated-bands-with-.gap",
+    "title": "Funnel",
+    "section": "Separated bands with .gap",
+    "text": "Separated bands with .gap\nAdd .gap to the container to separate every band, or to an individual item to detach just that band.\n::: {.funnel .gap}\n::: item\nTop\n:::\n::: item\nMiddle\n:::\n::: item\nBase\n:::\n:::\n\n\nTop\n\n\nMiddle\n\n\nBase"
+  },
+  {
+    "objectID": "funnel.html#colors",
+    "href": "funnel.html#colors",
+    "title": "Funnel",
+    "section": "Colors",
+    "text": "Colors\nUse node-color= on the container to set the base color for all bands, or color= on an individual item to override a single band.\n::: {.funnel node-color=\"#7a3b5c\"}\n::: item\nTop\n:::\n::: {.item color=\"#3b7a5c\"}\nMiddle\n:::\n::: item\nBase\n:::\n:::\n\n\nTop\n\n\nMiddle\n\n\nBase"
   },
   {
     "objectID": "customization.html",
@@ -315,81 +350,109 @@
     "text": "Colors\nUse node-color= on the container to set the base fill for all quadrants, or color= on an individual item to override a single quadrant. The axis and divider lines use arrow-color=.\n::: {.matrix node-color=\"#7a3b5c\" arrow-color=\"#444\"}\n::: item\nA\n:::\n::: {.item color=\"#3b7a5c\"}\nB\n:::\n::: item\nC\n:::\n::: item\nD\n:::\n:::\n\n\nA\n\n\nB\n\n\nC\n\n\nD"
   },
   {
-    "objectID": "arrow-types.html",
-    "href": "arrow-types.html",
-    "title": "Arrow Types",
+    "objectID": "colors.html",
+    "href": "colors.html",
+    "title": "Colors",
     "section": "",
-    "text": "Applies to: Circle Flow\nThe arrow style is controlled by a modifier class on the .circle-flow container. The default is arrow-chevron."
+    "text": "Applies to: Circle Flow, Pie\nColors work the same way across every style: node-color on the container sets a base color, and color on an item overrides for that item. arrow-color is Circle-Flow-only.\nIn Quarto source, write attributes without a data- prefix (e.g. node-color=\"#27ae60\") — Pandoc auto-prefixes them in the emitted HTML."
   },
   {
-    "objectID": "arrow-types.html#arrow-chevron-default",
-    "href": "arrow-types.html#arrow-chevron-default",
-    "title": "Arrow Types",
-    "section": "arrow-chevron (default)",
-    "text": "arrow-chevron (default)\nDiv-based filled chevron shapes, scaled proportionally with node size.\n::: {.circle-flow .node-box}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "colors.html#all-nodes-the-same-color",
+    "href": "colors.html#all-nodes-the-same-color",
+    "title": "Colors",
+    "section": "All nodes the same color",
+    "text": "All nodes the same color\nSet node-color on the container to apply one color to all nodes.\n::: {.circle-flow .node-box node-color=\"#27ae60\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "arrow-types.html#arrow-curved",
-    "href": "arrow-types.html#arrow-curved",
-    "title": "Arrow Types",
-    "section": "arrow-curved",
-    "text": "arrow-curved\nFilled SVG arrow shapes — an outer arc, inner arc, and pointed tip between each pair of nodes.\n::: {.circle-flow .node-box .arrow-curved}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "colors.html#arrow-color-only",
+    "href": "colors.html#arrow-color-only",
+    "title": "Colors",
+    "section": "Arrow color only",
+    "text": "Arrow color only\nSet arrow-color on the container. Arrow color is always global — per-arrow color is not supported.\n::: {.circle-flow .node-box arrow-color=\"#e74c3c\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "arrow-types.html#arrow-thin",
-    "href": "arrow-types.html#arrow-thin",
-    "title": "Arrow Types",
-    "section": "arrow-thin",
-    "text": "arrow-thin\nSVG thin straight lines with arrowheads.\n::: {.circle-flow .node-box .arrow-thin}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "colors.html#node-and-arrow-color-together",
+    "href": "colors.html#node-and-arrow-color-together",
+    "title": "Colors",
+    "section": "Node and arrow color together",
+    "text": "Node and arrow color together\n::: {.circle-flow .node-box node-color=\"#e67e22\" arrow-color=\"#c0392b\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "arrow-types.html#arrow-ring",
-    "href": "arrow-types.html#arrow-ring",
-    "title": "Arrow Types",
-    "section": "arrow-ring",
-    "text": "arrow-ring\nA single SVG circle behind all nodes, with a mask to cleanly hide the ring inside each node.\n::: {.circle-flow .node-box .arrow-ring}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "colors.html#per-node-color",
+    "href": "colors.html#per-node-color",
+    "title": "Colors",
+    "section": "Per-node color",
+    "text": "Per-node color\nSet color on individual item divs to override that node’s color.\n::: {.circle-flow .node-box}\n::: {.item color=\"#e74c3c\"}\nAlice\n:::\n::: {.item color=\"#e67e22\"}\nBob\n:::\n::: {.item color=\"#27ae60\"}\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "arrow-types.html#arrow-arc",
-    "href": "arrow-types.html#arrow-arc",
-    "title": "Arrow Types",
-    "section": "arrow-arc",
-    "text": "arrow-arc\nA single filled SVG arrow shape going clockwise around all nodes.\n::: {.circle-flow .node-box .arrow-arc}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "colors.html#mixed-base-color-with-overrides",
+    "href": "colors.html#mixed-base-color-with-overrides",
+    "title": "Colors",
+    "section": "Mixed: base color with overrides",
+    "text": "Mixed: base color with overrides\nSet a base color on the container and override specific nodes individually.\n::: {.circle-flow .node-box node-color=\"#2980b9\"}\n::: item\nAlice\n:::\n::: {.item color=\"#e74c3c\"}\nBob\n:::\n::: item\nCarol\n:::\n:::"
   },
   {
-    "objectID": "arrow-types.html#arrow-double",
-    "href": "arrow-types.html#arrow-double",
-    "title": "Arrow Types",
-    "section": "arrow-double",
-    "text": "arrow-double\nSVG thin lines with arrowheads on both ends.\n::: {.circle-flow .node-box .arrow-double}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "colors.html#colors-in-pie-charts",
+    "href": "colors.html#colors-in-pie-charts",
+    "title": "Colors",
+    "section": "Colors in pie charts",
+    "text": "Colors in pie charts\nThe same node-color and color attributes work on .pie containers and items.\n::: pie\n::: {.item color=\"#e74c3c\"}\nAlice\n:::\n::: {.item color=\"#e67e22\"}\nBob\n:::\n::: {.item color=\"#27ae60\"}\nCarol\n:::\n::: {.item color=\"#2980b9\"}\nDavid\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\n(See the Pie page for more pie-specific examples.)\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "node-shapes.html",
-    "href": "node-shapes.html",
-    "title": "Node Shapes",
+    "objectID": "circle-flow.html",
+    "href": "circle-flow.html",
+    "title": "Circle Flow",
     "section": "",
-    "text": "Applies to: Circle Flow\nThe node shape is controlled by a modifier class on the .circle-flow container. The default is node-circle."
+    "text": "The .circle-flow style arranges items as nodes on a ring, connected by arrows. It is the original style and the namesake of the extension."
   },
   {
-    "objectID": "node-shapes.html#node-circle-default",
-    "href": "node-shapes.html#node-circle-default",
-    "title": "Node Shapes",
-    "section": "node-circle (default)",
-    "text": "node-circle (default)\nFilled circle nodes. No class needed — this is the default.\n::: circle-flow\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "circle-flow.html#basic-usage",
+    "href": "circle-flow.html#basic-usage",
+    "title": "Circle Flow",
+    "section": "Basic usage",
+    "text": "Basic usage\n::: circle-flow\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
   },
   {
-    "objectID": "node-shapes.html#node-box",
-    "href": "node-shapes.html#node-box",
-    "title": "Node Shapes",
-    "section": "node-box",
-    "text": "node-box\nRounded rectangle nodes. Width is nodeRadius × 1.8, height is nodeRadius × 1.2.\n::: {.circle-flow .node-box}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "circle-flow.html#item-count",
+    "href": "circle-flow.html#item-count",
+    "title": "Circle Flow",
+    "section": "Item count",
+    "text": "Item count\nThe layout automatically adjusts to any number of items. With a single item there is no arrow.\n\n\nAlice\n\n\nWith two items, arrows are offset so they don’t overlap.\n\n\nAlice\n\n\nBob\n\n\nThree or more items are arranged evenly around the circle.\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nNode size scales down automatically as more items are added.\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nEthan\n\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nEthan\n\n\nFiona"
   },
   {
-    "objectID": "node-shapes.html#node-none",
-    "href": "node-shapes.html#node-none",
-    "title": "Node Shapes",
-    "section": "node-none",
-    "text": "node-none\nText-only nodes with a transparent background. Labels are capped at 80px width regardless of item count.\n::: {.circle-flow .node-none}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol"
+    "objectID": "circle-flow.html#whats-next",
+    "href": "circle-flow.html#whats-next",
+    "title": "Circle Flow",
+    "section": "What’s next",
+    "text": "What’s next\n\nNode Shapes — change how individual nodes look\nArrow Types — change how items are connected\nColors — control node and arrow colors"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "quarto-diagrams",
+    "section": "",
+    "text": "quarto-diagrams is a Quarto extension that adds a collection of circular diagram styles to your documents and Reveal.js presentations. Each style shares the same authoring model — a container div with nested item divs — but renders differently."
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "quarto-diagrams",
+    "section": "Installation",
+    "text": "Installation\nquarto add EmilHvitfeldt/quarto-diagrams\nActivate the extension in your document YAML:\nfilters:\n  - diagrams"
+  },
+  {
+    "objectID": "index.html#styles",
+    "href": "index.html#styles",
+    "title": "quarto-diagrams",
+    "section": "Styles",
+    "text": "Styles\n\n\n\nCircle Flow\nNodes arranged on a ring, connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPie\nItems rendered as equal-sized wedges of a circle.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\nEve\n\n\n\n\n\nProcess\nA linear flow of steps connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPyramid\nStacked bands narrowing toward the top.\n\n\n\nVision\n\n\nStrategy\n\n\nTactics\n\n\nOperations\n\n\n\n\n\nMatrix\nA 2×2 grid of quadrants along two axes.\n\n\n\nQuestion Marks\n\n\nStars\n\n\nDogs\n\n\nCash Cows\n\n\n\n\n\nHierarchy\nAn org chart / tree from nested items.\n\n\n\nCEO\n\nCTO\n\n\nCFO\n\n\nCPO\n\n\n\n\n\n\nVenn\nTwo or three overlapping sets.\n\n\n\nFrontend\n\n\nBackend\n\n\n\n\n\nStacked Venn\nNested circles for subset relationships.\n\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers\n\n\n\n\n\nFunnel\nNarrowing stages, optionally sized by value.\n\n\n\nVisitors\n\n\nLeads\n\n\nQualified\n\n\nCustomers\n\n\n\n\n\nCycle\nA repeating loop of stages as arc arrows.\n\n\n\nPlan\n\n\nDo\n\n\nCheck\n\n\nAct"
+  },
+  {
+    "objectID": "index.html#shared-concepts",
+    "href": "index.html#shared-concepts",
+    "title": "quarto-diagrams",
+    "section": "Shared concepts",
+    "text": "Shared concepts\nAcross all styles:\n\nNode Shapes — circle, box, and text-only nodes\nArrow Types — chevron, curved, thin, ring, arc, and double arrows\nColors — global and per-item color control\nCustomization — full class and attribute reference"
   },
   {
     "objectID": "pyramid.html",
@@ -476,24 +539,17 @@
     "text": "Basic usage\n::: stacked-venn\n::: item\nTotal Population\n:::\n::: item\nVitamin D Deficiency\n:::\n::: item\nDeficiency\n:::\n::: item\nInsufficiency\n:::\n:::\n\n\nTotal Population\n\n\nVitamin D Deficiency\n\n\nDeficiency\n\n\nInsufficiency\n\n\nAdd or remove .item divs to change the number of circles — the radii adjust automatically to fit."
   },
   {
-    "objectID": "stacked-venn.html#colors",
-    "href": "stacked-venn.html#colors",
-    "title": "Stacked Venn",
-    "section": "Colors",
-    "text": "Colors\nEach circle defaults to a distinct color. Use color= on an individual item to override one circle, or node-color= on the container to set a single shared base color for every circle.\n::: stacked-venn\n::: {.item color=\"#1b3a5b\"}\nEveryone\n:::\n::: {.item color=\"#2e6b8a\"}\nCustomers\n:::\n::: {.item color=\"#5aa0c4\"}\nSubscribers\n:::\n:::\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers"
-  },
-  {
-    "objectID": "stacked-venn.html#horizontal",
-    "href": "stacked-venn.html#horizontal",
-    "title": "Stacked Venn",
-    "section": "Horizontal",
-    "text": "Horizontal\nAdd the .horizontal class to stack the circles left-to-right instead of top-to-bottom.\n::: {.stacked-venn .horizontal}\n::: item\nPlan\n:::\n::: item\nBuild\n:::\n::: item\nShip\n:::\n:::\n\n\nPlan\n\n\nBuild\n\n\nShip"
-  },
-  {
     "objectID": "stacked-venn.html#orientation",
     "href": "stacked-venn.html#orientation",
     "title": "Stacked Venn",
     "section": "Orientation",
     "text": "Orientation\nBy default the circles nest toward the bottom. Use direction= to anchor them to a different edge — down (default), up, left, or right. The circles rotate but the labels always stay upright and horizontal.\n::: {.stacked-venn direction=\"right\"}\n::: item\nEveryone\n:::\n::: item\nCustomers\n:::\n::: item\nSubscribers\n:::\n:::\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers\n\n\nFor finer control, angle= adds a clockwise rotation (in degrees) on top of direction. For example angle=\"45\" tucks the nesting toward the bottom-left corner.\n::: {.stacked-venn angle=\"45\"}\n::: item\nEveryone\n:::\n::: item\nCustomers\n:::\n::: item\nSubscribers\n:::\n:::\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers"
+  },
+  {
+    "objectID": "stacked-venn.html#colors",
+    "href": "stacked-venn.html#colors",
+    "title": "Stacked Venn",
+    "section": "Colors",
+    "text": "Colors\nEach circle defaults to a distinct color. Use color= on an individual item to override one circle, or node-color= on the container to set a single shared base color for every circle.\n::: stacked-venn\n::: {.item color=\"#1b3a5b\"}\nEveryone\n:::\n::: {.item color=\"#2e6b8a\"}\nCustomers\n:::\n::: {.item color=\"#5aa0c4\"}\nSubscribers\n:::\n:::\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers"
   }
 ]

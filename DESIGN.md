@@ -2,7 +2,7 @@
 
 ## Goal
 
-Build reusable Quarto/Reveal.js diagram components. Eight layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked triangle bands), `.matrix` (2×2 quadrant matrix), `.hierarchy` (org chart / tree), `.venn` (2- or 3-set overlapping circles), and `.stacked-venn` (nested concentric circles). Clean Quarto div syntax:
+Build reusable Quarto/Reveal.js diagram components. Ten layouts are provided: `.circle-flow` (nodes-on-a-ring with arrows), `.pie` (pie chart), `.process` (linear flow), `.pyramid` (stacked triangle bands), `.matrix` (2×2 quadrant matrix), `.hierarchy` (org chart / tree), `.venn` (2- or 3-set overlapping circles), `.stacked-venn` (nested concentric circles), `.funnel` (flat-bottomed narrowing stages, optionally sized by `value=`), and `.cycle` (ring of arc-shaped arrow segments). Clean Quarto div syntax:
 
 ```
 ::: circle-flow

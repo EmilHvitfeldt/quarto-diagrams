@@ -31,6 +31,10 @@ website:
             href: venn.qmd
           - text: "Stacked Venn"
             href: stacked-venn.qmd
+          - text: "Funnel"
+            href: funnel.qmd
+          - text: "Cycle"
+            href: cycle.qmd
       - text: "Concepts"
         menu:
           - text: "Node Shapes"

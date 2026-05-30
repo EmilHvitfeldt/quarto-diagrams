@@ -166,6 +166,44 @@ Subscribers
 :::
 :::
 
+### [Funnel](funnel.qmd)
+
+Narrowing stages, optionally sized by value.
+
+::: funnel
+::: {.item value="1000"}
+Visitors
+:::
+::: {.item value="600"}
+Leads
+:::
+::: {.item value="250"}
+Qualified
+:::
+::: {.item value="80"}
+Customers
+:::
+:::
+
+### [Cycle](cycle.qmd)
+
+A repeating loop of stages as arc arrows.
+
+::: cycle
+::: item
+Plan
+:::
+::: item
+Do
+:::
+::: item
+Check
+:::
+::: item
+Act
+:::
+:::
+
 :::
 
 ## Shared concepts
