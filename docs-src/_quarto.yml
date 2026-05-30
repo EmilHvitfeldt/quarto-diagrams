@@ -1,5 +1,8 @@
 project:
   type: website
+  output-dir: ../docs
+  resources:
+    - .nojekyll
 
 execute:
   freeze: auto
