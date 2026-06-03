@@ -61,6 +61,25 @@ Eve
 :::
 :::
 
+### [Donut](pie.qmd#donut)
+
+A pie with a hollow center, optionally with a label in the middle.
+
+::: {.pie .donut center="100%"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+:::
+
 ### [Process](process.qmd)
 
 A linear flow of steps connected by arrows.

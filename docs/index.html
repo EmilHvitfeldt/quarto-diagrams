@@ -296,6 +296,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="quarto-layout-row">
+<section id="donut" class="level3 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h3 class="anchored" data-anchor-id="donut"><a href="./pie.html#donut">Donut</a></h3>
+<p>A pie with a hollow center, optionally with a label in the middle.</p>
+</section>
+<div class="pie donut quarto-layout-cell" data-center="100%" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="item">
+<p>Alice</p>
+</div>
+<div class="item">
+<p>Bob</p>
+</div>
+<div class="item">
+<p>Carol</p>
+</div>
+<div class="item">
+<p>David</p>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
 <section id="process" class="level3 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <h3 class="anchored" data-anchor-id="process"><a href="./process.html">Process</a></h3>
 <p>A linear flow of steps connected by arrows.</p>
@@ -1273,6 +1293,12 @@ function initPie(container) {
   const r = (hasGap || anyItemGap) ? 210 : 240;
   const defaultColor = container.dataset.nodeColor || '#2e6b8a';
 
+  const isDonut = container.classList.contains('donut');
+  let holeFrac = parseFloat(container.dataset.hole);
+  if (isNaN(holeFrac)) holeFrac = 0.55;
+  holeFrac = Math.min(0.85, Math.max(0.2, holeFrac));
+  const rInner = isDonut ? r * holeFrac : 0;
+
   container.style.position = 'relative';
   container.style.width = '500px';
   container.style.height = '500px';
@@ -1304,20 +1330,38 @@ function initPie(container) {
     const y2 = oy + r * Math.sin(endAngle);
     const largeArc = (endAngle - startAngle > Math.PI) ? 1 : 0;
 
-    const d = n === 1
-      ? `M ${ox} ${oy - r} A ${r} ${r} 0 1 1 ${ox - 0.01} ${oy - r} Z`
-      : `M ${ox} ${oy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+    let d;
+    if (n === 1) {
+      // Full circle drawn as two semicircle arcs (avoids near-coincident
+      // endpoint degeneracy); donut adds a reversed inner circle + evenodd fill.
+      const ring = (rad) =>
+        `M ${ox - rad} ${oy} A ${rad} ${rad} 0 1 0 ${ox + rad} ${oy} ` +
+        `A ${rad} ${rad} 0 1 0 ${ox - rad} ${oy} Z`;
+      d = isDonut ? ring(r) + ' ' + ring(rInner) : ring(r);
+    } else if (isDonut) {
+      const ix1 = ox + rInner * Math.cos(startAngle);
+      const iy1 = oy + rInner * Math.sin(startAngle);
+      const ix2 = ox + rInner * Math.cos(endAngle);
+      const iy2 = oy + rInner * Math.sin(endAngle);
+      d = `M ${ix1} ${iy1} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} ` +
+          `L ${ix2} ${iy2} A ${rInner} ${rInner} 0 ${largeArc} 0 ${ix1} ${iy1} Z`;
+    } else {
+      d = `M ${ox} ${oy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+    }
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', d);
     path.setAttribute('fill', color);
+    if (n === 1 && isDonut) path.setAttribute('fill-rule', 'evenodd');
     if (!hasGap) {
       path.setAttribute('stroke', 'white');
       path.setAttribute('stroke-width', '3');
     }
     svg.appendChild(path);
 
-    const labelR = n === 1 ? 0 : r * 0.6;
+    const labelR = isDonut
+      ? (rInner + r) / 2
+      : (n === 1 ? 0 : r * 0.6);
     const lx = ox + labelR * Math.cos(midAngle);
     const ly = oy + labelR * Math.sin(midAngle);
 
@@ -1346,6 +1390,17 @@ function initPie(container) {
   if (maxTextWidth > textMaxW && maxTextWidth > 0) {
     const scaledSize = (baseFontSize * textMaxW / maxTextWidth) + 'px';
     labelEls.forEach(el => el.style.fontSize = scaledSize);
+  }
+
+  // Center content in the donut hole
+  if (isDonut && container.dataset.center) {
+    const center = document.createElement('div');
+    center.className = 'donut-center';
+    center.textContent = container.dataset.center;
+    center.style.left = cx + 'px';
+    center.style.top  = cy + 'px';
+    center.style.maxWidth = (2 * rInner * 0.85) + 'px';
+    container.appendChild(center);
   }
 }
 

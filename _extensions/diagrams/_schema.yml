@@ -43,6 +43,8 @@ classes:
     description: "circle-flow: thin lines with arrowheads on both ends."
   gap:
     description: "Insert a gap before this item."
+  donut:
+    description: "pie: render as a donut with a hollow center."
 
 attributes:
   _any:
@@ -70,3 +72,9 @@ attributes:
     angle:
       type: number
       description: "Rotation angle in degrees."
+    hole:
+      type: number
+      description: "Donut hole size as a fraction of the radius (default 0.55, clamped 0.2–0.85)."
+    center:
+      type: string
+      description: "Text shown in the center of a donut."

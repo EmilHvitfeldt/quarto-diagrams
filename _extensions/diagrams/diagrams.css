@@ -187,6 +187,17 @@
   pointer-events: none;
 }
 
+.pie .donut-center {
+  position: absolute;
+  color: #222222;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
 .pie .slice-label,
 .pyramid .slice-label,
 .matrix .slice-label,

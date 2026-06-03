@@ -445,7 +445,7 @@
     "href": "index.html#styles",
     "title": "quarto-diagrams",
     "section": "Styles",
-    "text": "Styles\n\n\n\nCircle Flow\nNodes arranged on a ring, connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPie\nItems rendered as equal-sized wedges of a circle.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\nEve\n\n\n\n\n\nProcess\nA linear flow of steps connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPyramid\nStacked bands narrowing toward the top.\n\n\n\nVision\n\n\nStrategy\n\n\nTactics\n\n\nOperations\n\n\n\n\n\nMatrix\nA 2×2 grid of quadrants along two axes.\n\n\n\nQuestion Marks\n\n\nStars\n\n\nDogs\n\n\nCash Cows\n\n\n\n\n\nHierarchy\nAn org chart / tree from nested items.\n\n\n\nCEO\n\nCTO\n\n\nCFO\n\n\nCPO\n\n\n\n\n\n\nVenn\nTwo or three overlapping sets.\n\n\n\nFrontend\n\n\nBackend\n\n\n\n\n\nStacked Venn\nNested circles for subset relationships.\n\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers\n\n\n\n\n\nFunnel\nNarrowing stages, optionally sized by value.\n\n\n\nVisitors\n\n\nLeads\n\n\nQualified\n\n\nCustomers\n\n\n\n\n\nCycle\nA repeating loop of stages as arc arrows.\n\n\n\nPlan\n\n\nDo\n\n\nCheck\n\n\nAct"
+    "text": "Styles\n\n\n\nCircle Flow\nNodes arranged on a ring, connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPie\nItems rendered as equal-sized wedges of a circle.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\nEve\n\n\n\n\n\nDonut\nA pie with a hollow center, optionally with a label in the middle.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\n\n\n\nProcess\nA linear flow of steps connected by arrows.\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\n\nPyramid\nStacked bands narrowing toward the top.\n\n\n\nVision\n\n\nStrategy\n\n\nTactics\n\n\nOperations\n\n\n\n\n\nMatrix\nA 2×2 grid of quadrants along two axes.\n\n\n\nQuestion Marks\n\n\nStars\n\n\nDogs\n\n\nCash Cows\n\n\n\n\n\nHierarchy\nAn org chart / tree from nested items.\n\n\n\nCEO\n\nCTO\n\n\nCFO\n\n\nCPO\n\n\n\n\n\n\nVenn\nTwo or three overlapping sets.\n\n\n\nFrontend\n\n\nBackend\n\n\n\n\n\nStacked Venn\nNested circles for subset relationships.\n\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers\n\n\n\n\n\nFunnel\nNarrowing stages, optionally sized by value.\n\n\n\nVisitors\n\n\nLeads\n\n\nQualified\n\n\nCustomers\n\n\n\n\n\nCycle\nA repeating loop of stages as arc arrows.\n\n\n\nPlan\n\n\nDo\n\n\nCheck\n\n\nAct"
   },
   {
     "objectID": "index.html#shared-concepts",
@@ -502,6 +502,13 @@
     "title": "Pie Chart",
     "section": "Basic usage",
     "text": "Basic usage\n::: pie\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n::: item\nDavid\n:::\n::: item\nEve\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\nEve"
+  },
+  {
+    "objectID": "pie.html#donut",
+    "href": "pie.html#donut",
+    "title": "Pie Chart",
+    "section": "Donut",
+    "text": "Donut\nAdd the .donut modifier to render the pie with a hollow center. All other pie features — per-slice color=, node-color=, and .gap — work the same way.\n::: {.pie .donut}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n::: item\nDavid\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid\n\n\n\nHole size\nControl the ring thickness with hole=, given as a fraction of the radius (default 0.55, clamped between 0.2 and 0.85). A larger value means a bigger hole and a thinner ring.\n::: {.pie .donut hole=\"0.7\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\nCenter text\nUse center= to place a label or figure in the middle of the donut.\n::: {.pie .donut center=\"100%\"}\n::: item\nAlice\n:::\n::: item\nBob\n:::\n::: item\nCarol\n:::\n::: item\nDavid\n:::\n:::\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDavid"
   },
   {
     "objectID": "pie.html#gap-between-slices",

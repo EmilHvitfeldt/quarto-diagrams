@@ -44,6 +44,111 @@ Eve
 :::
 :::
 
+## Donut
+
+Add the `.donut` modifier to render the pie with a hollow center. All other
+pie features — per-slice `color=`, `node-color=`, and `.gap` — work the same way.
+
+````markdown
+::: {.pie .donut}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+:::
+````
+
+::: {.pie .donut}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+:::
+
+### Hole size
+
+Control the ring thickness with `hole=`, given as a fraction of the radius
+(default `0.55`, clamped between `0.2` and `0.85`). A larger value means a
+bigger hole and a thinner ring.
+
+````markdown
+::: {.pie .donut hole="0.7"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+````
+
+::: {.pie .donut hole="0.7"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+:::
+
+### Center text
+
+Use `center=` to place a label or figure in the middle of the donut.
+
+````markdown
+::: {.pie .donut center="100%"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+:::
+````
+
+::: {.pie .donut center="100%"}
+::: item
+Alice
+:::
+::: item
+Bob
+:::
+::: item
+Carol
+:::
+::: item
+David
+:::
+:::
+
 ## Gap between slices
 
 Add the `.gap` modifier to offset all slices outward, creating visible separation.
