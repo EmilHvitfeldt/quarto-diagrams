@@ -1,0 +1,72 @@
+$schema: https://m.canouil.dev/quarto-wizard/assets/schema/v2/extension-schema.json
+
+classes:
+  circle-flow:
+    description: "Nodes arranged on a ring with connecting arrows."
+  pie:
+    description: "Pie chart built from items."
+  process:
+    description: "Linear left-to-right flow of stages."
+  pyramid:
+    description: "Stacked triangle bands."
+  matrix:
+    description: "2×2 quadrant matrix."
+  hierarchy:
+    description: "Org chart / tree built from nested .item divs."
+  venn:
+    description: "Two- or three-set overlapping circles."
+  stacked-venn:
+    description: "Nested concentric circles."
+  funnel:
+    description: "Narrowing stages, optionally sized by value=."
+  cycle:
+    description: "Ring of arc-shaped arrow segments."
+  item:
+    description: "A single element within a diagram layout."
+  node-circle:
+    description: "circle-flow: render nodes as filled circles (default)."
+  node-box:
+    description: "circle-flow: render nodes as rounded rectangles."
+  node-none:
+    description: "circle-flow: render text only, no node shape."
+  arrow-chevron:
+    description: "circle-flow: div-based filled chevron arrows (default)."
+  arrow-curved:
+    description: "circle-flow: filled curved SVG arrows between pairs."
+  arrow-thin:
+    description: "circle-flow: thin straight SVG lines with arrowheads."
+  arrow-ring:
+    description: "circle-flow: single ring behind all nodes."
+  arrow-arc:
+    description: "circle-flow: single arc-shaped arrow around all nodes."
+  arrow-double:
+    description: "circle-flow: thin lines with arrowheads on both ends."
+  gap:
+    description: "Insert a gap before this item."
+
+attributes:
+  _any:
+    node-color:
+      type: string
+      description: "Color applied to all nodes in the layout (default #2e6b8a)."
+      completion:
+        type: color
+    arrow-color:
+      type: string
+      description: "Color applied to all arrows in the layout."
+      completion:
+        type: color
+    color:
+      type: string
+      description: "Override color for a single item."
+      completion:
+        type: color
+    value:
+      type: number
+      description: "Numeric weight for an item (e.g. funnel stage size)."
+    direction:
+      type: string
+      description: "Flow/layout direction."
+    angle:
+      type: number
+      description: "Rotation angle in degrees."

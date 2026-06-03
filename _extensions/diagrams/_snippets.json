@@ -1,0 +1,148 @@
+{
+  "Diagrams Circle Flow": {
+    "prefix": "diagrams:circle-flow",
+    "body": [
+      "::: circle-flow",
+      "::: item",
+      "${1:Alice}",
+      ":::",
+      "::: item",
+      "${2:Bob}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Nodes on a ring with arrows."
+  },
+  "Diagrams Pie": {
+    "prefix": "diagrams:pie",
+    "body": [
+      "::: pie",
+      "::: item",
+      "${1:First}",
+      ":::",
+      "::: item",
+      "${2:Second}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Pie chart."
+  },
+  "Diagrams Process": {
+    "prefix": "diagrams:process",
+    "body": [
+      "::: process",
+      "::: item",
+      "${1:Step 1}",
+      ":::",
+      "::: item",
+      "${2:Step 2}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Linear process flow."
+  },
+  "Diagrams Pyramid": {
+    "prefix": "diagrams:pyramid",
+    "body": [
+      "::: pyramid",
+      "::: item",
+      "${1:Top}",
+      ":::",
+      "::: item",
+      "${2:Base}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Stacked pyramid bands."
+  },
+  "Diagrams Matrix": {
+    "prefix": "diagrams:matrix",
+    "body": [
+      "::: matrix",
+      "::: item",
+      "${1:Q1}",
+      ":::",
+      "::: item",
+      "${2:Q2}",
+      ":::",
+      "::: item",
+      "${3:Q3}",
+      ":::",
+      "::: item",
+      "${4:Q4}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "2×2 quadrant matrix."
+  },
+  "Diagrams Hierarchy": {
+    "prefix": "diagrams:hierarchy",
+    "body": [
+      "::: hierarchy",
+      "::: item",
+      "${1:Root}",
+      "::: item",
+      "${2:Child}",
+      ":::",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Org chart / tree from nested items."
+  },
+  "Diagrams Venn": {
+    "prefix": "diagrams:venn",
+    "body": [
+      "::: venn",
+      "::: item",
+      "${1:Set A}",
+      ":::",
+      "::: item",
+      "${2:Set B}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Two- or three-set Venn diagram."
+  },
+  "Diagrams Stacked Venn": {
+    "prefix": "diagrams:stacked-venn",
+    "body": [
+      "::: stacked-venn",
+      "::: item",
+      "${1:Outer}",
+      ":::",
+      "::: item",
+      "${2:Inner}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Nested concentric circles."
+  },
+  "Diagrams Funnel": {
+    "prefix": "diagrams:funnel",
+    "body": [
+      "::: funnel",
+      "::: item",
+      "${1:Awareness}",
+      ":::",
+      "::: item",
+      "${2:Conversion}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Narrowing funnel stages."
+  },
+  "Diagrams Cycle": {
+    "prefix": "diagrams:cycle",
+    "body": [
+      "::: cycle",
+      "::: item",
+      "${1:Plan}",
+      ":::",
+      "::: item",
+      "${2:Do}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Ring of arc-shaped arrow segments."
+  }
+}
