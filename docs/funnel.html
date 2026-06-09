@@ -1572,7 +1572,11 @@ function initProcess(container) {
                    container.classList.contains('node-none')   ? 'none'   : 'box';
   const arrowType = container.classList.contains('arrow-thin')   ? 'thin'   :
                     container.classList.contains('arrow-double') ? 'double' : 'chevron';
-  const chevron = container.classList.contains('chevron');
+  // `.arrow` is a chevron sub-variant: same interlocking tiles, but deeper
+  // points and more landscape tiles so each segment reads as a distinct arrow.
+  const arrowStyle = container.classList.contains('arrow');
+  const chevron = container.classList.contains('chevron') || arrowStyle;
+  const ARROW_WING_FRAC = 0.24; // arrow shaft inset per side, as a fraction of the cross-axis
 
   const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
   const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
@@ -1615,19 +1619,28 @@ function initProcess(container) {
 
   if (chevron) {
     // Chevrons are the steps themselves: big interlocking tiles, no connectors.
-    boxCross = Math.min(crossAxis * 0.9, (mainAxis / n) * 0.85);
+    // `.arrow` makes the tiles shorter (landscape) and the point deeper so each
+    // segment reads as an arrowhead rather than a block with a thin seam.
+    boxCross = arrowStyle ? Math.min(crossAxis * 0.62, (mainAxis / n) * 0.55)
+                          : Math.min(crossAxis * 0.9,  (mainAxis / n) * 0.85);
     boxMain  = mainAxis / n; // refined below to account for overlap + gaps
-    notchPx  = boxCross * 0.4;
+    notchPx  = arrowStyle ? Math.min(boxCross * 1.0, (mainAxis / n) * 0.32)
+                          : boxCross * 0.4;
     const gutter = boxCross * 0.08; // thin slanted gap between tiles so seams read
+    // Interlock depth = how far the point sinks into the next tile's tail notch.
+    // Chevron's notch is full-depth (notchPx); arrow's tail notch is shallower
+    // (ARROW_WING_FRAC drives `tnotch` in the clip-path below), so tiles overlap
+    // by that shallower amount — otherwise the deep point buries past the notch.
+    const interlockPx = arrowStyle ? notchPx * (1 - 2 * ARROW_WING_FRAC) : notchPx;
     const extraGap = boxCross * 0.35;
     const gapPx = gapWeights.map(w => (w - 1) * extraGap);
     const sumGap = gapPx.slice(1).reduce((a, b) => a + b, 0);
     // Tiles interlock (tip nests in next notch) separated by a gutter; fill mainAxis:
-    // n*boxMain - (n-1)*(notchPx - gutter) + sumGap = mainAxis
-    boxMain = (mainAxis + (n - 1) * (notchPx - gutter) - sumGap) / n;
+    // n*boxMain - (n-1)*(interlockPx - gutter) + sumGap = mainAxis
+    boxMain = (mainAxis + (n - 1) * (interlockPx - gutter) - sumGap) / n;
     let cur = boxMain / 2;
     for (let i = 0; i < n; i++) {
-      if (i > 0) cur += (boxMain - notchPx + gutter) + gapPx[i];
+      if (i > 0) cur += (boxMain - interlockPx + gutter) + gapPx[i];
       centers.push(cur);
     }
   } else {
@@ -1688,11 +1701,41 @@ function initProcess(container) {
       // Derived: centroid offset = ±(N·W/4 − N²/6) / (W − N/2) along the main axis.
       const pad = notchPx * 0.6;
       const shift = (notchPx * boxMain / 4 - notchPx * notchPx / 6) / (boxMain - notchPx / 2);
-      const off = first ? -shift : last ? shift : 0;
+      // Arrow keeps a point on every tile (incl. last), so only the flat first tail shifts.
+      const off = arrowStyle ? (first ? -shift : 0) : (first ? -shift : last ? shift : 0);
       const padMainStart = pad + off; // top (vertical) / left (horizontal)
       const padMainEnd   = pad - off; // bottom / right
       let clip;
-      if (vertical) {
+      if (arrowStyle) {
+        // Block-arrow: a shorter rectangular shaft whose head flares into wings
+        // (full cross-axis height) before tapering to the point. Every tile keeps
+        // its head; the tail has an inward notch (flat on the first tile) that the
+        // previous tile's point nests into.
+        const wingPx = boxCross * ARROW_WING_FRAC;
+        // Tail notch is shallower than the head point so its edges run parallel to
+        // the head's point-to-wing edges — the previous tile's point nests with a
+        // uniform-width seam instead of a wedge. tnotch = notch·(1 − 2·wingFrac).
+        const tnotchPx = notchPx * (1 - 2 * ARROW_WING_FRAC);
+        node.style.setProperty('--wing', wingPx + 'px');
+        node.style.setProperty('--tnotch', tnotchPx + 'px');
+        const N = 'var(--notch)', W = 'var(--wing)', T = 'var(--tnotch)';
+        // Keep the label inside the shaft, clear of the tail notch and the head point.
+        const padHead = notchPx + 6;            // before the flaring head/point
+        const padTail = first ? pad : tnotchPx + 6; // after the tail notch (flat on first)
+        if (vertical) {
+          const tailNotch = first ? '' : `, 50% ${T}`;
+          clip = `polygon(${W} 0${tailNotch}, calc(100% - ${W}) 0, ` +
+                 `calc(100% - ${W}) calc(100% - ${N}), 100% calc(100% - ${N}), ` +
+                 `50% 100%, 0 calc(100% - ${N}), ${W} calc(100% - ${N}))`;
+          node.style.padding = `${padTail}px 4px ${padHead}px`;
+        } else {
+          const headX = `calc(100% - ${N})`;
+          const tailNotch = first ? '' : `, ${T} 50%`;
+          clip = `polygon(0 ${W}, ${headX} ${W}, ${headX} 0, 100% 50%, ` +
+                 `${headX} 100%, ${headX} calc(100% - ${W}), 0 calc(100% - ${W})${tailNotch})`;
+          node.style.padding = `4px ${padHead}px 4px ${padTail}px`;
+        }
+      } else if (vertical) {
         const top = first ? '0 0, 100% 0' : '0 0, 50% var(--notch), 100% 0';
         const bot = last ? '100% 100%, 0 100%'
                          : '100% calc(100% - var(--notch)), 50% 100%, 0 calc(100% - var(--notch))';

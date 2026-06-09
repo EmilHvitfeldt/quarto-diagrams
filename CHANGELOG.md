@@ -6,6 +6,8 @@
   attach a side callout with a leader line. Supported on `.pie`, `.circle-flow`,
   `.cycle`, `.venn`, `.stacked-venn`, `.funnel`, `.pyramid`, and `.process`.
 - Add `.donut` subtype for `.pie` (`hole=`, `center=`).
+- Add `.arrow` subtype for `.process`: a chevron variant with deeper points and
+  shorter tiles so each step reads as a distinct arrowhead.
 
 ## 0.2.0
 

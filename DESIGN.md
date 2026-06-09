@@ -140,6 +140,7 @@ Carol
 - Node shapes: `.node-box` (default), `.node-circle`, `.node-none`
 - Arrow types: `.arrow-chevron` (default, div with clip-path), `.arrow-thin`, `.arrow-double` (both SVG)
 - `.chevron` on container — chevron style: each step *is* an interlocking arrow tile (no separate connectors). Overrides node shape and arrow type; honors `.vertical`, `.gap`, and the color system.
+- `.arrow` on container — arrow style: a chevron sub-variant with deeper points and shorter tiles so each step reads as a distinct arrowhead. Implies chevron behavior.
 - `.gap` on an item — enlarges the arrow slot *before* that item (gap weight 1.6 vs default 1)
 
 **Color system:** Same as circle-flow — `node-color=` / `arrow-color=` on the container, `color=` per item.
@@ -156,6 +157,8 @@ Carol
 - `arrow-thin` / `arrow-double`: SVG `<line>` with arrow markers, trimmed by `boxMain/2 + 4` on each end so it starts at the node edge.
 
 **Chevron style (`.chevron`):** Each step is rendered as a `.chevron-step` node with a `clip-path` polygon: middle steps point in the flow direction with an inward notch on the trailing edge; the first step has a flat tail, the last a flat head (`.vertical` points the chevrons downward). Tiles are sized `boxMain ≈ mainAxis/n` and interlock — the tip nests in the next notch — separated by a thin `gutter` (`boxCross·0.08`) so each seam reads against the page background. `notchPx = boxCross·0.4`; centers are spaced `boxMain − notchPx + gutter` apart. No connector divs/SVG are drawn (`initProcess` returns early). Labels are padded clear of the notch/tip.
+
+**Arrow style (`.arrow`):** A chevron sub-variant (sets `chevron = true`) that renders each step as a true block arrow — a shorter rectangular shaft whose head flares into wings (the full cross-axis height) before tapering to the point — so each step reads as a distinct arrow rather than a block with a thin seam. The clip-path uses a `--wing` inset (`boxCross·0.24` per side) for the shaft, `--notch` for the head point depth, and a shallower `--tnotch` (`notch·(1 − 2·wingFrac)`) for the inward tail notch (flat on the first tile). The tail notch is deliberately shallower so its edges run **parallel** to the head's point-to-wing edges — the previous tile's point then nests with a uniform-width seam rather than a wedge-shaped gap. Unlike chevron, **every** tile (incl. the last) keeps its arrowhead; only the first tile's flat tail shifts the label centroid. Tiles are shorter/more landscape (`boxCross = min(crossAxis·0.62, (mainAxis/n)·0.55)`) with a deeper point (`notchPx = min(boxCross, (mainAxis/n)·0.32)`), versus chevron's taller tiles and shallow `notchPx = boxCross·0.4`. Interlock, gutter, `.vertical`, `.gap`, colors, and annotations are shared with chevron; labels are padded clear of both the tail notch and the head point.
 
 **Init guard:** `.process` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.
 

@@ -142,6 +142,62 @@ Ship
 :::
 :::
 
+## Arrow style
+
+The `.arrow` modifier is a chevron sub-variant with deeper points and shorter, more landscape tiles, so each step reads as a distinct arrowhead rather than a block with a thin seam. It supports the same options as `.chevron` (`.vertical`, `.gap`, colors, annotations).
+
+````markdown
+::: {.process .arrow}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Ship
+:::
+::: item
+Measure
+:::
+:::
+````
+
+::: {.process .arrow}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Ship
+:::
+::: item
+Measure
+:::
+:::
+
+It pairs well with a per-item color ramp:
+
+::: {.process .arrow}
+::: {.item color="#f0a830"}
+Saturn
+:::
+::: {.item color="#f08a5d"}
+Jupiter
+:::
+::: {.item color="#ee5a8a"}
+Venus
+:::
+::: {.item color="#d44ad4"}
+Mercury
+:::
+::: {.item color="#9b2fae"}
+Mars
+:::
+:::
+
 ## Node shapes
 
 The default is `node-box`. Use `node-circle` or `node-none` for alternatives.
@@ -411,6 +467,90 @@ Publish
 ````
 
 ::::: {.process .chevron}
+
+:::: item
+Draft
+
+::: annotation
+**Draft** write the first version of the content
+:::
+
+::::
+
+:::: item
+Review
+
+::: annotation
+**Review** gather feedback from the team
+:::
+
+::::
+
+:::: item
+Revise
+
+::: annotation
+**Revise** apply the suggested changes
+:::
+
+::::
+
+:::: item
+Publish
+
+::: annotation
+**Publish** release the finished content
+:::
+
+::::
+
+:::::
+
+The `.arrow` subtype carries annotations the same way:
+
+````markdown
+::::: {.process .arrow}
+
+:::: item
+Draft
+
+::: annotation
+**Draft** write the first version of the content
+:::
+
+::::
+
+:::: item
+Review
+
+::: annotation
+**Review** gather feedback from the team
+:::
+
+::::
+
+:::: item
+Revise
+
+::: annotation
+**Revise** apply the suggested changes
+:::
+
+::::
+
+:::: item
+Publish
+
+::: annotation
+**Publish** release the finished content
+:::
+
+::::
+
+:::::
+````
+
+::::: {.process .arrow}
 
 :::: item
 Draft

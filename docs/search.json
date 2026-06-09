@@ -84,6 +84,13 @@
     "text": "Chevron style\nAdd the .chevron modifier to render each step as an interlocking arrow tile, with no separate connectors. It works with .vertical, .gap, and the color system.\n::: {.process .chevron}\n::: item\nPlan\n:::\n::: item\nBuild\n:::\n::: item\nShip\n:::\n::: item\nMeasure\n:::\n:::\n\n\nPlan\n\n\nBuild\n\n\nShip\n\n\nMeasure\n\n\nIt also flows top-to-bottom with .vertical:\n\n\nPlan\n\n\nBuild\n\n\nShip"
   },
   {
+    "objectID": "process.html#arrow-style",
+    "href": "process.html#arrow-style",
+    "title": "Process",
+    "section": "Arrow style",
+    "text": "Arrow style\nThe .arrow modifier is a chevron sub-variant with deeper points and shorter, more landscape tiles, so each step reads as a distinct arrowhead rather than a block with a thin seam. It supports the same options as .chevron (.vertical, .gap, colors, annotations).\n::: {.process .arrow}\n::: item\nPlan\n:::\n::: item\nBuild\n:::\n::: item\nShip\n:::\n::: item\nMeasure\n:::\n:::\n\n\nPlan\n\n\nBuild\n\n\nShip\n\n\nMeasure\n\n\nIt pairs well with a per-item color ramp:\n\n\nSaturn\n\n\nJupiter\n\n\nVenus\n\n\nMercury\n\n\nMars"
+  },
+  {
     "objectID": "process.html#node-shapes",
     "href": "process.html#node-shapes",
     "title": "Process",

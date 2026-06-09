@@ -41,6 +41,10 @@ classes:
     description: "circle-flow: single arc-shaped arrow around all nodes."
   arrow-double:
     description: "circle-flow: thin lines with arrowheads on both ends."
+  chevron:
+    description: "process: render stages as interlocking chevron tiles."
+  arrow:
+    description: "process: render stages as distinct arrowheads (deeper points than chevron)."
   gap:
     description: "Insert a gap before this item."
   donut:

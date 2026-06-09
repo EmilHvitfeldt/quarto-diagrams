@@ -16,7 +16,8 @@ When adding or changing extension features:
 1. Copy changed files to `docs-src/_extensions/diagrams/`
 2. Update `docs-src/` source files to document the new feature
 3. When adding a new layout type, also add it to the **Styles** section of `docs-src/index.qmd` (the front page) with a link to its page and a live example, and add it to the navbar/sidebar in `docs-src/_quarto.yml`
-4. Run `quarto render docs-src/` to rebuild the site into `docs/`, and commit the regenerated `docs/`
+4. When adding a style subtype (e.g. `.chevron`, `.arrow`, `.donut`), document it with its own section AND add an annotation example to the page's Annotations section, mirroring the base layout's example
+5. Run `quarto render docs-src/` to rebuild the site into `docs/`, and commit the regenerated `docs/`
 
 ## Testing with Playwright
 
