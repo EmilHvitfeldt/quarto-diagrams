@@ -1025,8 +1025,23 @@ function initCircleFlow(container) {
   if (items.length === 0) return;
 
   const n = items.length;
-  const cx = 250, cy = 250;
-  const maxR = 240;
+
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+
+  // When annotated, shrink the ring and reserve side columns so the whole
+  // figure (ring + callouts) fits a normal content column.
+  const ANN_W = 164, ANN_GAP = 24, OUTER = 8;
+  const PAD = hasAnn ? (ANN_W + ANN_GAP) : 0;
+  const maxR = hasAnn ? 168 : 240;
+  const cx = hasAnn ? (OUTER + PAD + maxR) : 250;
+  const W  = hasAnn ? (2 * cx) : 500;
+  const H  = hasAnn ? 430 : 500;
+  const cy = H / 2;
 
   const nodeType = container.classList.contains('node-box')  ? 'box'  :
                    container.classList.contains('node-none') ? 'none' : 'circle';
@@ -1050,20 +1065,37 @@ function initCircleFlow(container) {
   }
 
   container.style.position = 'relative';
-  container.style.width = '500px';
-  container.style.height = '500px';
+  container.style.width = W + 'px';
+  container.style.height = H + 'px';
 
   const positions = items.map((_, i) => {
     const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
     return { x: cx + layoutR * Math.cos(angle), y: cy + layoutR * Math.sin(angle), angle };
   });
 
+  const annAnchors = [];  // { ex, ey, mid, color, html } per annotated node
   const nodeEls = items.map((item, i) => {
-    const { x, y } = positions[i];
+    const { x, y, angle } = positions[i];
     const nodeColor = item.getAttribute('color') || item.dataset.color || defaultNodeColor;
     const node = document.createElement('div');
     node.className = 'node node-' + nodeType;
-    node.textContent = item.textContent.trim();
+    // Node label = item text minus any nested .annotation content
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      annAnchors.push({
+        ex: cx + maxR * Math.cos(angle),
+        ey: cy + maxR * Math.sin(angle),
+        mid: angle,
+        color: nodeColor,
+        html: annHTML[i]
+      });
+    }
+    node.textContent = labelText;
     if (nodeType !== 'none') node.style.background = nodeColor;
     node.style.left = x + 'px';
     node.style.top = y + 'px';
@@ -1099,6 +1131,11 @@ function initCircleFlow(container) {
     // Scale to fill the node, but cap upscaling so short labels don't balloon
     const scale = Math.min(textMaxW / maxTextWidth, 2.5);
     nodeEls.forEach(el => el.style.fontSize = (baseFontSize * scale) + 'px');
+  }
+
+  if (hasAnn) {
+    const annSvg = makeSVGOverlay(container, W, H);
+    placeAnnotations(container, annSvg, annAnchors, maxR, H, ANN_GAP);
   }
 
   if (n === 1) return;
@@ -1148,10 +1185,10 @@ function renderChevrons(container, positions, n, nodeRadius, arrowColor) {
 
 // --- SVG helpers ---
 
-function makeSVGOverlay(container) {
+function makeSVGOverlay(container, w, h) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '500');
-  svg.setAttribute('height', '500');
+  svg.setAttribute('width', w || 500);
+  svg.setAttribute('height', h || 500);
   svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;pointer-events:none;';
   container.insertBefore(svg, container.firstChild);
   return svg;

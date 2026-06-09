@@ -420,6 +420,13 @@
     "text": "Item count\nThe layout automatically adjusts to any number of items. With a single item there is no arrow.\n\n\nAlice\n\n\nWith two items, arrows are offset so they don’t overlap.\n\n\nAlice\n\n\nBob\n\n\nThree or more items are arranged evenly around the circle.\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nNode size scales down automatically as more items are added.\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nEthan\n\n\n\n\nAlice\n\n\nBob\n\n\nCarol\n\n\nDave\n\n\nEthan\n\n\nFiona"
   },
   {
+    "objectID": "circle-flow.html#annotations",
+    "href": "circle-flow.html#annotations",
+    "title": "Circle Flow",
+    "section": "Annotations",
+    "text": "Annotations\nGive any item a nested .annotation div to attach an external callout that points at its node with a leader line. The annotation content is free-form Markdown; any bold text or heading is tinted to match the node color, which is handy for a title (but optional). Annotate all, some, or none of the nodes.\nNest the fenced divs with more colons on the outer fences (::::: for the chart, :::: for each item, ::: for the annotation) and leave a blank line around the inner fences.\n::::: circle-flow\n\n:::: item\nPlan\n\n::: annotation\n**Plan** define scope, goals, and success metrics up front\n:::\n\n::::\n\n:::: item\nBuild\n\n::: annotation\n**Build** implement the work in small, reviewable increments\n:::\n\n::::\n\n:::: item\nShip\n\n::: annotation\n**Ship** release to users and monitor for issues\n:::\n\n::::\n\n:::::\n\n\nPlan\n\nPlan define scope, goals, and success metrics up front\n\n\n\nBuild\n\nBuild implement the work in small, reviewable increments\n\n\n\nShip\n\nShip release to users and monitor for issues"
+  },
+  {
     "objectID": "circle-flow.html#whats-next",
     "href": "circle-flow.html#whats-next",
     "title": "Circle Flow",

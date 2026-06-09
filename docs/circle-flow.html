@@ -227,6 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link active" data-scroll-target="#basic-usage">Basic usage</a></li>
   <li><a href="#item-count" id="toc-item-count" class="nav-link" data-scroll-target="#item-count">Item count</a></li>
+  <li><a href="#annotations" id="toc-annotations" class="nav-link" data-scroll-target="#annotations">Annotations</a></li>
   <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next</a></li>
   </ul>
 </nav>
@@ -358,6 +359,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="item">
 <p>Fiona</p>
+</div>
+</div>
+</section>
+<section id="annotations" class="level2">
+<h2 class="anchored" data-anchor-id="annotations">Annotations</h2>
+<p>Give any item a nested <code>.annotation</code> div to attach an external callout that points at its node with a leader line. The annotation content is free-form Markdown; any bold text or heading is tinted to match the node color, which is handy for a title (but optional). Annotate all, some, or none of the nodes.</p>
+<p>Nest the fenced divs with <strong>more colons on the outer fences</strong> (<code>:::::</code> for the chart, <code>::::</code> for each item, <code>:::</code> for the annotation) and leave a blank line around the inner fences.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::::: circle-flow</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Plan</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>**Plan** define scope, goals, and success metrics up front</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Build</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>**Build** implement the work in small, reviewable increments</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>Ship</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>**Ship** release to users and monitor for issues</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="circle-flow">
+<div class="item">
+<p>Plan</p>
+<div class="annotation">
+<p><strong>Plan</strong> define scope, goals, and success metrics up front</p>
+</div>
+</div>
+<div class="item">
+<p>Build</p>
+<div class="annotation">
+<p><strong>Build</strong> implement the work in small, reviewable increments</p>
+</div>
+</div>
+<div class="item">
+<p>Ship</p>
+<div class="annotation">
+<p><strong>Ship</strong> release to users and monitor for issues</p>
+</div>
 </div>
 </div>
 </section>
@@ -782,8 +838,23 @@ function initCircleFlow(container) {
   if (items.length === 0) return;
 
   const n = items.length;
-  const cx = 250, cy = 250;
-  const maxR = 240;
+
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+
+  // When annotated, shrink the ring and reserve side columns so the whole
+  // figure (ring + callouts) fits a normal content column.
+  const ANN_W = 164, ANN_GAP = 24, OUTER = 8;
+  const PAD = hasAnn ? (ANN_W + ANN_GAP) : 0;
+  const maxR = hasAnn ? 168 : 240;
+  const cx = hasAnn ? (OUTER + PAD + maxR) : 250;
+  const W  = hasAnn ? (2 * cx) : 500;
+  const H  = hasAnn ? 430 : 500;
+  const cy = H / 2;
 
   const nodeType = container.classList.contains('node-box')  ? 'box'  :
                    container.classList.contains('node-none') ? 'none' : 'circle';
@@ -807,20 +878,37 @@ function initCircleFlow(container) {
   }
 
   container.style.position = 'relative';
-  container.style.width = '500px';
-  container.style.height = '500px';
+  container.style.width = W + 'px';
+  container.style.height = H + 'px';
 
   const positions = items.map((_, i) => {
     const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
     return { x: cx + layoutR * Math.cos(angle), y: cy + layoutR * Math.sin(angle), angle };
   });
 
+  const annAnchors = [];  // { ex, ey, mid, color, html } per annotated node
   const nodeEls = items.map((item, i) => {
-    const { x, y } = positions[i];
+    const { x, y, angle } = positions[i];
     const nodeColor = item.getAttribute('color') || item.dataset.color || defaultNodeColor;
     const node = document.createElement('div');
     node.className = 'node node-' + nodeType;
-    node.textContent = item.textContent.trim();
+    // Node label = item text minus any nested .annotation content
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      annAnchors.push({
+        ex: cx + maxR * Math.cos(angle),
+        ey: cy + maxR * Math.sin(angle),
+        mid: angle,
+        color: nodeColor,
+        html: annHTML[i]
+      });
+    }
+    node.textContent = labelText;
     if (nodeType !== 'none') node.style.background = nodeColor;
     node.style.left = x + 'px';
     node.style.top = y + 'px';
@@ -856,6 +944,11 @@ function initCircleFlow(container) {
     // Scale to fill the node, but cap upscaling so short labels don't balloon
     const scale = Math.min(textMaxW / maxTextWidth, 2.5);
     nodeEls.forEach(el => el.style.fontSize = (baseFontSize * scale) + 'px');
+  }
+
+  if (hasAnn) {
+    const annSvg = makeSVGOverlay(container, W, H);
+    placeAnnotations(container, annSvg, annAnchors, maxR, H, ANN_GAP);
   }
 
   if (n === 1) return;
@@ -905,10 +998,10 @@ function renderChevrons(container, positions, n, nodeRadius, arrowColor) {
 
 // --- SVG helpers ---
 
-function makeSVGOverlay(container) {
+function makeSVGOverlay(container, w, h) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '500');
-  svg.setAttribute('height', '500');
+  svg.setAttribute('width', w || 500);
+  svg.setAttribute('height', h || 500);
   svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;pointer-events:none;';
   container.insertBefore(svg, container.firstChild);
   return svg;

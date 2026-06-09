@@ -198,7 +198,8 @@
   transform: translate(-50%, -50%);
 }
 
-.pie .annotation {
+/* External annotation callouts (shared by radial/segmented layouts) */
+.annotation {
   position: absolute;
   width: 164px;
   color: #444444;
@@ -206,36 +207,31 @@
   line-height: 1.3;
 }
 
-.pie .annotation.annotation-right {
+.annotation.annotation-right {
   text-align: left;
 }
 
-.pie .annotation.annotation-left {
+.annotation.annotation-left {
   text-align: right;
   transform: translateX(-100%);
 }
 
-.pie .annotation p {
+.annotation p {
   margin: 0 0 0.2em;
 }
 
-.pie .annotation p:last-child {
+.annotation p:last-child {
   margin-bottom: 0;
 }
 
-/* First line / bold run / heading is tinted to match the slice */
-.pie .annotation strong,
-.pie .annotation b,
-.pie .annotation h1,
-.pie .annotation h2,
-.pie .annotation h3,
-.pie .annotation h4,
-.pie .annotation h5,
-.pie .annotation h6 {
+/* A bold run or heading is tinted to match the shape (optional title) */
+.annotation strong,
+.annotation b,
+.annotation :is(h1, h2, h3, h4, h5, h6) {
   color: var(--ann-color);
 }
 
-.pie .annotation :is(h1, h2, h3, h4, h5, h6) {
+.annotation :is(h1, h2, h3, h4, h5, h6) {
   margin: 0 0 0.15em;
   font-size: 1.05rem;
 }

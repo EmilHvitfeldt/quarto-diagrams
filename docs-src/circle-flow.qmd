@@ -123,6 +123,81 @@ Fiona
 :::
 :::
 
+## Annotations
+
+Give any item a nested `.annotation` div to attach an external callout that
+points at its node with a leader line. The annotation content is free-form
+Markdown; any bold text or heading is tinted to match the node color, which is
+handy for a title (but optional). Annotate all, some, or none of the nodes.
+
+Nest the fenced divs with **more colons on the outer fences** (`:::::` for the
+chart, `::::` for each item, `:::` for the annotation) and leave a blank line
+around the inner fences.
+
+````markdown
+::::: circle-flow
+
+:::: item
+Plan
+
+::: annotation
+**Plan** define scope, goals, and success metrics up front
+:::
+
+::::
+
+:::: item
+Build
+
+::: annotation
+**Build** implement the work in small, reviewable increments
+:::
+
+::::
+
+:::: item
+Ship
+
+::: annotation
+**Ship** release to users and monitor for issues
+:::
+
+::::
+
+:::::
+````
+
+::::: circle-flow
+
+:::: item
+Plan
+
+::: annotation
+**Plan** define scope, goals, and success metrics up front
+:::
+
+::::
+
+:::: item
+Build
+
+::: annotation
+**Build** implement the work in small, reviewable increments
+:::
+
+::::
+
+:::: item
+Ship
+
+::: annotation
+**Ship** release to users and monitor for issues
+:::
+
+::::
+
+:::::
+
 ## What's next
 
 - [Node Shapes](node-shapes.qmd) — change how individual nodes look
