@@ -294,6 +294,13 @@
     "text": "Colors\nUse node-color= on the container to set the base color for all bands, or color= on an individual item to override a single band.\n::: {.funnel node-color=\"#7a3b5c\"}\n::: item\nTop\n:::\n::: {.item color=\"#3b7a5c\"}\nMiddle\n:::\n::: item\nBase\n:::\n:::\n\n\nTop\n\n\nMiddle\n\n\nBase"
   },
   {
+    "objectID": "funnel.html#annotations",
+    "href": "funnel.html#annotations",
+    "title": "Funnel",
+    "section": "Annotations",
+    "text": "Annotations\nGive any item a nested .annotation div to attach an external callout that points at its stage with a leader line. Callouts alternate sides down the funnel. The annotation content is free-form Markdown; any bold text or heading is tinted to match the stage color (optional). Annotate all, some, or none of the stages.\nNest the fenced divs with more colons on the outer fences (::::: for the chart, :::: for each item, ::: for the annotation) and leave a blank line around the inner fences.\n::::: funnel\n\n:::: item\nVisitors\n\n::: annotation\n**Visitors** everyone who lands on the site\n:::\n\n::::\n\n:::: item\nLeads\n\n::: annotation\n**Leads** visitors who sign up for more info\n:::\n\n::::\n\n:::: item\nTrials\n\n::: annotation\n**Trials** leads who start a free trial\n:::\n\n::::\n\n:::: item\nCustomers\n\n::: annotation\n**Customers** trials that convert to paid plans\n:::\n\n::::\n\n:::::\n\n\nVisitors\n\nVisitors everyone who lands on the site\n\n\n\nLeads\n\nLeads visitors who sign up for more info\n\n\n\nTrials\n\nTrials leads who start a free trial\n\n\n\nCustomers\n\nCustomers trials that convert to paid plans"
+  },
+  {
     "objectID": "customization.html",
     "href": "customization.html",
     "title": "Customization",
