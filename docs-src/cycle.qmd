@@ -119,3 +119,96 @@ Measure
 Learn
 :::
 :::
+
+## Annotations
+
+Give any item a nested `.annotation` div to attach an external callout that
+points at its segment with a leader line. The annotation content is free-form
+Markdown; any bold text or heading is tinted to match the segment color, which
+is handy for a title (but optional). Annotate all, some, or none of the segments.
+
+Nest the fenced divs with **more colons on the outer fences** (`:::::` for the
+chart, `::::` for each item, `:::` for the annotation) and leave a blank line
+around the inner fences.
+
+````markdown
+::::: cycle
+
+:::: item
+Collect
+
+::: annotation
+**Collect** gather raw data from all available sources
+:::
+
+::::
+
+:::: item
+Clean
+
+::: annotation
+**Clean** remove errors and standardize the format
+:::
+
+::::
+
+:::: item
+Analyze
+
+::: annotation
+**Analyze** find patterns and extract insights
+:::
+
+::::
+
+:::: item
+Report
+
+::: annotation
+**Report** share findings with stakeholders
+:::
+
+::::
+
+:::::
+````
+
+::::: cycle
+
+:::: item
+Collect
+
+::: annotation
+**Collect** gather raw data from all available sources
+:::
+
+::::
+
+:::: item
+Clean
+
+::: annotation
+**Clean** remove errors and standardize the format
+:::
+
+::::
+
+:::: item
+Analyze
+
+::: annotation
+**Analyze** find patterns and extract insights
+:::
+
+::::
+
+:::: item
+Report
+
+::: annotation
+**Report** share findings with stakeholders
+:::
+
+::::
+
+:::::

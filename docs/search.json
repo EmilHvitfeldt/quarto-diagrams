@@ -168,6 +168,13 @@
     "text": "Colors\nUse node-color= on the container to set the base color for all segments, or color= on an individual item to override a single segment.\n::: {.cycle node-color=\"#7a3b5c\"}\n::: item\nBuild\n:::\n::: {.item color=\"#3b7a5c\"}\nMeasure\n:::\n::: item\nLearn\n:::\n:::\n\n\nBuild\n\n\nMeasure\n\n\nLearn"
   },
   {
+    "objectID": "cycle.html#annotations",
+    "href": "cycle.html#annotations",
+    "title": "Cycle",
+    "section": "Annotations",
+    "text": "Annotations\nGive any item a nested .annotation div to attach an external callout that points at its segment with a leader line. The annotation content is free-form Markdown; any bold text or heading is tinted to match the segment color, which is handy for a title (but optional). Annotate all, some, or none of the segments.\nNest the fenced divs with more colons on the outer fences (::::: for the chart, :::: for each item, ::: for the annotation) and leave a blank line around the inner fences.\n::::: cycle\n\n:::: item\nCollect\n\n::: annotation\n**Collect** gather raw data from all available sources\n:::\n\n::::\n\n:::: item\nClean\n\n::: annotation\n**Clean** remove errors and standardize the format\n:::\n\n::::\n\n:::: item\nAnalyze\n\n::: annotation\n**Analyze** find patterns and extract insights\n:::\n\n::::\n\n:::: item\nReport\n\n::: annotation\n**Report** share findings with stakeholders\n:::\n\n::::\n\n:::::\n\n\nCollect\n\nCollect gather raw data from all available sources\n\n\n\nClean\n\nClean remove errors and standardize the format\n\n\n\nAnalyze\n\nAnalyze find patterns and extract insights\n\n\n\nReport\n\nReport share findings with stakeholders"
+  },
+  {
     "objectID": "node-shapes.html",
     "href": "node-shapes.html",
     "title": "Node Shapes",

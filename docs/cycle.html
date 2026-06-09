@@ -228,6 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link active" data-scroll-target="#basic-usage">Basic usage</a></li>
   <li><a href="#any-number-of-stages" id="toc-any-number-of-stages" class="nav-link" data-scroll-target="#any-number-of-stages">Any number of stages</a></li>
   <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
+  <li><a href="#annotations" id="toc-annotations" class="nav-link" data-scroll-target="#annotations">Annotations</a></li>
   </ul>
 </nav>
     </div>
@@ -365,6 +366,76 @@ Tip
 </div>
 <div class="item">
 <p>Learn</p>
+</div>
+</div>
+</section>
+<section id="annotations" class="level2">
+<h2 class="anchored" data-anchor-id="annotations">Annotations</h2>
+<p>Give any item a nested <code>.annotation</code> div to attach an external callout that points at its segment with a leader line. The annotation content is free-form Markdown; any bold text or heading is tinted to match the segment color, which is handy for a title (but optional). Annotate all, some, or none of the segments.</p>
+<p>Nest the fenced divs with <strong>more colons on the outer fences</strong> (<code>:::::</code> for the chart, <code>::::</code> for each item, <code>:::</code> for the annotation) and leave a blank line around the inner fences.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::::: cycle</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Collect</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>**Collect** gather raw data from all available sources</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>Clean</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>**Clean** remove errors and standardize the format</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>Analyze</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>**Analyze** find patterns and extract insights</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>Report</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>**Report** share findings with stakeholders</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cycle">
+<div class="item">
+<p>Collect</p>
+<div class="annotation">
+<p><strong>Collect</strong> gather raw data from all available sources</p>
+</div>
+</div>
+<div class="item">
+<p>Clean</p>
+<div class="annotation">
+<p><strong>Clean</strong> remove errors and standardize the format</p>
+</div>
+</div>
+<div class="item">
+<p>Analyze</p>
+<div class="annotation">
+<p><strong>Analyze</strong> find patterns and extract insights</p>
+</div>
+</div>
+<div class="item">
+<p>Report</p>
+<div class="annotation">
+<p><strong>Report</strong> share findings with stakeholders</p>
+</div>
 </div>
 </div>
 
@@ -2385,24 +2456,41 @@ function initCycle(container) {
   if (items.length === 0) return;
 
   const n = items.length;
-  const cx = 250, cy = 250;
   const defaultColor = container.dataset.nodeColor || '#2e6b8a';
 
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+
+  // Ring band radii — shrunk when annotated to leave room for side callouts.
+  const ro = hasAnn ? 168 : 225;     // outer radius of the ring band
+  const ri = ro * (150 / 225);       // inner radius (original proportion)
+  const rm = (ro + ri) / 2;          // mid radius (labels + arrow tip)
+  const wing = (ro - ri) * 0.45;     // how far the arrowhead overhangs the band
+
+  const ANN_W = 164, ANN_GAP = 24, OUTER = 8;
+  const rAnchor = ro + wing;         // leader lines start just outside the band
+  const PAD = hasAnn ? (ANN_W + ANN_GAP) : 0;
+  const cx = hasAnn ? (OUTER + PAD + rAnchor) : 250;
+  const W  = hasAnn ? (2 * cx) : 500;
+  const H  = hasAnn ? 430 : 500;
+  const cy = H / 2;
+
   container.style.position = 'relative';
-  container.style.width = '500px';
-  container.style.height = '500px';
+  container.style.width = W + 'px';
+  container.style.height = H + 'px';
   container.style.margin = '0 auto';
   container.style.display = 'block';
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '500');
-  svg.setAttribute('height', '500');
-  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;';
   container.appendChild(svg);
 
-  const ro = 225, ri = 150;          // outer / inner radius of the ring band
-  const rm = (ro + ri) / 2;          // mid radius (labels + arrow tip)
-  const wing = (ro - ri) * 0.45;     // how far the arrowhead overhangs the band
   const step = 2 * Math.PI / n;      // angular span per segment
   const gapAngle = Math.min(step * 0.18, 0.22);  // gap between segments (centered)
   const headAngle = Math.min(step * 0.28, 0.4);  // angular length of the arrowhead
@@ -2411,6 +2499,7 @@ function initCycle(container) {
 
   const labelEls = [];
   const labelArc = [];
+  const annAnchors = [];  // { ex, ey, mid, color, html } per annotated segment
 
   items.forEach((item, i) => {
     const color = item.getAttribute('color') || item.dataset.color || defaultColor;
@@ -2441,7 +2530,22 @@ function initCycle(container) {
     const lx = cx + rm * Math.cos(aMid), ly = cy + rm * Math.sin(aMid);
     const label = document.createElement('div');
     label.className = 'slice-label';
-    label.textContent = item.textContent.trim();
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      annAnchors.push({
+        ex: cx + rAnchor * Math.cos(aMid),
+        ey: cy + rAnchor * Math.sin(aMid),
+        mid: aMid,
+        color,
+        html: annHTML[i]
+      });
+    }
+    label.textContent = labelText;
     label.style.left = lx + 'px';
     label.style.top  = ly + 'px';
     container.appendChild(label);
@@ -2465,6 +2569,8 @@ function initCycle(container) {
       el.style.fontSize = (baseFontSize * textMaxW / w) + 'px';
     }
   });
+
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, rAnchor, H, ANN_GAP);
 }
 </script>
 

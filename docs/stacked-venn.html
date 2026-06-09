@@ -2379,24 +2379,41 @@ function initCycle(container) {
   if (items.length === 0) return;
 
   const n = items.length;
-  const cx = 250, cy = 250;
   const defaultColor = container.dataset.nodeColor || '#2e6b8a';
 
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+
+  // Ring band radii — shrunk when annotated to leave room for side callouts.
+  const ro = hasAnn ? 168 : 225;     // outer radius of the ring band
+  const ri = ro * (150 / 225);       // inner radius (original proportion)
+  const rm = (ro + ri) / 2;          // mid radius (labels + arrow tip)
+  const wing = (ro - ri) * 0.45;     // how far the arrowhead overhangs the band
+
+  const ANN_W = 164, ANN_GAP = 24, OUTER = 8;
+  const rAnchor = ro + wing;         // leader lines start just outside the band
+  const PAD = hasAnn ? (ANN_W + ANN_GAP) : 0;
+  const cx = hasAnn ? (OUTER + PAD + rAnchor) : 250;
+  const W  = hasAnn ? (2 * cx) : 500;
+  const H  = hasAnn ? 430 : 500;
+  const cy = H / 2;
+
   container.style.position = 'relative';
-  container.style.width = '500px';
-  container.style.height = '500px';
+  container.style.width = W + 'px';
+  container.style.height = H + 'px';
   container.style.margin = '0 auto';
   container.style.display = 'block';
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '500');
-  svg.setAttribute('height', '500');
-  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;';
   container.appendChild(svg);
 
-  const ro = 225, ri = 150;          // outer / inner radius of the ring band
-  const rm = (ro + ri) / 2;          // mid radius (labels + arrow tip)
-  const wing = (ro - ri) * 0.45;     // how far the arrowhead overhangs the band
   const step = 2 * Math.PI / n;      // angular span per segment
   const gapAngle = Math.min(step * 0.18, 0.22);  // gap between segments (centered)
   const headAngle = Math.min(step * 0.28, 0.4);  // angular length of the arrowhead
@@ -2405,6 +2422,7 @@ function initCycle(container) {
 
   const labelEls = [];
   const labelArc = [];
+  const annAnchors = [];  // { ex, ey, mid, color, html } per annotated segment
 
   items.forEach((item, i) => {
     const color = item.getAttribute('color') || item.dataset.color || defaultColor;
@@ -2435,7 +2453,22 @@ function initCycle(container) {
     const lx = cx + rm * Math.cos(aMid), ly = cy + rm * Math.sin(aMid);
     const label = document.createElement('div');
     label.className = 'slice-label';
-    label.textContent = item.textContent.trim();
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      annAnchors.push({
+        ex: cx + rAnchor * Math.cos(aMid),
+        ey: cy + rAnchor * Math.sin(aMid),
+        mid: aMid,
+        color,
+        html: annHTML[i]
+      });
+    }
+    label.textContent = labelText;
     label.style.left = lx + 'px';
     label.style.top  = ly + 'px';
     container.appendChild(label);
@@ -2459,6 +2492,8 @@ function initCycle(container) {
       el.style.fontSize = (baseFontSize * textMaxW / w) + 'px';
     }
   });
+
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, rAnchor, H, ANN_GAP);
 }
 </script>
 
