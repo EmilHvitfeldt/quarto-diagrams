@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add external `.annotation` callouts: nest an `.annotation` div in any item to
+  attach a side callout with a leader line. Supported on `.pie`, `.circle-flow`,
+  `.cycle`, `.venn`, `.stacked-venn`, `.funnel`, `.pyramid`, and `.process`.
 - Add `.donut` subtype for `.pie` (`hole=`, `center=`).
 
 ## 0.2.0
