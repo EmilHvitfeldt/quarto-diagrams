@@ -1286,32 +1286,52 @@ function initPie(container) {
   if (items.length === 0) return;
 
   const n = items.length;
-  const cx = 250, cy = 250;
   const hasGap = container.classList.contains('gap');
   const anyItemGap = items.some(item => item.classList.contains('gap'));
   const sliceOffset = 20;
-  const r = (hasGap || anyItemGap) ? 210 : 240;
   const defaultColor = container.dataset.nodeColor || '#2e6b8a';
 
   const isDonut = container.classList.contains('donut');
   let holeFrac = parseFloat(container.dataset.hole);
   if (isNaN(holeFrac)) holeFrac = 0.55;
   holeFrac = Math.min(0.85, Math.max(0.2, holeFrac));
+
+  // Per-item annotation HTML (from a nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+
+  // Geometry. When annotated, the donut shrinks and side columns are reserved
+  // so the whole figure (donut + callouts) fits a normal content column rather
+  // than spilling outside it.
+  const ANN_W = 164;   // callout column width (keep in sync with .annotation CSS)
+  const ANN_GAP = 24;  // gap between ring edge and callout column
+  const OUTER = 8;     // outer margin so callout text doesn't touch the edge
+  const PAD = hasAnn ? (ANN_W + ANN_GAP) : 0;
+  const r = hasAnn ? 168 : ((hasGap || anyItemGap) ? 210 : 240);
   const rInner = isDonut ? r * holeFrac : 0;
 
+  const cx = hasAnn ? (OUTER + PAD + r) : 250;
+  const W  = hasAnn ? (2 * cx) : 500;
+  const H  = hasAnn ? 430 : 500;
+  const cy = H / 2;
+
   container.style.position = 'relative';
-  container.style.width = '500px';
-  container.style.height = '500px';
+  container.style.width = W + 'px';
+  container.style.height = H + 'px';
   container.style.margin = '0 auto';
   container.style.display = 'block';
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '500');
-  svg.setAttribute('height', '500');
-  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;';
   container.appendChild(svg);
 
   const labelEls = [];
+  const annAnchors = [];  // { ex, ey, mid, color, html } per annotated slice
 
   items.forEach((item, i) => {
     const color = item.getAttribute('color') || item.dataset.color || defaultColor;
@@ -1365,9 +1385,27 @@ function initPie(container) {
     const lx = ox + labelR * Math.cos(midAngle);
     const ly = oy + labelR * Math.sin(midAngle);
 
+    // Shape label = item text minus any nested .annotation content
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      // Anchor the leader line at this slice's outer-edge midpoint
+      annAnchors.push({
+        ex: ox + r * Math.cos(midAngle),
+        ey: oy + r * Math.sin(midAngle),
+        mid: midAngle,
+        color,
+        html: annHTML[i]
+      });
+    }
+
     const label = document.createElement('div');
     label.className = 'slice-label';
-    label.textContent = item.textContent.trim();
+    label.textContent = labelText;
     label.style.left = lx + 'px';
     label.style.top  = ly + 'px';
     container.appendChild(label);
@@ -1402,6 +1440,71 @@ function initPie(container) {
     center.style.maxWidth = (2 * rInner * 0.85) + 'px';
     container.appendChild(center);
   }
+
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, r, H, ANN_GAP);
+}
+
+// --- Annotations (external callouts with leader lines) ---
+//
+// Shared by radial layouts. `anchors` is a list of
+//   { ex, ey, mid, color, html }
+// where (ex, ey) is the leader-line start on the shape's outer edge, `mid` is
+// the angle (used to pick a side), `color` tints the leader line + title, and
+// `html` is the callout content. Callouts are stacked on the left/right side so
+// they don't overlap. `r` is the shape's outer radius, `H` the container height
+// (stack is clamped to it), and `colGap` the gap from the ring to the column.
+function placeAnnotations(container, svg, anchors, r, H, colGap) {
+  if (anchors.length === 0) return;
+  const vGap = 14;            // min vertical gap between stacked callouts
+
+  const right = anchors.filter(a => Math.cos(a.mid) >= 0).sort((a, b) => a.ey - b.ey);
+  const left  = anchors.filter(a => Math.cos(a.mid) <  0).sort((a, b) => a.ey - b.ey);
+
+  const placeSide = (list, side) => {
+    if (list.length === 0) return;
+    const cxRing = list[0].ex - r * Math.cos(list[0].mid); // recover center x
+    const colX = side === 'right' ? cxRing + r + colGap : cxRing - r - colGap;
+
+    // Build callouts and measure their heights
+    const recs = list.map(a => {
+      const el = document.createElement('div');
+      el.className = 'annotation annotation-' + side;
+      el.style.setProperty('--ann-color', a.color);
+      el.style.left = colX + 'px';
+      el.innerHTML = a.html;
+      container.appendChild(el);
+      return { a, el, h: el.offsetHeight };
+    });
+
+    // Stack vertically: prefer centering on the anchor, push down on collision
+    let prevBottom = -Infinity;
+    recs.forEach(rec => {
+      let top = rec.a.ey - rec.h / 2;
+      if (top < prevBottom + vGap) top = prevBottom + vGap;
+      rec.top = top;
+      prevBottom = top + rec.h;
+    });
+    // If the stack overflows the bottom, shift the whole column up
+    const overflow = prevBottom - (H - 4);
+    if (overflow > 0) recs.forEach(rec => { rec.top -= overflow; });
+
+    recs.forEach(rec => {
+      rec.el.style.top = rec.top + 'px';
+      const ly = rec.top + rec.h / 2;
+      const x2 = side === 'right' ? colX - 8 : colX + 8;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', rec.a.ex);
+      line.setAttribute('y1', rec.a.ey);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', ly);
+      line.setAttribute('stroke', rec.a.color);
+      line.setAttribute('stroke-width', '2');
+      svg.insertBefore(line, svg.firstChild);
+    });
+  };
+
+  placeSide(right, 'right');
+  placeSide(left, 'left');
 }
 
 // --- Process (linear flow) ---

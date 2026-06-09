@@ -149,6 +149,125 @@ David
 :::
 :::
 
+## Annotations
+
+Give any item a nested `.annotation` div to attach an external callout that
+points at its slice with a leader line. The annotation content is free-form
+Markdown, so the slice keeps its own short label while the detail lives outside
+the chart.
+
+Any bold text or heading inside an annotation is automatically tinted to match
+the slice color, which is handy for a title — but this is purely optional. A
+plain annotation with no bold renders as ordinary text:
+
+````markdown
+::: annotation
+Unpaid visitors arriving through search engine results
+:::
+````
+
+Because the callouts and leader lines need room, nest the fenced divs with
+**more colons on the outer fences** (`:::::` for the chart, `::::` for each item,
+`:::` for the annotation) and leave a blank line around the inner fences.
+
+````markdown
+::::: {.pie .donut center="48k visits"}
+
+:::: item
+Organic
+
+::: annotation
+**Organic** unpaid visitors arriving through search engine results
+:::
+
+::::
+
+:::: {.item color="#e8a13c"}
+Direct
+
+::: annotation
+**Direct** people typing the URL or using a saved bookmark
+:::
+
+::::
+
+:::: {.item color="#d65db1"}
+Social
+
+::: annotation
+**Social** referrals from posts and links shared on social media
+:::
+
+::::
+
+:::::
+````
+
+::::: {.pie .donut center="48k visits"}
+
+:::: item
+Organic
+
+::: annotation
+**Organic** unpaid visitors arriving through search engine results
+:::
+
+::::
+
+:::: {.item color="#e8a13c"}
+Direct
+
+::: annotation
+**Direct** people typing the URL or using a saved bookmark
+:::
+
+::::
+
+:::: {.item color="#d65db1"}
+Social
+
+::: annotation
+**Social** referrals from posts and links shared on social media
+:::
+
+::::
+
+:::::
+
+Annotations are optional per item — annotate all, some, or none. Items without
+an `.annotation` simply render as plain slices. They also work on a plain pie,
+not just a donut.
+
+::::: pie
+
+:::: item
+Alice
+
+::: annotation
+**Alice** has a callout
+:::
+
+::::
+
+:::: item
+Bob
+::::
+
+:::: item
+Carol
+
+::: annotation
+**Carol** also has one, with a slightly longer description that wraps
+:::
+
+::::
+
+:::: item
+David
+::::
+
+:::::
+
 ## Gap between slices
 
 Add the `.gap` modifier to offset all slices outward, creating visible separation.
