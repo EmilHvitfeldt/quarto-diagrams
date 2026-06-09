@@ -127,3 +127,115 @@ Middle
 Base
 :::
 :::
+
+## Annotations
+
+Give any item a nested `.annotation` div to attach an external callout that
+points at its band with a leader line. Callouts alternate sides up the pyramid —
+useful when band labels are long, since the detail lives outside the shape. The
+annotation content is free-form Markdown; any bold text or heading is tinted to
+match the band color (optional). Annotate all, some, or none of the bands.
+
+Nest the fenced divs with **more colons on the outer fences** (`:::::` for the
+chart, `::::` for each item, `:::` for the annotation) and leave a blank line
+around the inner fences.
+
+````markdown
+::::: pyramid
+
+:::: item
+Self-actualization
+
+::: annotation
+**Self-actualization** achieving one's full potential
+:::
+
+::::
+
+:::: item
+Esteem
+
+::: annotation
+**Esteem** respect, status, and recognition
+:::
+
+::::
+
+:::: item
+Belonging
+
+::: annotation
+**Belonging** friendship, intimacy, and connection
+:::
+
+::::
+
+:::: item
+Safety
+
+::: annotation
+**Safety** security of body, health, and resources
+:::
+
+::::
+
+:::: item
+Physiological
+
+::: annotation
+**Physiological** food, water, warmth, and rest
+:::
+
+::::
+
+:::::
+````
+
+::::: pyramid
+
+:::: item
+Self-actualization
+
+::: annotation
+**Self-actualization** achieving one's full potential
+:::
+
+::::
+
+:::: item
+Esteem
+
+::: annotation
+**Esteem** respect, status, and recognition
+:::
+
+::::
+
+:::: item
+Belonging
+
+::: annotation
+**Belonging** friendship, intimacy, and connection
+:::
+
+::::
+
+:::: item
+Safety
+
+::: annotation
+**Safety** security of body, health, and resources
+:::
+
+::::
+
+:::: item
+Physiological
+
+::: annotation
+**Physiological** food, water, warmth, and rest
+:::
+
+::::
+
+:::::

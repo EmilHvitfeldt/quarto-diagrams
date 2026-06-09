@@ -1720,16 +1720,36 @@ function initPyramid(container) {
   const hasGap = container.classList.contains('gap');
   const defaultColor = container.dataset.nodeColor || '#2e6b8a';
 
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+
+  // Fixed 500-unit system. When annotated, scale down and offset so callout
+  // columns on both sides fit a normal content column.
+  const ANN_W = 164, ANN_GAP = 24, OUTER = 8;
+  const s = hasAnn ? 0.7 : 1;
+  const diagSize = 500 * s;
+  const PAD = hasAnn ? (ANN_W + ANN_GAP) : 0;
+  const W  = hasAnn ? (2 * OUTER + 2 * PAD + diagSize) : 500;
+  const CH = hasAnn ? 380 : 500;
+  const offsetX = hasAnn ? (OUTER + PAD) : 0;
+  const offsetY = hasAnn ? (CH - diagSize) / 2 : 0;
+  const X = x => offsetX + x * s;
+  const Y = y => offsetY + y * s;
+
   container.style.position = 'relative';
-  container.style.width = '500px';
-  container.style.height = '500px';
+  container.style.width = W + 'px';
+  container.style.height = CH + 'px';
   container.style.margin = '0 auto';
   container.style.display = 'block';
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '500');
-  svg.setAttribute('height', '500');
-  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', CH);
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;';
   container.appendChild(svg);
 
   // half-width of the triangle at vertical fraction p (0 = top, 1 = bottom)
@@ -1737,6 +1757,7 @@ function initPyramid(container) {
 
   const labelEls = [];
   const bandWidths = [];
+  const annAnchors = [];  // { ex, ey, mid, color, html } per annotated band
 
   items.forEach((item, i) => {
     const color = item.getAttribute('color') || item.dataset.color || defaultColor;
@@ -1749,8 +1770,8 @@ function initPyramid(container) {
     const topHalf = halfAt(pTop);
     const botHalf = halfAt(pBot);
 
-    const d = `M ${cx - topHalf} ${yTop} L ${cx + topHalf} ${yTop} ` +
-              `L ${cx + botHalf} ${yBot} L ${cx - botHalf} ${yBot} Z`;
+    const d = `M ${X(cx - topHalf)} ${Y(yTop)} L ${X(cx + topHalf)} ${Y(yTop)} ` +
+              `L ${X(cx + botHalf)} ${Y(yBot)} L ${X(cx - botHalf)} ${Y(yBot)} Z`;
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', d);
@@ -1762,16 +1783,33 @@ function initPyramid(container) {
     svg.appendChild(path);
 
     const ly = (yTop + yBot) / 2;
+    const midHalf = halfAt((pTop + pBot) / 2);
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      const right = (i % 2 === 0);
+      annAnchors.push({
+        ex: right ? X(cx + midHalf) : X(cx - midHalf),
+        ey: Y(ly),
+        mid: right ? 0 : Math.PI,
+        color,
+        html: annHTML[i]
+      });
+    }
     const label = document.createElement('div');
     label.className = 'slice-label';
-    label.textContent = item.textContent.trim();
-    label.style.left = cx + 'px';
-    label.style.top  = ly + 'px';
+    label.textContent = labelText;
+    label.style.left = X(cx) + 'px';
+    label.style.top  = Y(ly) + 'px';
     container.appendChild(label);
     labelEls.push(label);
 
     // usable width at the label's vertical midpoint
-    bandWidths.push(2 * halfAt((pTop + pBot) / 2));
+    bandWidths.push(2 * midHalf * s);
     item.style.display = 'none';
   });
 
@@ -1790,6 +1828,8 @@ function initPyramid(container) {
       el.style.fontSize = (baseFontSize * textMaxW / w) + 'px';
     }
   });
+
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, X(cx), baseHalf * s, CH, ANN_GAP);
 }
 
 // --- Matrix (2x2 quadrants) ---

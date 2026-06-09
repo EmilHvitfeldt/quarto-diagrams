@@ -518,6 +518,13 @@
     "text": "Colors\nUse node-color= on the container to set the base color for all bands, or color= on an individual item to override a single band.\n::: {.pyramid node-color=\"#7a3b5c\"}\n::: item\nTop\n:::\n::: {.item color=\"#3b7a5c\"}\nMiddle\n:::\n::: item\nBase\n:::\n:::\n\n\nTop\n\n\nMiddle\n\n\nBase"
   },
   {
+    "objectID": "pyramid.html#annotations",
+    "href": "pyramid.html#annotations",
+    "title": "Pyramid",
+    "section": "Annotations",
+    "text": "Annotations\nGive any item a nested .annotation div to attach an external callout that points at its band with a leader line. Callouts alternate sides up the pyramid — useful when band labels are long, since the detail lives outside the shape. The annotation content is free-form Markdown; any bold text or heading is tinted to match the band color (optional). Annotate all, some, or none of the bands.\nNest the fenced divs with more colons on the outer fences (::::: for the chart, :::: for each item, ::: for the annotation) and leave a blank line around the inner fences.\n::::: pyramid\n\n:::: item\nSelf-actualization\n\n::: annotation\n**Self-actualization** achieving one's full potential\n:::\n\n::::\n\n:::: item\nEsteem\n\n::: annotation\n**Esteem** respect, status, and recognition\n:::\n\n::::\n\n:::: item\nBelonging\n\n::: annotation\n**Belonging** friendship, intimacy, and connection\n:::\n\n::::\n\n:::: item\nSafety\n\n::: annotation\n**Safety** security of body, health, and resources\n:::\n\n::::\n\n:::: item\nPhysiological\n\n::: annotation\n**Physiological** food, water, warmth, and rest\n:::\n\n::::\n\n:::::\n\n\nSelf-actualization\n\nSelf-actualization achieving one’s full potential\n\n\n\nEsteem\n\nEsteem respect, status, and recognition\n\n\n\nBelonging\n\nBelonging friendship, intimacy, and connection\n\n\n\nSafety\n\nSafety security of body, health, and resources\n\n\n\nPhysiological\n\nPhysiological food, water, warmth, and rest"
+  },
+  {
     "objectID": "pie.html",
     "href": "pie.html",
     "title": "Pie Chart",
