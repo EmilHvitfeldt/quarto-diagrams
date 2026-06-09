@@ -140,6 +140,13 @@
     "text": "Colors\nEach set defaults to a distinct color. Use color= on an individual item to override one circle, or node-color= on the container to set a single shared base color for every circle.\n::: {.venn}\n::: {.item color=\"#7a3b5c\"}\nTea\n:::\n::: {.item color=\"#3b7a5c\"}\nCoffee\n:::\n:::\n\n\nTea\n\n\nCoffee"
   },
   {
+    "objectID": "venn.html#annotations",
+    "href": "venn.html#annotations",
+    "title": "Venn",
+    "section": "Annotations",
+    "text": "Annotations\nGive any item a nested .annotation div to attach an external callout that points at its set with a leader line. The callouts fan out to the side matching each set’s position. The annotation content is free-form Markdown; any bold text or heading is tinted to match the set color (optional). Annotate all, some, or none of the sets.\nNest the fenced divs with more colons on the outer fences (::::: for the chart, :::: for each item, ::: for the annotation) and leave a blank line around the inner fences.\n::::: venn\n\n:::: item\nDesign\n\n::: annotation\n**Design** how it looks and feels\n:::\n\n::::\n\n:::: item\nEngineering\n\n::: annotation\n**Engineering** how it is built\n:::\n\n::::\n\n:::: item\nProduct\n\n::: annotation\n**Product** what gets built and why\n:::\n\n::::\n\n:::::\n\n\nDesign\n\nDesign how it looks and feels\n\n\n\nEngineering\n\nEngineering how it is built\n\n\n\nProduct\n\nProduct what gets built and why"
+  },
+  {
     "objectID": "cycle.html",
     "href": "cycle.html",
     "title": "Cycle",

@@ -115,3 +115,79 @@ Tea
 Coffee
 :::
 :::
+
+## Annotations
+
+Give any item a nested `.annotation` div to attach an external callout that
+points at its set with a leader line. The callouts fan out to the side matching
+each set's position. The annotation content is free-form Markdown; any bold text
+or heading is tinted to match the set color (optional). Annotate all, some, or
+none of the sets.
+
+Nest the fenced divs with **more colons on the outer fences** (`:::::` for the
+chart, `::::` for each item, `:::` for the annotation) and leave a blank line
+around the inner fences.
+
+````markdown
+::::: venn
+
+:::: item
+Design
+
+::: annotation
+**Design** how it looks and feels
+:::
+
+::::
+
+:::: item
+Engineering
+
+::: annotation
+**Engineering** how it is built
+:::
+
+::::
+
+:::: item
+Product
+
+::: annotation
+**Product** what gets built and why
+:::
+
+::::
+
+:::::
+````
+
+::::: venn
+
+:::: item
+Design
+
+::: annotation
+**Design** how it looks and feels
+:::
+
+::::
+
+:::: item
+Engineering
+
+::: annotation
+**Engineering** how it is built
+:::
+
+::::
+
+:::: item
+Product
+
+::: annotation
+**Product** what gets built and why
+:::
+
+::::
+
+:::::

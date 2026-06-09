@@ -2139,16 +2139,37 @@ function initVenn(container) {
   const palette = ['#2e6b8a', '#c0584f', '#5a9367'];
   const baseColor = container.dataset.nodeColor;
 
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+
+  // The venn uses a fixed 500-unit coordinate system. When annotated, scale it
+  // down (s) and offset it so side callout columns fit a normal content column.
+  const ANN_W = 164, ANN_GAP = 24, OUTER = 8;
+  const s = hasAnn ? 0.72 : 1;
+  const diagW = 500 * s;
+  const PAD = hasAnn ? (ANN_W + ANN_GAP) : 0;
+  const W = hasAnn ? (2 * OUTER + 2 * PAD + diagW) : 500;
+  const H = hasAnn ? 430 : 500;
+  const offsetX = hasAnn ? (OUTER + PAD) : 0;
+  const offsetY = hasAnn ? (H - diagW) / 2 : 0;
+  const X = x => offsetX + x * s;   // map base-coord x → container x
+  const Y = y => offsetY + y * s;
+  const Rr = r => r * s;
+
   container.style.position = 'relative';
-  container.style.width = '500px';
-  container.style.height = '500px';
+  container.style.width = W + 'px';
+  container.style.height = H + 'px';
   container.style.margin = '0 auto';
   container.style.display = 'block';
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '500');
-  svg.setAttribute('height', '500');
-  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;';
   container.appendChild(svg);
 
   // Circle centers/radius per set count
@@ -2160,9 +2181,9 @@ function initVenn(container) {
     const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i];
     const c = circles[i];
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', c.cx);
-    circle.setAttribute('cy', c.cy);
-    circle.setAttribute('r', c.r);
+    circle.setAttribute('cx', X(c.cx));
+    circle.setAttribute('cy', Y(c.cy));
+    circle.setAttribute('r', Rr(c.r));
     circle.setAttribute('fill', color);
     circle.setAttribute('fill-opacity', '0.45');
     circle.style.mixBlendMode = 'multiply';
@@ -2183,13 +2204,30 @@ function initVenn(container) {
        { key: 'abc', x: 250, y: 245 }];
 
   const labelEls = [];
+  const annAnchors = [];  // { ex, ey, mid, color, html } per annotated set
+  const Ox = X(250), Oy = Y(250);
 
   items.forEach((item, i) => {
     const label = document.createElement('div');
     label.className = 'set-label';
-    label.textContent = item.textContent.trim();
-    label.style.left = setLabels[i].x + 'px';
-    label.style.top  = setLabels[i].y + 'px';
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      // Leader starts on this set's outer rim, away from the diagram center
+      const c = circles[i];
+      const ccx = X(c.cx), ccy = Y(c.cy), rr = Rr(c.r);
+      const dx = ccx - Ox, dy = ccy - Oy, len = Math.hypot(dx, dy) || 1;
+      const ux = dx / len, uy = dy / len;
+      const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i];
+      annAnchors.push({ ex: ccx + rr * ux, ey: ccy + rr * uy, mid: Math.atan2(uy, ux), color, html: annHTML[i] });
+    }
+    label.textContent = labelText;
+    label.style.left = X(setLabels[i].x) + 'px';
+    label.style.top  = Y(setLabels[i].y) + 'px';
     container.appendChild(label);
     labelEls.push(label);
   });
@@ -2201,14 +2239,14 @@ function initVenn(container) {
     const label = document.createElement('div');
     label.className = 'overlap-label';
     label.textContent = text;
-    label.style.left = o.x + 'px';
-    label.style.top  = o.y + 'px';
+    label.style.left = X(o.x) + 'px';
+    label.style.top  = Y(o.y) + 'px';
     if (overlapColor) label.style.color = overlapColor;
     container.appendChild(label);
   });
 
   // Shrink set labels so the longest fits within a circle's exclusive lobe
-  const textMaxW = (n === 2 ? 150 : 130);
+  const textMaxW = (n === 2 ? 150 : 130) * s;
   const baseStyle = getComputedStyle(labelEls[0]);
   const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
   const fontFamily = baseStyle.fontFamily || 'sans-serif';
@@ -2221,6 +2259,8 @@ function initVenn(container) {
     const scaled = (baseFontSize * textMaxW / maxW) + 'px';
     labelEls.forEach(el => el.style.fontSize = scaled);
   }
+
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, X(250), diagW / 2, H, ANN_GAP);
 }
 
 function initStackedVenn(container) {
