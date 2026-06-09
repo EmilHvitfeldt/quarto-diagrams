@@ -228,6 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link active" data-scroll-target="#basic-usage">Basic usage</a></li>
   <li><a href="#orientation" id="toc-orientation" class="nav-link" data-scroll-target="#orientation">Orientation</a></li>
   <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
+  <li><a href="#annotations" id="toc-annotations" class="nav-link" data-scroll-target="#annotations">Annotations</a></li>
   </ul>
 </nav>
     </div>
@@ -359,6 +360,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="item" color="#5aa0c4">
 <p>Subscribers</p>
+</div>
+</div>
+</section>
+<section id="annotations" class="level2">
+<h2 class="anchored" data-anchor-id="annotations">Annotations</h2>
+<p>Give any item a nested <code>.annotation</code> div to attach an external callout that points at its circle with a leader line. Because the nested circles label along a single axis, the callouts form one stacked column on the right. The annotation content is free-form Markdown; any bold text or heading is tinted to match the circle color (optional). Annotate all, some, or none of the circles.</p>
+<p>Nest the fenced divs with <strong>more colons on the outer fences</strong> (<code>:::::</code> for the chart, <code>::::</code> for each item, <code>:::</code> for the annotation) and leave a blank line around the inner fences.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::::: stacked-venn</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Universe</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>**Universe** everything that exists, the broadest scope</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>Galaxy</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>**Galaxy** a gravitationally bound system of stars</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>Solar System</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>**Solar System** the Sun and the bodies orbiting it</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>Earth</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>**Earth** our home planet</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="stacked-venn">
+<div class="item">
+<p>Universe</p>
+<div class="annotation">
+<p><strong>Universe</strong> everything that exists, the broadest scope</p>
+</div>
+</div>
+<div class="item">
+<p>Galaxy</p>
+<div class="annotation">
+<p><strong>Galaxy</strong> a gravitationally bound system of stars</p>
+</div>
+</div>
+<div class="item">
+<p>Solar System</p>
+<div class="annotation">
+<p><strong>Solar System</strong> the Sun and the bodies orbiting it</p>
+</div>
+</div>
+<div class="item">
+<p>Earth</p>
+<div class="annotation">
+<p><strong>Earth</strong> our home planet</p>
+</div>
 </div>
 </div>
 
@@ -885,7 +956,7 @@ function initCircleFlow(container) {
 
   if (hasAnn) {
     const annSvg = makeSVGOverlay(container, W, H);
-    placeAnnotations(container, annSvg, annAnchors, maxR, H, ANN_GAP);
+    placeAnnotations(container, annSvg, annAnchors, cx, maxR, H, ANN_GAP);
   }
 
   if (n === 1) return;
@@ -1365,7 +1436,7 @@ function initPie(container) {
     container.appendChild(center);
   }
 
-  if (hasAnn) placeAnnotations(container, svg, annAnchors, r, H, ANN_GAP);
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, cx, r, H, ANN_GAP);
 }
 
 // --- Annotations (external callouts with leader lines) ---
@@ -1375,9 +1446,10 @@ function initPie(container) {
 // where (ex, ey) is the leader-line start on the shape's outer edge, `mid` is
 // the angle (used to pick a side), `color` tints the leader line + title, and
 // `html` is the callout content. Callouts are stacked on the left/right side so
-// they don't overlap. `r` is the shape's outer radius, `H` the container height
+// they don't overlap. `cx` is the figure's center x (callout columns sit at
+// cx ± (r + colGap)), `r` is the shape's outer radius, `H` the container height
 // (stack is clamped to it), and `colGap` the gap from the ring to the column.
-function placeAnnotations(container, svg, anchors, r, H, colGap) {
+function placeAnnotations(container, svg, anchors, cx, r, H, colGap) {
   if (anchors.length === 0) return;
   const vGap = 14;            // min vertical gap between stacked callouts
 
@@ -1386,8 +1458,7 @@ function placeAnnotations(container, svg, anchors, r, H, colGap) {
 
   const placeSide = (list, side) => {
     if (list.length === 0) return;
-    const cxRing = list[0].ex - r * Math.cos(list[0].mid); // recover center x
-    const colX = side === 'right' ? cxRing + r + colGap : cxRing - r - colGap;
+    const colX = side === 'right' ? cx + r + colGap : cx - r - colGap;
 
     // Build callouts and measure their heights
     const recs = list.map(a => {
@@ -2190,17 +2261,34 @@ function initStackedVenn(container) {
   const palette = ['#c0584f', '#5a9367', '#7a5a9b', '#2e6b8a', '#b8893a'];
   const baseColor = container.dataset.nodeColor;
 
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+
   const SIZE = 500;
+  const margin = 10;
+  // When annotated, reserve a callout column on the right (the nested circles
+  // label along one axis, so callouts read best as a single stacked column).
+  const ANN_W = 164, ANN_GAP = 24, OUTER = 8;
+  const R = hasAnn ? 200 : (SIZE / 2 - margin);   // outer radius
+  const W = hasAnn ? (OUTER + 2 * R + ANN_GAP + ANN_W + OUTER) : SIZE;
+  const H = hasAnn ? 420 : SIZE;
+  const cx = hasAnn ? (OUTER + R) : SIZE / 2;
+  const cy = H / 2;
+
   container.style.position = 'relative';
-  container.style.width = SIZE + 'px';
-  container.style.height = SIZE + 'px';
+  container.style.width = W + 'px';
+  container.style.height = H + 'px';
   container.style.margin = '0 auto';
   container.style.display = 'block';
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', SIZE);
-  svg.setAttribute('height', SIZE);
-  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;';
   container.appendChild(svg);
 
   // Nested concentric circles sharing a common edge point (containment): the
@@ -2212,10 +2300,6 @@ function initStackedVenn(container) {
   // The diagram rotates by anchoring P in any direction without rotating the
   // labels (they are upright divs). `direction=` picks an edge; `angle=` adds
   // a clockwise rotation (degrees) on top of it.
-  const margin = 10;
-  const cx = SIZE / 2, cy = SIZE / 2;
-  const R = SIZE / 2 - margin;       // outer radius
-
   const dirDeg = { down: 90, up: -90, left: 180, right: 0 };
   const baseDeg = dirDeg[(container.dataset.direction || 'down').toLowerCase()] ?? 90;
   const rot = parseFloat(container.dataset.angle) || 0;
@@ -2243,12 +2327,26 @@ function initStackedVenn(container) {
   // R − r_last, i.e. the middle of its body).
   const labelEls = [];
   const labelPos = [];
+  const annAnchors = [];  // { ex, ey, mid, color, html } per annotated circle
   items.forEach((item, i) => {
     const dLabel = (i < n - 1) ? (R - radii[i] - radii[i + 1]) : (R - radii[i]);
     const lx = cx + dLabel * ux, ly = cy + dLabel * uy;
     const label = document.createElement('div');
     label.className = 'set-label';
-    label.textContent = item.textContent.trim();
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      // Start the leader on this circle's right rim, level with its label
+      const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i % palette.length];
+      const ccx = cx + (R - radii[i]) * ux, ccy = cy + (R - radii[i]) * uy;
+      const dxr = Math.sqrt(Math.max(0, radii[i] * radii[i] - (ly - ccy) * (ly - ccy)));
+      annAnchors.push({ ex: ccx + dxr, ey: ly, mid: 0, color, html: annHTML[i] });
+    }
+    label.textContent = labelText;
     label.style.left = lx + 'px';
     label.style.top  = ly + 'px';
     container.appendChild(label);
@@ -2275,6 +2373,8 @@ function initStackedVenn(container) {
     const w = cctx.measureText(el.textContent).width;
     if (w > maxW && w > 0) el.style.fontSize = (baseFontSize * maxW / w) + 'px';
   });
+
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, cx, R, H, ANN_GAP);
 }
 
 // --- Funnel (flat-bottomed narrowing stages) ---
@@ -2493,7 +2593,7 @@ function initCycle(container) {
     }
   });
 
-  if (hasAnn) placeAnnotations(container, svg, annAnchors, rAnchor, H, ANN_GAP);
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, cx, rAnchor, H, ANN_GAP);
 }
 </script>
 

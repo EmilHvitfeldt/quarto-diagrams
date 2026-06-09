@@ -579,5 +579,12 @@
     "title": "Stacked Venn",
     "section": "Colors",
     "text": "Colors\nEach circle defaults to a distinct color. Use color= on an individual item to override one circle, or node-color= on the container to set a single shared base color for every circle.\n::: stacked-venn\n::: {.item color=\"#1b3a5b\"}\nEveryone\n:::\n::: {.item color=\"#2e6b8a\"}\nCustomers\n:::\n::: {.item color=\"#5aa0c4\"}\nSubscribers\n:::\n:::\n\n\nEveryone\n\n\nCustomers\n\n\nSubscribers"
+  },
+  {
+    "objectID": "stacked-venn.html#annotations",
+    "href": "stacked-venn.html#annotations",
+    "title": "Stacked Venn",
+    "section": "Annotations",
+    "text": "Annotations\nGive any item a nested .annotation div to attach an external callout that points at its circle with a leader line. Because the nested circles label along a single axis, the callouts form one stacked column on the right. The annotation content is free-form Markdown; any bold text or heading is tinted to match the circle color (optional). Annotate all, some, or none of the circles.\nNest the fenced divs with more colons on the outer fences (::::: for the chart, :::: for each item, ::: for the annotation) and leave a blank line around the inner fences.\n::::: stacked-venn\n\n:::: item\nUniverse\n\n::: annotation\n**Universe** everything that exists, the broadest scope\n:::\n\n::::\n\n:::: item\nGalaxy\n\n::: annotation\n**Galaxy** a gravitationally bound system of stars\n:::\n\n::::\n\n:::: item\nSolar System\n\n::: annotation\n**Solar System** the Sun and the bodies orbiting it\n:::\n\n::::\n\n:::: item\nEarth\n\n::: annotation\n**Earth** our home planet\n:::\n\n::::\n\n:::::\n\n\nUniverse\n\nUniverse everything that exists, the broadest scope\n\n\n\nGalaxy\n\nGalaxy a gravitationally bound system of stars\n\n\n\nSolar System\n\nSolar System the Sun and the bodies orbiting it\n\n\n\nEarth\n\nEarth our home planet"
   }
 ]

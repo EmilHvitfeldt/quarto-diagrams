@@ -129,3 +129,97 @@ Customers
 Subscribers
 :::
 :::
+
+## Annotations
+
+Give any item a nested `.annotation` div to attach an external callout that
+points at its circle with a leader line. Because the nested circles label along
+a single axis, the callouts form one stacked column on the right. The annotation
+content is free-form Markdown; any bold text or heading is tinted to match the
+circle color (optional). Annotate all, some, or none of the circles.
+
+Nest the fenced divs with **more colons on the outer fences** (`:::::` for the
+chart, `::::` for each item, `:::` for the annotation) and leave a blank line
+around the inner fences.
+
+````markdown
+::::: stacked-venn
+
+:::: item
+Universe
+
+::: annotation
+**Universe** everything that exists, the broadest scope
+:::
+
+::::
+
+:::: item
+Galaxy
+
+::: annotation
+**Galaxy** a gravitationally bound system of stars
+:::
+
+::::
+
+:::: item
+Solar System
+
+::: annotation
+**Solar System** the Sun and the bodies orbiting it
+:::
+
+::::
+
+:::: item
+Earth
+
+::: annotation
+**Earth** our home planet
+:::
+
+::::
+
+:::::
+````
+
+::::: stacked-venn
+
+:::: item
+Universe
+
+::: annotation
+**Universe** everything that exists, the broadest scope
+:::
+
+::::
+
+:::: item
+Galaxy
+
+::: annotation
+**Galaxy** a gravitationally bound system of stars
+:::
+
+::::
+
+:::: item
+Solar System
+
+::: annotation
+**Solar System** the Sun and the bodies orbiting it
+:::
+
+::::
+
+:::: item
+Earth
+
+::: annotation
+**Earth** our home planet
+:::
+
+::::
+
+:::::

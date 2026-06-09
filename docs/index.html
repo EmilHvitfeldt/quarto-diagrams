@@ -998,7 +998,7 @@ function initCircleFlow(container) {
 
   if (hasAnn) {
     const annSvg = makeSVGOverlay(container, W, H);
-    placeAnnotations(container, annSvg, annAnchors, maxR, H, ANN_GAP);
+    placeAnnotations(container, annSvg, annAnchors, cx, maxR, H, ANN_GAP);
   }
 
   if (n === 1) return;
@@ -1478,7 +1478,7 @@ function initPie(container) {
     container.appendChild(center);
   }
 
-  if (hasAnn) placeAnnotations(container, svg, annAnchors, r, H, ANN_GAP);
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, cx, r, H, ANN_GAP);
 }
 
 // --- Annotations (external callouts with leader lines) ---
@@ -1488,9 +1488,10 @@ function initPie(container) {
 // where (ex, ey) is the leader-line start on the shape's outer edge, `mid` is
 // the angle (used to pick a side), `color` tints the leader line + title, and
 // `html` is the callout content. Callouts are stacked on the left/right side so
-// they don't overlap. `r` is the shape's outer radius, `H` the container height
+// they don't overlap. `cx` is the figure's center x (callout columns sit at
+// cx ± (r + colGap)), `r` is the shape's outer radius, `H` the container height
 // (stack is clamped to it), and `colGap` the gap from the ring to the column.
-function placeAnnotations(container, svg, anchors, r, H, colGap) {
+function placeAnnotations(container, svg, anchors, cx, r, H, colGap) {
   if (anchors.length === 0) return;
   const vGap = 14;            // min vertical gap between stacked callouts
 
@@ -1499,8 +1500,7 @@ function placeAnnotations(container, svg, anchors, r, H, colGap) {
 
   const placeSide = (list, side) => {
     if (list.length === 0) return;
-    const cxRing = list[0].ex - r * Math.cos(list[0].mid); // recover center x
-    const colX = side === 'right' ? cxRing + r + colGap : cxRing - r - colGap;
+    const colX = side === 'right' ? cx + r + colGap : cx - r - colGap;
 
     // Build callouts and measure their heights
     const recs = list.map(a => {
@@ -2303,17 +2303,34 @@ function initStackedVenn(container) {
   const palette = ['#c0584f', '#5a9367', '#7a5a9b', '#2e6b8a', '#b8893a'];
   const baseColor = container.dataset.nodeColor;
 
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+
   const SIZE = 500;
+  const margin = 10;
+  // When annotated, reserve a callout column on the right (the nested circles
+  // label along one axis, so callouts read best as a single stacked column).
+  const ANN_W = 164, ANN_GAP = 24, OUTER = 8;
+  const R = hasAnn ? 200 : (SIZE / 2 - margin);   // outer radius
+  const W = hasAnn ? (OUTER + 2 * R + ANN_GAP + ANN_W + OUTER) : SIZE;
+  const H = hasAnn ? 420 : SIZE;
+  const cx = hasAnn ? (OUTER + R) : SIZE / 2;
+  const cy = H / 2;
+
   container.style.position = 'relative';
-  container.style.width = SIZE + 'px';
-  container.style.height = SIZE + 'px';
+  container.style.width = W + 'px';
+  container.style.height = H + 'px';
   container.style.margin = '0 auto';
   container.style.display = 'block';
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', SIZE);
-  svg.setAttribute('height', SIZE);
-  svg.style.cssText = 'position:absolute;left:0;top:0;';
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;';
   container.appendChild(svg);
 
   // Nested concentric circles sharing a common edge point (containment): the
@@ -2325,10 +2342,6 @@ function initStackedVenn(container) {
   // The diagram rotates by anchoring P in any direction without rotating the
   // labels (they are upright divs). `direction=` picks an edge; `angle=` adds
   // a clockwise rotation (degrees) on top of it.
-  const margin = 10;
-  const cx = SIZE / 2, cy = SIZE / 2;
-  const R = SIZE / 2 - margin;       // outer radius
-
   const dirDeg = { down: 90, up: -90, left: 180, right: 0 };
   const baseDeg = dirDeg[(container.dataset.direction || 'down').toLowerCase()] ?? 90;
   const rot = parseFloat(container.dataset.angle) || 0;
@@ -2356,12 +2369,26 @@ function initStackedVenn(container) {
   // R − r_last, i.e. the middle of its body).
   const labelEls = [];
   const labelPos = [];
+  const annAnchors = [];  // { ex, ey, mid, color, html } per annotated circle
   items.forEach((item, i) => {
     const dLabel = (i < n - 1) ? (R - radii[i] - radii[i + 1]) : (R - radii[i]);
     const lx = cx + dLabel * ux, ly = cy + dLabel * uy;
     const label = document.createElement('div');
     label.className = 'set-label';
-    label.textContent = item.textContent.trim();
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      // Start the leader on this circle's right rim, level with its label
+      const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i % palette.length];
+      const ccx = cx + (R - radii[i]) * ux, ccy = cy + (R - radii[i]) * uy;
+      const dxr = Math.sqrt(Math.max(0, radii[i] * radii[i] - (ly - ccy) * (ly - ccy)));
+      annAnchors.push({ ex: ccx + dxr, ey: ly, mid: 0, color, html: annHTML[i] });
+    }
+    label.textContent = labelText;
     label.style.left = lx + 'px';
     label.style.top  = ly + 'px';
     container.appendChild(label);
@@ -2388,6 +2415,8 @@ function initStackedVenn(container) {
     const w = cctx.measureText(el.textContent).width;
     if (w > maxW && w > 0) el.style.fontSize = (baseFontSize * maxW / w) + 'px';
   });
+
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, cx, R, H, ANN_GAP);
 }
 
 // --- Funnel (flat-bottomed narrowing stages) ---
@@ -2606,7 +2635,7 @@ function initCycle(container) {
     }
   });
 
-  if (hasAnn) placeAnnotations(container, svg, annAnchors, rAnchor, H, ANN_GAP);
+  if (hasAnn) placeAnnotations(container, svg, annAnchors, cx, rAnchor, H, ANN_GAP);
 }
 </script>
 
