@@ -7,6 +7,8 @@ them out and draws the connectors.
 
 📖 [Documentation & live examples](https://emilhvitfeldt.github.io/quarto-diagrams/)
 
+![](diagrams.webp)
+
 ## Installation
 
 ```bash
