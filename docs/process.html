@@ -232,6 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#node-shapes" id="toc-node-shapes" class="nav-link" data-scroll-target="#node-shapes">Node shapes</a></li>
   <li><a href="#extra-spacing-with-.gap" id="toc-extra-spacing-with-.gap" class="nav-link" data-scroll-target="#extra-spacing-with-.gap">Extra spacing with <code>.gap</code></a></li>
   <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
+  <li><a href="#annotations" id="toc-annotations" class="nav-link" data-scroll-target="#annotations">Annotations</a></li>
   </ul>
 </nav>
     </div>
@@ -460,6 +461,163 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="item">
 <p>Ship</p>
+</div>
+</div>
+</section>
+<section id="annotations" class="level2">
+<h2 class="anchored" data-anchor-id="annotations">Annotations</h2>
+<p>Give any item a nested <code>.annotation</code> div to attach an external callout that points at its step with a leader line. Callouts alternate above/below a horizontal flow (or left/right of a <code>.vertical</code> flow). The annotation content is free-form Markdown; any bold text or heading is tinted to match the step color (optional). Annotate all, some, or none of the steps.</p>
+<p>Nest the fenced divs with <strong>more colons on the outer fences</strong> (<code>:::::</code> for the chart, <code>::::</code> for each item, <code>:::</code> for the annotation) and leave a blank line around the inner fences.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>::::: process</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>Draft</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>**Draft** write the first version of the content</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>Review</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>**Review** gather feedback from the team</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>Revise</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>**Revise** apply the suggested changes</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>Publish</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>**Publish** release the finished content</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="process">
+<div class="item">
+<p>Draft</p>
+<div class="annotation">
+<p><strong>Draft</strong> write the first version of the content</p>
+</div>
+</div>
+<div class="item">
+<p>Review</p>
+<div class="annotation">
+<p><strong>Review</strong> gather feedback from the team</p>
+</div>
+</div>
+<div class="item">
+<p>Revise</p>
+<div class="annotation">
+<p><strong>Revise</strong> apply the suggested changes</p>
+</div>
+</div>
+<div class="item">
+<p>Publish</p>
+<div class="annotation">
+<p><strong>Publish</strong> release the finished content</p>
+</div>
+</div>
+</div>
+<p>A <code>.vertical</code> process places the callouts to the left and right instead.</p>
+<div class="process vertical">
+<div class="item">
+<p>Apply</p>
+<div class="annotation">
+<p><strong>Apply</strong> submit your application online</p>
+</div>
+</div>
+<div class="item">
+<p>Interview</p>
+<div class="annotation">
+<p><strong>Interview</strong> meet with the hiring team</p>
+</div>
+</div>
+<div class="item">
+<p>Offer</p>
+<div class="annotation">
+<p><strong>Offer</strong> receive and accept the offer</p>
+</div>
+</div>
+</div>
+<p>Annotations work with the <code>.chevron</code> subtype too — the callouts attach to the interlocking arrow tiles.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>::::: {.process .chevron}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Draft</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>**Draft** write the first version of the content</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>Review</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>**Review** gather feedback from the team</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>Revise</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>**Revise** apply the suggested changes</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>Publish</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>**Publish** release the finished content</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="process chevron">
+<div class="item">
+<p>Draft</p>
+<div class="annotation">
+<p><strong>Draft</strong> write the first version of the content</p>
+</div>
+</div>
+<div class="item">
+<p>Review</p>
+<div class="annotation">
+<p><strong>Review</strong> gather feedback from the team</p>
+</div>
+</div>
+<div class="item">
+<p>Revise</p>
+<div class="annotation">
+<p><strong>Revise</strong> apply the suggested changes</p>
+</div>
+</div>
+<div class="item">
+<p>Publish</p>
+<div class="annotation">
+<p><strong>Publish</strong> release the finished content</p>
+</div>
 </div>
 </div>
 
@@ -1550,6 +1708,14 @@ function initProcess(container) {
   const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
   const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
 
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+  const ANN_W = 164, ANN_GAP = 24, BAND_H = 115;
+
   // Read container size from CSS (allows user override)
   container.style.position = 'relative';
   const cs = getComputedStyle(container);
@@ -1558,6 +1724,18 @@ function initProcess(container) {
 
   const mainAxis = vertical ? totalH : totalW;
   const crossAxis = vertical ? totalW : totalH;
+
+  // Annotation room: callouts go beside (vertical flow) or above/below
+  // (horizontal flow) the line of nodes; enlarge the container to fit them and
+  // shift the node line toward the new center.
+  let containerW = totalW, containerH = totalH, crossShift = 0;
+  if (hasAnn) {
+    if (vertical) { containerW = totalW + 2 * (ANN_W + ANN_GAP); crossShift = ANN_W + ANN_GAP; }
+    else          { containerH = totalH + 2 * BAND_H;            crossShift = BAND_H; }
+    container.style.width    = containerW + 'px';
+    container.style.height   = containerH + 'px';
+    container.style.maxWidth = 'none';  // .process(.vertical) caps width via CSS
+  }
 
   // Per-item gap multiplier (extra space before .gap items, except the first)
   const gapWeights = items.map((item, i) => (i > 0 && item.classList.contains('gap')) ? 1.6 : 1);
@@ -1604,16 +1782,26 @@ function initProcess(container) {
     }
   }
 
-  const crossCenter = crossAxis / 2;
+  const crossCenter = crossAxis / 2 + crossShift;
 
   const positions = centers.map(c => vertical ? { x: crossCenter, y: c } : { x: c, y: crossCenter });
 
+  const annAnchors = [];  // { x, y, color, html } per annotated node
   const nodeEls = items.map((item, i) => {
     const { x, y } = positions[i];
     const nodeColor = item.getAttribute('color') || item.dataset.color || defaultNodeColor;
     const node = document.createElement('div');
     node.className = 'node node-' + nodeType;
-    node.textContent = item.textContent.trim();
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      annAnchors.push({ x, y, color: nodeColor, html: annHTML[i] });
+    }
+    node.textContent = labelText;
     if (nodeType !== 'none') node.style.background = nodeColor;
     node.style.left = x + 'px';
     node.style.top  = y + 'px';
@@ -1686,6 +1874,41 @@ function initProcess(container) {
     nodeEls.forEach(el => el.style.fontSize = scaledSize);
   }
 
+  // Annotations (drawn before the early returns so they apply to every variant)
+  if (hasAnn) {
+    const annSvg = makeSVGOverlay(container, containerW, containerH);
+    if (vertical) {
+      // Beside the column, alternating left/right — reuse the radial helper
+      const anchors = annAnchors.map((a, k) => {
+        const right = (k % 2 === 0);
+        return { ex: right ? a.x + boxCross / 2 : a.x - boxCross / 2, ey: a.y,
+                 mid: right ? 0 : Math.PI, color: a.color, html: a.html };
+      });
+      placeAnnotations(container, annSvg, anchors, crossCenter, boxCross / 2, containerH, ANN_GAP);
+    } else {
+      // Above/below the row, alternating, centered on each node
+      const rowTop = crossCenter - boxCross / 2;
+      const rowBot = crossCenter + boxCross / 2;
+      const gap = 20;
+      annAnchors.forEach((a, k) => {
+        const above = (k % 2 === 0);
+        const el = document.createElement('div');
+        el.className = 'annotation annotation-center';
+        el.style.setProperty('--ann-color', a.color);
+        el.style.left = a.x + 'px';
+        el.innerHTML = a.html;
+        container.appendChild(el);
+        const h = el.offsetHeight;
+        el.style.top = (above ? (rowTop - gap - h) : (rowBot + gap)) + 'px';
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', a.x); line.setAttribute('y1', above ? rowTop : rowBot);
+        line.setAttribute('x2', a.x); line.setAttribute('y2', above ? rowTop - gap : rowBot + gap);
+        line.setAttribute('stroke', a.color); line.setAttribute('stroke-width', '2');
+        annSvg.appendChild(line);
+      });
+    }
+  }
+
   if (n === 1) return;
   if (chevron) return; // chevron tiles convey flow themselves — no connectors
 
@@ -1717,8 +1940,8 @@ function initProcess(container) {
 
   // thin / double — SVG lines with arrowheads
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', totalW);
-  svg.setAttribute('height', totalH);
+  svg.setAttribute('width', containerW);
+  svg.setAttribute('height', containerH);
   svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;pointer-events:none;';
   container.insertBefore(svg, container.firstChild);
   const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');

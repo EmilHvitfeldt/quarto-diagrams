@@ -216,6 +216,11 @@
   transform: translateX(-100%);
 }
 
+.annotation.annotation-center {
+  text-align: center;
+  transform: translateX(-50%);
+}
+
 .annotation p {
   margin: 0 0 0.2em;
 }

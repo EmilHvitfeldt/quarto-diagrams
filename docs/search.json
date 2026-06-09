@@ -105,6 +105,13 @@
     "text": "Colors\nUse node-color= / arrow-color= on the container, or color= on individual items.\n::: {.process node-color=\"#7a3b5c\" arrow-color=\"#444\"}\n::: item\nPlan\n:::\n::: {.item color=\"#3b7a5c\"}\nBuild\n:::\n::: item\nShip\n:::\n:::\n\n\nPlan\n\n\nBuild\n\n\nShip"
   },
   {
+    "objectID": "process.html#annotations",
+    "href": "process.html#annotations",
+    "title": "Process",
+    "section": "Annotations",
+    "text": "Annotations\nGive any item a nested .annotation div to attach an external callout that points at its step with a leader line. Callouts alternate above/below a horizontal flow (or left/right of a .vertical flow). The annotation content is free-form Markdown; any bold text or heading is tinted to match the step color (optional). Annotate all, some, or none of the steps.\nNest the fenced divs with more colons on the outer fences (::::: for the chart, :::: for each item, ::: for the annotation) and leave a blank line around the inner fences.\n::::: process\n\n:::: item\nDraft\n\n::: annotation\n**Draft** write the first version of the content\n:::\n\n::::\n\n:::: item\nReview\n\n::: annotation\n**Review** gather feedback from the team\n:::\n\n::::\n\n:::: item\nRevise\n\n::: annotation\n**Revise** apply the suggested changes\n:::\n\n::::\n\n:::: item\nPublish\n\n::: annotation\n**Publish** release the finished content\n:::\n\n::::\n\n:::::\n\n\nDraft\n\nDraft write the first version of the content\n\n\n\nReview\n\nReview gather feedback from the team\n\n\n\nRevise\n\nRevise apply the suggested changes\n\n\n\nPublish\n\nPublish release the finished content\n\n\n\nA .vertical process places the callouts to the left and right instead.\n\n\nApply\n\nApply submit your application online\n\n\n\nInterview\n\nInterview meet with the hiring team\n\n\n\nOffer\n\nOffer receive and accept the offer\n\n\n\nAnnotations work with the .chevron subtype too — the callouts attach to the interlocking arrow tiles.\n::::: {.process .chevron}\n\n:::: item\nDraft\n\n::: annotation\n**Draft** write the first version of the content\n:::\n\n::::\n\n:::: item\nReview\n\n::: annotation\n**Review** gather feedback from the team\n:::\n\n::::\n\n:::: item\nRevise\n\n::: annotation\n**Revise** apply the suggested changes\n:::\n\n::::\n\n:::: item\nPublish\n\n::: annotation\n**Publish** release the finished content\n:::\n\n::::\n\n:::::\n\n\nDraft\n\nDraft write the first version of the content\n\n\n\nReview\n\nReview gather feedback from the team\n\n\n\nRevise\n\nRevise apply the suggested changes\n\n\n\nPublish\n\nPublish release the finished content"
+  },
+  {
     "objectID": "venn.html",
     "href": "venn.html",
     "title": "Venn",

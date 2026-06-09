@@ -1533,6 +1533,14 @@ function initProcess(container) {
   const defaultNodeColor = container.dataset.nodeColor  || '#2e6b8a';
   const arrowColor       = container.dataset.arrowColor || '#2e6b8a';
 
+  // Per-item annotation HTML (nested `.annotation` div); null if absent.
+  const annHTML = items.map(item => {
+    const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
+    return ann ? ann.innerHTML.trim() : null;
+  });
+  const hasAnn = annHTML.some(a => a !== null);
+  const ANN_W = 164, ANN_GAP = 24, BAND_H = 115;
+
   // Read container size from CSS (allows user override)
   container.style.position = 'relative';
   const cs = getComputedStyle(container);
@@ -1541,6 +1549,18 @@ function initProcess(container) {
 
   const mainAxis = vertical ? totalH : totalW;
   const crossAxis = vertical ? totalW : totalH;
+
+  // Annotation room: callouts go beside (vertical flow) or above/below
+  // (horizontal flow) the line of nodes; enlarge the container to fit them and
+  // shift the node line toward the new center.
+  let containerW = totalW, containerH = totalH, crossShift = 0;
+  if (hasAnn) {
+    if (vertical) { containerW = totalW + 2 * (ANN_W + ANN_GAP); crossShift = ANN_W + ANN_GAP; }
+    else          { containerH = totalH + 2 * BAND_H;            crossShift = BAND_H; }
+    container.style.width    = containerW + 'px';
+    container.style.height   = containerH + 'px';
+    container.style.maxWidth = 'none';  // .process(.vertical) caps width via CSS
+  }
 
   // Per-item gap multiplier (extra space before .gap items, except the first)
   const gapWeights = items.map((item, i) => (i > 0 && item.classList.contains('gap')) ? 1.6 : 1);
@@ -1587,16 +1607,26 @@ function initProcess(container) {
     }
   }
 
-  const crossCenter = crossAxis / 2;
+  const crossCenter = crossAxis / 2 + crossShift;
 
   const positions = centers.map(c => vertical ? { x: crossCenter, y: c } : { x: c, y: crossCenter });
 
+  const annAnchors = [];  // { x, y, color, html } per annotated node
   const nodeEls = items.map((item, i) => {
     const { x, y } = positions[i];
     const nodeColor = item.getAttribute('color') || item.dataset.color || defaultNodeColor;
     const node = document.createElement('div');
     node.className = 'node node-' + nodeType;
-    node.textContent = item.textContent.trim();
+    let labelText = item.textContent.trim();
+    if (annHTML[i] !== null) {
+      const clone = item.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      labelText = clone.textContent.trim();
+      annAnchors.push({ x, y, color: nodeColor, html: annHTML[i] });
+    }
+    node.textContent = labelText;
     if (nodeType !== 'none') node.style.background = nodeColor;
     node.style.left = x + 'px';
     node.style.top  = y + 'px';
@@ -1669,6 +1699,41 @@ function initProcess(container) {
     nodeEls.forEach(el => el.style.fontSize = scaledSize);
   }
 
+  // Annotations (drawn before the early returns so they apply to every variant)
+  if (hasAnn) {
+    const annSvg = makeSVGOverlay(container, containerW, containerH);
+    if (vertical) {
+      // Beside the column, alternating left/right — reuse the radial helper
+      const anchors = annAnchors.map((a, k) => {
+        const right = (k % 2 === 0);
+        return { ex: right ? a.x + boxCross / 2 : a.x - boxCross / 2, ey: a.y,
+                 mid: right ? 0 : Math.PI, color: a.color, html: a.html };
+      });
+      placeAnnotations(container, annSvg, anchors, crossCenter, boxCross / 2, containerH, ANN_GAP);
+    } else {
+      // Above/below the row, alternating, centered on each node
+      const rowTop = crossCenter - boxCross / 2;
+      const rowBot = crossCenter + boxCross / 2;
+      const gap = 20;
+      annAnchors.forEach((a, k) => {
+        const above = (k % 2 === 0);
+        const el = document.createElement('div');
+        el.className = 'annotation annotation-center';
+        el.style.setProperty('--ann-color', a.color);
+        el.style.left = a.x + 'px';
+        el.innerHTML = a.html;
+        container.appendChild(el);
+        const h = el.offsetHeight;
+        el.style.top = (above ? (rowTop - gap - h) : (rowBot + gap)) + 'px';
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', a.x); line.setAttribute('y1', above ? rowTop : rowBot);
+        line.setAttribute('x2', a.x); line.setAttribute('y2', above ? rowTop - gap : rowBot + gap);
+        line.setAttribute('stroke', a.color); line.setAttribute('stroke-width', '2');
+        annSvg.appendChild(line);
+      });
+    }
+  }
+
   if (n === 1) return;
   if (chevron) return; // chevron tiles convey flow themselves — no connectors
 
@@ -1700,8 +1765,8 @@ function initProcess(container) {
 
   // thin / double — SVG lines with arrowheads
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', totalW);
-  svg.setAttribute('height', totalH);
+  svg.setAttribute('width', containerW);
+  svg.setAttribute('height', containerH);
   svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;pointer-events:none;';
   container.insertBefore(svg, container.firstChild);
   const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
