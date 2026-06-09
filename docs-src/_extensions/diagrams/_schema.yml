@@ -78,3 +78,18 @@ attributes:
     center:
       type: string
       description: "Text shown in the center of a donut."
+    ann-line:
+      type: string
+      description: "Annotation leader-line style: solid (default), dashed, dotted, or none."
+      completion:
+        values: [solid, dashed, dotted, none]
+    ann-line-color:
+      type: string
+      description: "Annotation leader-line color. 'auto' (default) follows the shape color."
+      completion:
+        type: color
+    ann-title-color:
+      type: string
+      description: "Annotation title tint. 'auto' (default) follows the shape color; 'none' inherits body text."
+      completion:
+        type: color

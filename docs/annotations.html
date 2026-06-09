@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Node Shapes – quarto-diagrams</title>
+<title>Annotations – quarto-diagrams</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -229,9 +229,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#node-circle-default" id="toc-node-circle-default" class="nav-link active" data-scroll-target="#node-circle-default">node-circle (default)</a></li>
-  <li><a href="#node-box" id="toc-node-box" class="nav-link" data-scroll-target="#node-box">node-box</a></li>
-  <li><a href="#node-none" id="toc-node-none" class="nav-link" data-scroll-target="#node-none">node-none</a></li>
+  <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link active" data-scroll-target="#basic-usage">Basic usage</a></li>
+  <li><a href="#styling-the-leader-lines" id="toc-styling-the-leader-lines" class="nav-link" data-scroll-target="#styling-the-leader-lines">Styling the leader lines</a></li>
   </ul>
 </nav>
     </div>
@@ -240,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Node Shapes</h1>
+<h1 class="title">Annotations</h1>
 </div>
 
 
@@ -257,87 +256,171 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><em>Applies to: <a href="./circle-flow.html">Circle Flow</a></em></p>
-<p>The node shape is controlled by a modifier class on the <code>.circle-flow</code> container. The default is <code>node-circle</code>.</p>
-<section id="node-circle-default" class="level2">
-<h2 class="anchored" data-anchor-id="node-circle-default">node-circle (default)</h2>
-<p>Filled circle nodes. No class needed — this is the default.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: circle-flow</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow">
+<p><em>Applies to: <a href="./circle-flow.html">Circle Flow</a>, <a href="./pie.html">Pie</a>, <a href="./process.html">Process</a>, <a href="./pyramid.html">Pyramid</a>, <a href="./venn.html">Venn</a>, <a href="./stacked-venn.html">Stacked Venn</a>, <a href="./funnel.html">Funnel</a>, <a href="./cycle.html">Cycle</a></em></p>
+<p>An <strong>annotation</strong> is an external callout attached to a shape. Give any <code>.item</code> a nested <code>.annotation</code> div and the layout reserves a side column for the callout and draws a leader line from the shape’s edge to it — so each shape keeps a short label while the detail lives outside the diagram.</p>
+<p>Annotations are supported by every layout except Matrix and Hierarchy.</p>
+<section id="basic-usage" class="level2">
+<h2 class="anchored" data-anchor-id="basic-usage">Basic usage</h2>
+<p>Nest the fenced divs with <strong>more colons on the outer fences</strong> (<code>:::::</code> for the diagram, <code>::::</code> for each item, <code>:::</code> for the annotation) and leave a blank line around the inner fences. The annotation body is free-form Markdown; a bold run or heading becomes a tinted title.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::::: pie</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Organic</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>**Organic** unpaid visitors arriving through search results</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>:::: {.item color="#e8a13c"}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Direct</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>**Direct** people typing the URL or using a bookmark</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="pie">
 <div class="item">
+<p>Organic</p>
+<div class="annotation">
+<p><strong>Organic</strong> unpaid visitors arriving through search results</p>
+</div>
+</div>
+<div class="item" color="#e8a13c">
+<p>Direct</p>
+<div class="annotation">
+<p><strong>Direct</strong> people typing the URL or using a bookmark</p>
+</div>
+</div>
+</div>
+<p>Annotations are optional per item — annotate all, some, or none. Items without an <code>.annotation</code> simply render plainly.</p>
+</section>
+<section id="styling-the-leader-lines" class="level2">
+<h2 class="anchored" data-anchor-id="styling-the-leader-lines">Styling the leader lines</h2>
+<p>By default the leader line is <strong>solid</strong> and follows each shape’s color, and the bold/heading title is tinted to match. Three <strong>container-level</strong> attributes (shared by every annotated layout) change this:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Values</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ann-line</code></td>
+<td><code>solid</code>, <code>dashed</code>, <code>dotted</code>, <code>none</code></td>
+<td><code>solid</code></td>
+<td>Leader-line style; <code>none</code> draws no line.</td>
+</tr>
+<tr class="even">
+<td><code>ann-line-color</code></td>
+<td>any CSS color, or <code>auto</code></td>
+<td><code>auto</code></td>
+<td>Line color. <code>auto</code> follows the shape color.</td>
+</tr>
+<tr class="odd">
+<td><code>ann-title-color</code></td>
+<td>any CSS color, <code>auto</code>, or <code>none</code></td>
+<td><code>auto</code></td>
+<td>Title tint. <code>auto</code> follows the shape color; <code>none</code> uses the body text color.</td>
+</tr>
+</tbody>
+</table>
+<p>As with every attribute, write them <strong>without</strong> a <code>data-</code> prefix in Quarto source — Pandoc adds it in the emitted HTML.</p>
+<section id="dashed-and-dotted-lines" class="level3">
+<h3 class="anchored" data-anchor-id="dashed-and-dotted-lines">Dashed and dotted lines</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::::: {.pie ann-line="dashed"}</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="pie" data-ann-line="dashed">
+<div class="item" color="#2e6b8a">
 <p>Alice</p>
+<div class="annotation">
+<p><strong>Alice</strong> leads design</p>
 </div>
-<div class="item">
+</div>
+<div class="item" color="#c0622e">
 <p>Bob</p>
+<div class="annotation">
+<p><strong>Bob</strong> runs operations</p>
 </div>
-<div class="item">
+</div>
+<div class="item" color="#3a8a5f">
 <p>Carol</p>
+<div class="annotation">
+<p><strong>Carol</strong> owns sales</p>
+</div>
 </div>
 </div>
 </section>
-<section id="node-box" class="level2">
-<h2 class="anchored" data-anchor-id="node-box">node-box</h2>
-<p>Rounded rectangle nodes. Width is <code>nodeRadius × 1.8</code>, height is <code>nodeRadius × 1.2</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box}</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-box">
-<div class="item">
+<section id="no-lines" class="level3">
+<h3 class="anchored" data-anchor-id="no-lines">No lines</h3>
+<p>Drop the leader lines entirely with <code>ann-line="none"</code> — the callouts still sit beside their shapes, just without a connector.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::::: {.pie ann-line="none"}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="pie" data-ann-line="none">
+<div class="item" color="#2e6b8a">
 <p>Alice</p>
+<div class="annotation">
+<p><strong>Alice</strong> leads design</p>
 </div>
-<div class="item">
+</div>
+<div class="item" color="#c0622e">
 <p>Bob</p>
+<div class="annotation">
+<p><strong>Bob</strong> runs operations</p>
 </div>
-<div class="item">
+</div>
+<div class="item" color="#3a8a5f">
 <p>Carol</p>
+<div class="annotation">
+<p><strong>Carol</strong> owns sales</p>
+</div>
 </div>
 </div>
 </section>
-<section id="node-none" class="level2">
-<h2 class="anchored" data-anchor-id="node-none">node-none</h2>
-<p>Text-only nodes with a transparent background. Labels are capped at 80px width regardless of item count.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-none}</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-none">
-<div class="item">
+<section id="neutral-uncolored-look" class="level3">
+<h3 class="anchored" data-anchor-id="neutral-uncolored-look">Neutral, uncolored look</h3>
+<p>Combine a fixed neutral line color with an untinted title for a quiet, monochrome style.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::::: {.pie ann-line="dashed" ann-line-color="#bbbbbb" ann-title-color="none"}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="pie" data-ann-line="dashed" data-ann-line-color="#bbbbbb" data-ann-title-color="none">
+<div class="item" color="#2e6b8a">
 <p>Alice</p>
+<div class="annotation">
+<p><strong>Alice</strong> leads design</p>
 </div>
-<div class="item">
+</div>
+<div class="item" color="#c0622e">
 <p>Bob</p>
+<div class="annotation">
+<p><strong>Bob</strong> runs operations</p>
 </div>
-<div class="item">
+</div>
+<div class="item" color="#3a8a5f">
 <p>Carol</p>
+<div class="annotation">
+<p><strong>Carol</strong> owns sales</p>
+</div>
 </div>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

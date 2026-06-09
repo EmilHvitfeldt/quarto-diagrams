@@ -1,0 +1,206 @@
+---
+title: "Annotations"
+---
+
+*Applies to: [Circle Flow](circle-flow.qmd), [Pie](pie.qmd), [Process](process.qmd), [Pyramid](pyramid.qmd), [Venn](venn.qmd), [Stacked Venn](stacked-venn.qmd), [Funnel](funnel.qmd), [Cycle](cycle.qmd)*
+
+An **annotation** is an external callout attached to a shape. Give any `.item` a
+nested `.annotation` div and the layout reserves a side column for the callout
+and draws a leader line from the shape's edge to it — so each shape keeps a
+short label while the detail lives outside the diagram.
+
+Annotations are supported by every layout except Matrix and Hierarchy.
+
+## Basic usage
+
+Nest the fenced divs with **more colons on the outer fences** (`:::::` for the
+diagram, `::::` for each item, `:::` for the annotation) and leave a blank line
+around the inner fences. The annotation body is free-form Markdown; a bold run
+or heading becomes a tinted title.
+
+````markdown
+::::: pie
+
+:::: item
+Organic
+
+::: annotation
+**Organic** unpaid visitors arriving through search results
+:::
+
+::::
+
+:::: {.item color="#e8a13c"}
+Direct
+
+::: annotation
+**Direct** people typing the URL or using a bookmark
+:::
+
+::::
+
+:::::
+````
+
+::::: pie
+
+:::: item
+Organic
+
+::: annotation
+**Organic** unpaid visitors arriving through search results
+:::
+
+::::
+
+:::: {.item color="#e8a13c"}
+Direct
+
+::: annotation
+**Direct** people typing the URL or using a bookmark
+:::
+
+::::
+
+:::::
+
+Annotations are optional per item — annotate all, some, or none. Items without
+an `.annotation` simply render plainly.
+
+## Styling the leader lines
+
+By default the leader line is **solid** and follows each shape's color, and the
+bold/heading title is tinted to match. Three **container-level** attributes
+(shared by every annotated layout) change this:
+
+| Attribute | Values | Default | Effect |
+|---|---|---|---|
+| `ann-line` | `solid`, `dashed`, `dotted`, `none` | `solid` | Leader-line style; `none` draws no line. |
+| `ann-line-color` | any CSS color, or `auto` | `auto` | Line color. `auto` follows the shape color. |
+| `ann-title-color` | any CSS color, `auto`, or `none` | `auto` | Title tint. `auto` follows the shape color; `none` uses the body text color. |
+
+As with every attribute, write them **without** a `data-` prefix in Quarto
+source — Pandoc adds it in the emitted HTML.
+
+### Dashed and dotted lines
+
+````markdown
+::::: {.pie ann-line="dashed"}
+...
+:::::
+````
+
+::::: {.pie ann-line="dashed"}
+
+:::: {.item color="#2e6b8a"}
+Alice
+
+::: annotation
+**Alice** leads design
+:::
+
+::::
+
+:::: {.item color="#c0622e"}
+Bob
+
+::: annotation
+**Bob** runs operations
+:::
+
+::::
+
+:::: {.item color="#3a8a5f"}
+Carol
+
+::: annotation
+**Carol** owns sales
+:::
+
+::::
+
+:::::
+
+### No lines
+
+Drop the leader lines entirely with `ann-line="none"` — the callouts still sit
+beside their shapes, just without a connector.
+
+````markdown
+::::: {.pie ann-line="none"}
+...
+:::::
+````
+
+::::: {.pie ann-line="none"}
+
+:::: {.item color="#2e6b8a"}
+Alice
+
+::: annotation
+**Alice** leads design
+:::
+
+::::
+
+:::: {.item color="#c0622e"}
+Bob
+
+::: annotation
+**Bob** runs operations
+:::
+
+::::
+
+:::: {.item color="#3a8a5f"}
+Carol
+
+::: annotation
+**Carol** owns sales
+:::
+
+::::
+
+:::::
+
+### Neutral, uncolored look
+
+Combine a fixed neutral line color with an untinted title for a quiet,
+monochrome style.
+
+````markdown
+::::: {.pie ann-line="dashed" ann-line-color="#bbbbbb" ann-title-color="none"}
+...
+:::::
+````
+
+::::: {.pie ann-line="dashed" ann-line-color="#bbbbbb" ann-title-color="none"}
+
+:::: {.item color="#2e6b8a"}
+Alice
+
+::: annotation
+**Alice** leads design
+:::
+
+::::
+
+:::: {.item color="#c0622e"}
+Bob
+
+::: annotation
+**Bob** runs operations
+:::
+
+::::
+
+:::: {.item color="#3a8a5f"}
+Carol
+
+::: annotation
+**Carol** owns sales
+:::
+
+::::
+
+:::::

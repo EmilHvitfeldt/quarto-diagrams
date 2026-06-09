@@ -268,6 +268,11 @@ David
 
 :::::
 
+The leader lines can be restyled (dashed, dotted, removed) and the colors
+adjusted — see the [Annotations](annotations.qmd) concept page for the full set
+of `ann-line`, `ann-line-color`, and `ann-title-color` options, which work on
+every annotated layout.
+
 ## Gap between slices
 
 Add the `.gap` modifier to offset all slices outward, creating visible separation.

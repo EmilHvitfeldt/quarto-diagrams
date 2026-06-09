@@ -197,6 +197,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Colors</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="./annotations.html">
+ <span class="dropdown-text">Annotations</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./customization.html">
  <span class="dropdown-text">Customization</span></a>
   </li>  
@@ -854,6 +858,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="text/javascript">
 let _cfCounter = 0;
 
+// Annotation styling options, read once per init from the container.
+// `ann-line`        = solid (default) | dashed | dotted | none  → leader-line style
+// `ann-line-color`  = CSS color | auto (default → follow shape color)
+// `ann-title-color` = CSS color | auto (default → shape color) | none (inherit body text)
+function annOpts(container) {
+  const style = (container.dataset.annLine || 'solid').toLowerCase();
+  const dash  = style === 'dashed' ? '6 5' : style === 'dotted' ? '1 5' : null;
+  return {
+    drawLine: style !== 'none',
+    dash,
+    lineColor:  container.dataset.annLineColor  || 'auto',
+    titleColor: container.dataset.annTitleColor || 'auto',
+  };
+}
+
+// Resolve the callout title tint for a given shape color, per `ann-title-color`.
+function annTitleColor(opts, shapeColor) {
+  return opts.titleColor === 'auto' ? shapeColor
+       : opts.titleColor === 'none' ? 'inherit'
+       : opts.titleColor;
+}
+
+// Build a styled leader <line>, or null when lines are turned off.
+function makeLeaderLine(opts, shapeColor, x1, y1, x2, y2) {
+  if (!opts.drawLine) return null;
+  const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  ln.setAttribute('x1', x1); ln.setAttribute('y1', y1);
+  ln.setAttribute('x2', x2); ln.setAttribute('y2', y2);
+  ln.setAttribute('stroke', opts.lineColor === 'auto' ? shapeColor : opts.lineColor);
+  ln.setAttribute('stroke-width', '2');
+  ln.setAttribute('stroke-linecap', 'round');   // renders dotted as round dots
+  if (opts.dash) ln.setAttribute('stroke-dasharray', opts.dash);
+  return ln;
+}
+
 function initCircleFlow(container) {
   const items = Array.from(container.querySelectorAll('.item'));
   if (items.length === 0) return;
@@ -1465,6 +1504,7 @@ function initPie(container) {
 function placeAnnotations(container, svg, anchors, cx, r, H, colGap) {
   if (anchors.length === 0) return;
   const vGap = 14;            // min vertical gap between stacked callouts
+  const opts = annOpts(container);
 
   const right = anchors.filter(a => Math.cos(a.mid) >= 0).sort((a, b) => a.ey - b.ey);
   const left  = anchors.filter(a => Math.cos(a.mid) <  0).sort((a, b) => a.ey - b.ey);
@@ -1477,7 +1517,7 @@ function placeAnnotations(container, svg, anchors, cx, r, H, colGap) {
     const recs = list.map(a => {
       const el = document.createElement('div');
       el.className = 'annotation annotation-' + side;
-      el.style.setProperty('--ann-color', a.color);
+      el.style.setProperty('--ann-color', annTitleColor(opts, a.color));
       el.style.left = colX + 'px';
       el.innerHTML = a.html;
       container.appendChild(el);
@@ -1500,14 +1540,8 @@ function placeAnnotations(container, svg, anchors, cx, r, H, colGap) {
       rec.el.style.top = rec.top + 'px';
       const ly = rec.top + rec.h / 2;
       const x2 = side === 'right' ? colX - 8 : colX + 8;
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', rec.a.ex);
-      line.setAttribute('y1', rec.a.ey);
-      line.setAttribute('x2', x2);
-      line.setAttribute('y2', ly);
-      line.setAttribute('stroke', rec.a.color);
-      line.setAttribute('stroke-width', '2');
-      svg.insertBefore(line, svg.firstChild);
+      const line = makeLeaderLine(opts, rec.a.color, rec.a.ex, rec.a.ey, x2, ly);
+      if (line) svg.insertBefore(line, svg.firstChild);
     });
   };
 
@@ -1701,6 +1735,7 @@ function initProcess(container) {
 
   // Annotations (drawn before the early returns so they apply to every variant)
   if (hasAnn) {
+    const opts = annOpts(container);
     const annSvg = makeSVGOverlay(container, containerW, containerH);
     if (vertical) {
       // Beside the column, alternating left/right — reuse the radial helper
@@ -1719,17 +1754,15 @@ function initProcess(container) {
         const above = (k % 2 === 0);
         const el = document.createElement('div');
         el.className = 'annotation annotation-center';
-        el.style.setProperty('--ann-color', a.color);
+        el.style.setProperty('--ann-color', annTitleColor(opts, a.color));
         el.style.left = a.x + 'px';
         el.innerHTML = a.html;
         container.appendChild(el);
         const h = el.offsetHeight;
         el.style.top = (above ? (rowTop - gap - h) : (rowBot + gap)) + 'px';
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('x1', a.x); line.setAttribute('y1', above ? rowTop : rowBot);
-        line.setAttribute('x2', a.x); line.setAttribute('y2', above ? rowTop - gap : rowBot + gap);
-        line.setAttribute('stroke', a.color); line.setAttribute('stroke-width', '2');
-        annSvg.appendChild(line);
+        const line = makeLeaderLine(opts, a.color, a.x, above ? rowTop : rowBot,
+                                    a.x, above ? rowTop - gap : rowBot + gap);
+        if (line) annSvg.appendChild(line);
       });
     }
   }

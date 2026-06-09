@@ -345,3 +345,19 @@ Deficiency
 **Font scaling:** Per-label down-scale (bands vary in width) to fit `0.8 ×` the circle's chord width at the label's position — `dist` is the label's distance from that circle's center — with a `40px` floor, via canvas `measureText`.
 
 **Init guard:** `.stacked-venn` containers use the same `data-cf-init` flag and are picked up on both `DOMContentLoaded` and Reveal `slidechanged`.
+
+## Annotations
+
+External callouts attached to a shape via a nested `.annotation` div, supported by every layout except matrix and hierarchy. The shared helper `placeAnnotations` (radial/segmented layouts) stacks the callouts in side columns and draws a leader line from each shape's outer edge to its callout; `.process` draws its own stub line (vertical leaders beside a column, or short up/down stubs above/below a row).
+
+**Styling attributes (container-level, read via `dataset.*`; write WITHOUT the `data-` prefix):**
+- `ann-line` — leader-line style: `solid` (default), `dashed`, `dotted`, or `none` (no line drawn).
+- `ann-line-color` — line color; `auto` (default) follows the shape color, otherwise any CSS color (e.g. a neutral `#bbb`).
+- `ann-title-color` — tint of the callout's bold/heading run; `auto` (default) follows the shape color, `none` inherits the body text color (~`#444`), otherwise any CSS color.
+
+**Implementation decisions:**
+- **Centralized line creation.** `annOpts(container)` reads the three attributes once per init; `makeLeaderLine(opts, shapeColor, x1, y1, x2, y2)` returns a styled `<line>` (or `null` when `ann-line="none"`), used by both `placeAnnotations` and the inline `.process` line site so the two paths can't drift. Dotted uses `stroke-linecap: round` + a `1 5` dash array; dashed uses `6 5`.
+- **`auto` sentinel preserves backward compatibility** — the pre-existing behavior (solid, shape-colored line; shape-colored title) is exactly the default.
+- **Title tint stays CSS-driven.** `.annotation strong/b/headings { color: var(--ann-color) }` is unchanged; JS only chooses the value fed to `--ann-color` via `annTitleColor(opts, shapeColor)` (`none` → `inherit`).
+- **Line style is an attribute, not a class**, because it is an enumerated value, unlike the boolean `.gap` flags.
+- Styling is container-level only; per-item override is not implemented (the helper already takes a per-anchor color, so it would be a small addition).

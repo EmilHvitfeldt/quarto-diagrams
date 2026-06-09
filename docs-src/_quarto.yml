@@ -46,6 +46,8 @@ website:
             href: arrow-types.qmd
           - text: "Colors"
             href: colors.qmd
+          - text: "Annotations"
+            href: annotations.qmd
           - text: "Customization"
             href: customization.qmd
     right:
