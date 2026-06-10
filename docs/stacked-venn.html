@@ -201,6 +201,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Annotations</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="./font-awesome.html">
+ <span class="dropdown-text">Font Awesome Icons</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./customization.html">
  <span class="dropdown-text">Customization</span></a>
   </li>  
@@ -881,6 +885,23 @@ function makeLeaderLine(opts, shapeColor, x1, y1, x2, y2) {
   return ln;
 }
 
+// Extract a node label as HTML rather than flattened text, so inline markup
+// such as Font Awesome icons (<i class="fa-...">) survives into the diagram.
+// Strips nested .annotation children (plus any extra selectors, e.g. 'item' for
+// the hierarchy layout) and unwraps Pandoc's <p> wrapper.
+function labelHTML(el, stripSelectors) {
+  const clone = el.cloneNode(true);
+  const drop = ['annotation'].concat(stripSelectors || []);
+  Array.from(clone.children)
+    .filter(c => c.classList && drop.some(s => c.classList.contains(s)))
+    .forEach(c => clone.removeChild(c));
+  const ps = Array.from(clone.children).filter(c => c.tagName === 'P');
+  if (clone.childElementCount === 1 && ps.length === 1) {
+    return ps[0].innerHTML.trim();
+  }
+  return clone.innerHTML.trim();
+}
+
 function initCircleFlow(container) {
   const items = Array.from(container.querySelectorAll('.item'));
   if (items.length === 0) return;
@@ -941,13 +962,13 @@ function initCircleFlow(container) {
     const node = document.createElement('div');
     node.className = 'node node-' + nodeType;
     // Node label = item text minus any nested .annotation content
-    let labelText = item.textContent.trim();
+    let labelText = labelHTML(item);
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
         .filter(c => c.classList.contains('annotation'))
         .forEach(c => clone.removeChild(c));
-      labelText = clone.textContent.trim();
+      labelText = labelHTML(clone);
       annAnchors.push({
         ex: cx + maxR * Math.cos(angle),
         ey: cy + maxR * Math.sin(angle),
@@ -956,7 +977,7 @@ function initCircleFlow(container) {
         html: annHTML[i]
       });
     }
-    node.textContent = labelText;
+    node.innerHTML = labelText;
     if (nodeType !== 'none') node.style.background = nodeColor;
     node.style.left = x + 'px';
     node.style.top = y + 'px';
@@ -1445,13 +1466,13 @@ function initPie(container) {
     const ly = oy + labelR * Math.sin(midAngle);
 
     // Shape label = item text minus any nested .annotation content
-    let labelText = item.textContent.trim();
+    let labelText = labelHTML(item);
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
         .filter(c => c.classList.contains('annotation'))
         .forEach(c => clone.removeChild(c));
-      labelText = clone.textContent.trim();
+      labelText = labelHTML(clone);
       // Anchor the leader line at this slice's outer-edge midpoint
       annAnchors.push({
         ex: ox + r * Math.cos(midAngle),
@@ -1464,7 +1485,7 @@ function initPie(container) {
 
     const label = document.createElement('div');
     label.className = 'slice-label';
-    label.textContent = labelText;
+    label.innerHTML = labelText;
     label.style.left = lx + 'px';
     label.style.top  = ly + 'px';
     container.appendChild(label);
@@ -1676,16 +1697,16 @@ function initProcess(container) {
     const nodeColor = item.getAttribute('color') || item.dataset.color || defaultNodeColor;
     const node = document.createElement('div');
     node.className = 'node node-' + nodeType;
-    let labelText = item.textContent.trim();
+    let labelText = labelHTML(item);
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
         .filter(c => c.classList.contains('annotation'))
         .forEach(c => clone.removeChild(c));
-      labelText = clone.textContent.trim();
+      labelText = labelHTML(clone);
       annAnchors.push({ x, y, color: nodeColor, html: annHTML[i] });
     }
-    node.textContent = labelText;
+    node.innerHTML = labelText;
     if (nodeType !== 'none') node.style.background = nodeColor;
     node.style.left = x + 'px';
     node.style.top  = y + 'px';
@@ -1969,13 +1990,13 @@ function initPyramid(container) {
 
     const ly = (yTop + yBot) / 2;
     const midHalf = halfAt((pTop + pBot) / 2);
-    let labelText = item.textContent.trim();
+    let labelText = labelHTML(item);
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
         .filter(c => c.classList.contains('annotation'))
         .forEach(c => clone.removeChild(c));
-      labelText = clone.textContent.trim();
+      labelText = labelHTML(clone);
       const right = (i % 2 === 0);
       annAnchors.push({
         ex: right ? X(cx + midHalf) : X(cx - midHalf),
@@ -1987,7 +2008,7 @@ function initPyramid(container) {
     }
     const label = document.createElement('div');
     label.className = 'slice-label';
-    label.textContent = labelText;
+    label.innerHTML = labelText;
     label.style.left = X(cx) + 'px';
     label.style.top  = Y(ly) + 'px';
     container.appendChild(label);
@@ -2083,7 +2104,7 @@ function initMatrix(container) {
     if (item) {
       const label = document.createElement('div');
       label.className = 'slice-label';
-      label.textContent = item.textContent.trim();
+      label.innerHTML = labelHTML(item);
       label.style.left = (q.x + q.w / 2) + 'px';
       label.style.top  = (q.y + q.h / 2) + 'px';
       if (outline) label.style.color = '#222222';
@@ -2199,13 +2220,9 @@ function directItemChildren(el) {
   return Array.from(el.children).filter(c => c.classList.contains('item'));
 }
 
-// A node's own label = its text excluding any nested .item children
+// A node's own label = its content excluding any nested .item children
 function ownLabel(el) {
-  const clone = el.cloneNode(true);
-  Array.from(clone.children)
-    .filter(c => c.classList.contains('item'))
-    .forEach(c => clone.removeChild(c));
-  return clone.textContent.trim();
+  return labelHTML(el, ["item"]);
 }
 
 function initHierarchy(container) {
@@ -2332,7 +2349,7 @@ function initHierarchy(container) {
   const nodeEls = flat.map(node => {
     const el = document.createElement('div');
     el.className = 'node node-' + nodeType;
-    el.textContent = node.label;
+    el.innerHTML = node.label;
     if (nodeType !== 'none' && !outline) el.style.background = node.color;
     if (outline) {
       el.style.background = 'transparent';
@@ -2446,13 +2463,13 @@ function initVenn(container) {
   items.forEach((item, i) => {
     const label = document.createElement('div');
     label.className = 'set-label';
-    let labelText = item.textContent.trim();
+    let labelText = labelHTML(item);
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
         .filter(c => c.classList.contains('annotation'))
         .forEach(c => clone.removeChild(c));
-      labelText = clone.textContent.trim();
+      labelText = labelHTML(clone);
       // Leader starts on this set's outer rim, away from the diagram center
       const c = circles[i];
       const ccx = X(c.cx), ccy = Y(c.cy), rr = Rr(c.r);
@@ -2461,7 +2478,7 @@ function initVenn(container) {
       const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i];
       annAnchors.push({ ex: ccx + rr * ux, ey: ccy + rr * uy, mid: Math.atan2(uy, ux), color, html: annHTML[i] });
     }
-    label.textContent = labelText;
+    label.innerHTML = labelText;
     label.style.left = X(setLabels[i].x) + 'px';
     label.style.top  = Y(setLabels[i].y) + 'px';
     container.appendChild(label);
@@ -2579,20 +2596,20 @@ function initStackedVenn(container) {
     const lx = cx + dLabel * ux, ly = cy + dLabel * uy;
     const label = document.createElement('div');
     label.className = 'set-label';
-    let labelText = item.textContent.trim();
+    let labelText = labelHTML(item);
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
         .filter(c => c.classList.contains('annotation'))
         .forEach(c => clone.removeChild(c));
-      labelText = clone.textContent.trim();
+      labelText = labelHTML(clone);
       // Start the leader on this circle's right rim, level with its label
       const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i % palette.length];
       const ccx = cx + (R - radii[i]) * ux, ccy = cy + (R - radii[i]) * uy;
       const dxr = Math.sqrt(Math.max(0, radii[i] * radii[i] - (ly - ccy) * (ly - ccy)));
       annAnchors.push({ ex: ccx + dxr, ey: ly, mid: 0, color, html: annHTML[i] });
     }
-    label.textContent = labelText;
+    label.innerHTML = labelText;
     label.style.left = lx + 'px';
     label.style.top  = ly + 'px';
     container.appendChild(label);
@@ -2709,13 +2726,13 @@ function initFunnel(container) {
     svg.appendChild(path);
 
     const ly = (yTop + yBot) / 2;
-    let labelText = item.textContent.trim();
+    let labelText = labelHTML(item);
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
         .filter(c => c.classList.contains('annotation'))
         .forEach(c => clone.removeChild(c));
-      labelText = clone.textContent.trim();
+      labelText = labelHTML(clone);
       // Alternate sides; leader starts at the stage's edge at its mid-height
       const halfMid = (topHalf + botHalf) / 2;
       const right = (i % 2 === 0);
@@ -2729,7 +2746,7 @@ function initFunnel(container) {
     }
     const label = document.createElement('div');
     label.className = 'slice-label';
-    label.textContent = labelText;
+    label.innerHTML = labelText;
     label.style.left = X(cx) + 'px';
     label.style.top  = Y(ly) + 'px';
     container.appendChild(label);
@@ -2840,13 +2857,13 @@ function initCycle(container) {
     const lx = cx + rm * Math.cos(aMid), ly = cy + rm * Math.sin(aMid);
     const label = document.createElement('div');
     label.className = 'slice-label';
-    let labelText = item.textContent.trim();
+    let labelText = labelHTML(item);
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
         .filter(c => c.classList.contains('annotation'))
         .forEach(c => clone.removeChild(c));
-      labelText = clone.textContent.trim();
+      labelText = labelHTML(clone);
       annAnchors.push({
         ex: cx + rAnchor * Math.cos(aMid),
         ey: cy + rAnchor * Math.sin(aMid),
@@ -2855,7 +2872,7 @@ function initCycle(container) {
         html: annHTML[i]
       });
     }
-    label.textContent = labelText;
+    label.innerHTML = labelText;
     label.style.left = lx + 'px';
     label.style.top  = ly + 'px';
     container.appendChild(label);

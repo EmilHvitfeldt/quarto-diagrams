@@ -48,6 +48,8 @@ website:
             href: colors.qmd
           - text: "Annotations"
             href: annotations.qmd
+          - text: "Font Awesome Icons"
+            href: font-awesome.qmd
           - text: "Customization"
             href: customization.qmd
     right:

@@ -1,0 +1,149 @@
+---
+title: "Font Awesome Icons"
+filters:
+  - diagrams
+  - fontawesome
+---
+
+Diagram labels are rendered as HTML, so any inline markup you put in an `.item`
+carries through into the shape — including icons from the
+[Font Awesome](https://github.com/quarto-ext/fontawesome) Quarto extension.
+
+This lets you label a shape with an icon alone — pair it with an
+[annotation](annotations.qmd) when you still want a written description.
+
+## Setup
+
+Install the Font Awesome extension alongside `diagrams`:
+
+```bash
+quarto add quarto-ext/fontawesome
+```
+
+Then activate both filters. You can do this for a single document in the YAML
+header:
+
+```yaml
+---
+filters:
+  - diagrams
+  - fontawesome
+---
+```
+
+Insert icons with the `{{{< fa >}}}` shortcode anywhere inside an `.item`.
+
+## Basic usage
+
+Put a single `{{{< fa >}}}` shortcode inside each `.item`. The icon inherits the
+node's text color and scales with the shape.
+
+````markdown
+::: process
+::: item
+{{{< fa lightbulb >}}}
+:::
+::: item
+{{{< fa hammer >}}}
+:::
+::: item
+{{{< fa flask >}}}
+:::
+::: item
+{{{< fa rocket >}}}
+:::
+:::
+````
+
+::: process
+::: item
+{{< fa lightbulb >}}
+:::
+::: item
+{{< fa hammer >}}
+:::
+::: item
+{{< fa flask >}}
+:::
+::: item
+{{< fa rocket >}}
+:::
+:::
+
+## Any layout
+
+Icons work as labels in every layout.
+
+````markdown
+::: {.circle-flow node-color="#4a7ba6"}
+::: item
+{{{< fa users >}}}
+:::
+::: item
+{{{< fa gears >}}}
+:::
+::: item
+{{{< fa chart-line >}}}
+:::
+::: item
+{{{< fa trophy >}}}
+:::
+:::
+````
+
+::: {.circle-flow node-color="#4a7ba6"}
+::: item
+{{< fa users >}}
+:::
+::: item
+{{< fa gears >}}
+:::
+::: item
+{{< fa chart-line >}}
+:::
+::: item
+{{< fa trophy >}}
+:::
+:::
+
+## Brand icons
+
+Font Awesome's brand glyphs work too — use `group=brands`. Pie slices are
+roomy, so bump the icons up with `size=4x`.
+
+````markdown
+::: {.pie center="Stack"}
+::: item
+{{{< fa brands html5 size=4x >}}}
+:::
+::: item
+{{{< fa brands css3 size=4x >}}}
+:::
+::: item
+{{{< fa brands js size=4x >}}}
+:::
+:::
+````
+
+::: {.pie center="Stack"}
+::: item
+{{< fa brands html5 size=4x >}}
+:::
+::: item
+{{< fa brands css3 size=4x >}}
+:::
+::: item
+{{< fa brands js size=4x >}}
+:::
+:::
+
+## Notes
+
+- **Color** — icons inherit the label color, so they pick up the node text
+  color automatically. To tint an icon independently, pass the shortcode's own
+  options, e.g. `{{{< fa heart title="love" >}}}`.
+- **Sizing** — icons are sized relative to the label font and scale with the
+  shape. You can override per-icon with the shortcode's `size` option, e.g.
+  `{{{< fa rocket size=4x >}}}`.
+- **Works everywhere** — icons are supported in every layout's labels and in
+  [annotation](annotations.qmd) bodies, since both are rendered as HTML.

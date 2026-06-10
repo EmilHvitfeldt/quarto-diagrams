@@ -30,7 +30,7 @@ Users activate with `filters: [diagrams]` in their document YAML.
 
 ## Limitations
 
-- **Items are plain text only.** All layouts read `item.textContent.trim()`, so any rich markup inside an `.item` (bold, links, math, images) is flattened to plain text.
+- **Label font auto-scaling measures text only.** The canvas `measureText` scalers size labels from `el.textContent`, ignoring any inline elements. A label that is mostly non-text (e.g. a Font Awesome icon) therefore won't drive scaling — icons are sized via a CSS default instead (see decision below).
 
 ## How the JS works
 
@@ -44,6 +44,8 @@ Users activate with `filters: [diagrams]` in their document YAML.
 
 ## Design decisions
 
+- **Labels render as HTML, not plain text.** Every layout extracts its label via the shared `labelHTML(el, stripSelectors)` helper (clones the item, strips nested `.annotation`/`.item` children, unwraps Pandoc's `<p>` wrapper) and assigns it with `.innerHTML`, not `.textContent`. So any inline markup an author writes in an `.item` — `**bold**`, links, code, math, and especially [Font Awesome](https://github.com/quarto-ext/fontawesome) `{{< fa … >}}` icons — survives into the node/slice/label. Plain-text labels are unaffected (their `innerHTML` equals their `textContent`). The content is author-supplied from the same `.qmd`, so this is not a new injection surface.
+- **Font Awesome icon sizing is a zero-specificity CSS default.** Because the text auto-scaler no-ops on icon-only labels (empty `textContent` → width 0), icons would otherwise render at the base label size. `:where(.node, .slice-label) :where(i[class*="fa-"]) { font-size: 1.4em }` sets a sensible default in `em` (proportional when a mixed label is scaled). The `:where()` wrapper gives it **zero specificity** so a per-icon Font Awesome size class (`fa-2x`, … from `{{< fa rocket size=2x >}}`) overrides it. Runtime icon measurement was avoided because nodes have a fixed CSS width and the FA webfont loads async — both make it unreliable.
 - **1 item → no arrow.** Arrow loop is skipped entirely.
 - **2 items → side-by-side arrows.** Arrows are offset `nodeRadius * 0.3` perpendicular to the line between nodes so they don't overlap.
 - **Font scaling uses canvas `measureText`.** `getBoundingClientRect` returns 0 for hidden Reveal slides; canvas works regardless. Falls back to `17.6px` if `getComputedStyle` returns 0.

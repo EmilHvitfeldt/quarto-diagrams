@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Colors – quarto-diagrams</title>
+<title>Font Awesome Icons – quarto-diagrams</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -79,6 +79,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-45431c2918bd31147ddb3fa7038bb99f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/diagrams-0.2.0/diagrams.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -233,12 +235,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#all-nodes-the-same-color" id="toc-all-nodes-the-same-color" class="nav-link active" data-scroll-target="#all-nodes-the-same-color">All nodes the same color</a></li>
-  <li><a href="#arrow-color-only" id="toc-arrow-color-only" class="nav-link" data-scroll-target="#arrow-color-only">Arrow color only</a></li>
-  <li><a href="#node-and-arrow-color-together" id="toc-node-and-arrow-color-together" class="nav-link" data-scroll-target="#node-and-arrow-color-together">Node and arrow color together</a></li>
-  <li><a href="#per-node-color" id="toc-per-node-color" class="nav-link" data-scroll-target="#per-node-color">Per-node color</a></li>
-  <li><a href="#mixed-base-color-with-overrides" id="toc-mixed-base-color-with-overrides" class="nav-link" data-scroll-target="#mixed-base-color-with-overrides">Mixed: base color with overrides</a></li>
-  <li><a href="#colors-in-pie-charts" id="toc-colors-in-pie-charts" class="nav-link" data-scroll-target="#colors-in-pie-charts">Colors in pie charts</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link" data-scroll-target="#basic-usage">Basic usage</a></li>
+  <li><a href="#any-layout" id="toc-any-layout" class="nav-link" data-scroll-target="#any-layout">Any layout</a></li>
+  <li><a href="#brand-icons" id="toc-brand-icons" class="nav-link" data-scroll-target="#brand-icons">Brand icons</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   </ul>
 </nav>
     </div>
@@ -247,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Colors</h1>
+<h1 class="title">Font Awesome Icons</h1>
 </div>
 
 
@@ -264,170 +265,117 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><em>Applies to: <a href="./circle-flow.html">Circle Flow</a>, <a href="./pie.html">Pie</a></em></p>
-<p>Colors work the same way across every style: <code>node-color</code> on the container sets a base color, and <code>color</code> on an item overrides for that item. <code>arrow-color</code> is Circle-Flow-only.</p>
-<p>In Quarto source, write attributes without a <code>data-</code> prefix (e.g.&nbsp;<code>node-color="#27ae60"</code>) — Pandoc auto-prefixes them in the emitted HTML.</p>
-<section id="all-nodes-the-same-color" class="level2">
-<h2 class="anchored" data-anchor-id="all-nodes-the-same-color">All nodes the same color</h2>
-<p>Set <code>node-color</code> on the container to apply one color to all nodes.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box node-color="#27ae60"}</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-box" data-node-color="#27ae60">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item">
-<p>Bob</p>
-</div>
-<div class="item">
-<p>Carol</p>
-</div>
-</div>
+<p>Diagram labels are rendered as HTML, so any inline markup you put in an <code>.item</code> carries through into the shape — including icons from the <a href="https://github.com/quarto-ext/fontawesome">Font Awesome</a> Quarto extension.</p>
+<p>This lets you label a shape with an icon alone — pair it with an <a href="./annotations.html">annotation</a> when you still want a written description.</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>Install the Font Awesome extension alongside <code>diagrams</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> add quarto-ext/fontawesome</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then activate both filters. You can do this for a single document in the YAML header:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> diagrams</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> fontawesome</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Insert icons with the <code>{{&lt; fa &gt;}}</code> shortcode anywhere inside an <code>.item</code>.</p>
 </section>
-<section id="arrow-color-only" class="level2">
-<h2 class="anchored" data-anchor-id="arrow-color-only">Arrow color only</h2>
-<p>Set <code>arrow-color</code> on the container. Arrow color is always global — per-arrow color is not supported.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box arrow-color="#e74c3c"}</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-box" data-arrow-color="#e74c3c">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item">
-<p>Bob</p>
-</div>
-<div class="item">
-<p>Carol</p>
-</div>
-</div>
-</section>
-<section id="node-and-arrow-color-together" class="level2">
-<h2 class="anchored" data-anchor-id="node-and-arrow-color-together">Node and arrow color together</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box node-color="#e67e22" arrow-color="#c0392b"}</span>
+<section id="basic-usage" class="level2">
+<h2 class="anchored" data-anchor-id="basic-usage">Basic usage</h2>
+<p>Put a single <code>{{&lt; fa &gt;}}</code> shortcode inside each <code>.item</code>. The icon inherits the node’s text color and scales with the shape.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: process</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>{{&lt; fa lightbulb &gt;}}</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>{{&lt; fa hammer &gt;}}</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>{{&lt; fa flask &gt;}}</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-box" data-node-color="#e67e22" data-arrow-color="#c0392b">
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>{{&lt; fa rocket &gt;}}</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="process">
 <div class="item">
-<p>Alice</p>
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i></p>
 </div>
 <div class="item">
-<p>Bob</p>
+<p><i class="fa-solid fa-hammer" aria-label="hammer"></i></p>
 </div>
 <div class="item">
-<p>Carol</p>
+<p><i class="fa-solid fa-flask" aria-label="flask"></i></p>
+</div>
+<div class="item">
+<p><i class="fa-solid fa-rocket" aria-label="rocket"></i></p>
 </div>
 </div>
 </section>
-<section id="per-node-color" class="level2">
-<h2 class="anchored" data-anchor-id="per-node-color">Per-node color</h2>
-<p>Set <code>color</code> on individual <code>item</code> divs to override that node’s color.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box}</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e74c3c"}</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
+<section id="any-layout" class="level2">
+<h2 class="anchored" data-anchor-id="any-layout">Any layout</h2>
+<p>Icons work as labels in every layout.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow node-color="#4a7ba6"}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>{{&lt; fa users &gt;}}</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e67e22"}</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>{{&lt; fa gears &gt;}}</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>::: {.item color="#27ae60"}</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>{{&lt; fa chart-line &gt;}}</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="circle-flow node-box">
-<div class="item" color="#e74c3c">
-<p>Alice</p>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>{{&lt; fa trophy &gt;}}</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="circle-flow" data-node-color="#4a7ba6">
+<div class="item">
+<p><i class="fa-solid fa-users" aria-label="users"></i></p>
 </div>
-<div class="item" color="#e67e22">
-<p>Bob</p>
+<div class="item">
+<p><i class="fa-solid fa-gears" aria-label="gears"></i></p>
 </div>
-<div class="item" color="#27ae60">
-<p>Carol</p>
+<div class="item">
+<p><i class="fa-solid fa-chart-line" aria-label="chart-line"></i></p>
+</div>
+<div class="item">
+<p><i class="fa-solid fa-trophy" aria-label="trophy"></i></p>
 </div>
 </div>
 </section>
-<section id="mixed-base-color-with-overrides" class="level2">
-<h2 class="anchored" data-anchor-id="mixed-base-color-with-overrides">Mixed: base color with overrides</h2>
-<p>Set a base color on the container and override specific nodes individually.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: {.circle-flow .node-box node-color="#2980b9"}</span>
+<section id="brand-icons" class="level2">
+<h2 class="anchored" data-anchor-id="brand-icons">Brand icons</h2>
+<p>Font Awesome’s brand glyphs work too — use <code>group=brands</code>. Pie slices are roomy, so bump the icons up with <code>size=4x</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: {.pie center="Stack"}</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>{{&lt; fa brands html5 size=4x &gt;}}</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e74c3c"}</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>{{&lt; fa brands css3 size=4x &gt;}}</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>{{&lt; fa brands js size=4x &gt;}}</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="pie" data-center="Stack">
+<div class="item">
+<p><i class="fa-brands fa-html5 fa-4x" aria-label="html5"></i></p>
+</div>
+<div class="item">
+<p><i class="fa-brands fa-css3 fa-4x" aria-label="css3"></i></p>
+</div>
+<div class="item">
+<p><i class="fa-brands fa-js fa-4x" aria-label="js"></i></p>
+</div>
+</div>
 </section>
-<section id="colors-in-pie-charts" class="level2">
-<h2 class="anchored" data-anchor-id="colors-in-pie-charts">Colors in pie charts</h2>
-<p>The same <code>node-color</code> and <code>color</code> attributes work on <code>.pie</code> containers and items.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>::: pie</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e74c3c"}</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Alice</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>::: {.item color="#e67e22"}</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Bob</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>::: {.item color="#27ae60"}</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Carol</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>::: {.item color="#2980b9"}</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>David</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="pie">
-<div class="item" color="#e74c3c">
-<p>Alice</p>
-</div>
-<div class="item" color="#e67e22">
-<p>Bob</p>
-</div>
-<div class="item" color="#27ae60">
-<p>Carol</p>
-</div>
-<div class="item" color="#2980b9">
-<p>David</p>
-</div>
-</div>
-<p>(See the <a href="./pie.html">Pie</a> page for more pie-specific examples.)</p>
-<div class="circle-flow node-box" data-node-color="#2980b9">
-<div class="item">
-<p>Alice</p>
-</div>
-<div class="item" color="#e74c3c">
-<p>Bob</p>
-</div>
-<div class="item">
-<p>Carol</p>
-</div>
-</div>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<ul>
+<li><strong>Color</strong> — icons inherit the label color, so they pick up the node text color automatically. To tint an icon independently, pass the shortcode’s own options, e.g.&nbsp;<code>{{&lt; fa heart title="love" &gt;}}</code>.</li>
+<li><strong>Sizing</strong> — icons are sized relative to the label font and scale with the shape. You can override per-icon with the shortcode’s <code>size</code> option, e.g. <code>{{&lt; fa rocket size=4x &gt;}}</code>.</li>
+<li><strong>Works everywhere</strong> — icons are supported in every layout’s labels and in <a href="./annotations.html">annotation</a> bodies, since both are rendered as HTML.</li>
+</ul>
 
 
 </section>

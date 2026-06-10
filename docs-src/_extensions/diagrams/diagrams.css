@@ -254,3 +254,13 @@
   pointer-events: none;
   transform: translate(-50%, -50%);
 }
+
+/* Font Awesome icons used as labels. The text auto-scaler measures plain text
+   and no-ops on icon-only labels, so set a default icon size relative to the
+   label font — `em` keeps them proportional when a mixed label is scaled up.
+   Wrapped in :where() so the rule has zero specificity: a per-icon Font Awesome
+   size class (e.g. `fa-2x` from `{{< fa rocket size=2x >}}`) still overrides it. */
+:where(.node, .slice-label) :where(i[class*="fa-"]) {
+  font-size: 1.4em;
+  vertical-align: -0.1em;
+}
