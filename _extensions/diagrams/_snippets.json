@@ -41,6 +41,23 @@
     ],
     "description": "Donut chart (pie with hollow center)."
   },
+  "Diagrams Arrow Donut": {
+    "prefix": "diagrams:arrow",
+    "body": [
+      "::: {.pie .arrow center=\"${1:Cycle}\"}",
+      "::: item",
+      "${2:First}",
+      ":::",
+      "::: item",
+      "${3:Second}",
+      ":::",
+      "::: item",
+      "${4:Third}",
+      ":::",
+      ":::$0"
+    ],
+    "description": "Arrow donut (cyclical flow with chevron seams)."
+  },
   "Diagrams Process": {
     "prefix": "diagrams:process",
     "body": [

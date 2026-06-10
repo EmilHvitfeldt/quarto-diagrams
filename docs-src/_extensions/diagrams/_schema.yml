@@ -44,7 +44,7 @@ classes:
   chevron:
     description: "process: render stages as interlocking chevron tiles."
   arrow:
-    description: "process: render stages as distinct arrowheads (deeper points than chevron)."
+    description: "process: render stages as distinct arrowheads (deeper points than chevron). pie: donut sub-variant with clockwise chevron seams (cyclical flow)."
   gap:
     description: "Insert a gap before this item."
   donut:

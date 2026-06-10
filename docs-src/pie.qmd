@@ -149,6 +149,45 @@ David
 :::
 :::
 
+## Arrow
+
+Add the `.arrow` modifier for a donut sub-variant where the segments are
+separated by chevron-shaped seams pointing clockwise, so the ring reads as a
+cyclical flow. It implies `.donut`, so `hole=`, `center=`, per-item `color=`,
+and annotations all work the same way.
+
+````markdown
+::: {.pie .arrow center="Steps"}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Test
+:::
+::: item
+Ship
+:::
+:::
+````
+
+::: {.pie .arrow center="Steps"}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Test
+:::
+::: item
+Ship
+:::
+:::
+
 ## Annotations
 
 Give any item a nested `.annotation` div to attach an external callout that
@@ -228,6 +267,40 @@ Social
 
 ::: annotation
 **Social** referrals from posts and links shared on social media
+:::
+
+::::
+
+:::::
+
+Annotations pair especially well with the `.arrow` sub-variant, giving each
+stage of a cyclical flow a labelled callout:
+
+::::: {.pie .arrow center="Cycle"}
+
+:::: item
+Plan
+
+::: annotation
+**Plan** define the goal and scope the work ahead
+:::
+
+::::
+
+:::: {.item color="#e8a13c"}
+Build
+
+::: annotation
+**Build** turn the plan into a working product
+:::
+
+::::
+
+:::: {.item color="#d65db1"}
+Measure
+
+::: annotation
+**Measure** collect feedback and learn from the results
 :::
 
 ::::

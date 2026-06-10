@@ -80,6 +80,25 @@ David
 :::
 :::
 
+### [Arrow](pie.qmd#arrow)
+
+A donut whose segments are separated by clockwise chevron seams, reading as a cyclical flow.
+
+::: {.pie .arrow center="Cycle"}
+::: item
+Plan
+:::
+::: item
+Build
+:::
+::: item
+Test
+:::
+::: item
+Ship
+:::
+:::
+
 ### [Process](process.qmd)
 
 A linear flow of steps connected by arrows.

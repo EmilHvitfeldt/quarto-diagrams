@@ -1308,7 +1308,11 @@ function initPie(container) {
   const sliceOffset = 20;
   const defaultColor = container.dataset.nodeColor || '#2e6b8a';
 
-  const isDonut = container.classList.contains('donut');
+  // `.arrow` is a donut sub-variant: segments are separated by chevron-shaped
+  // seams pointing clockwise, so the ring reads as a cyclical flow. It implies
+  // donut rendering (a hollow center). Falls back to a plain donut for n === 1.
+  const isArrow = container.classList.contains('arrow');
+  const isDonut = container.classList.contains('donut') || isArrow;
   let holeFrac = parseFloat(container.dataset.hole);
   if (isNaN(holeFrac)) holeFrac = 0.55;
   holeFrac = Math.min(0.85, Math.max(0.2, holeFrac));
@@ -1375,6 +1379,26 @@ function initPie(container) {
         `M ${ox - rad} ${oy} A ${rad} ${rad} 0 1 0 ${ox + rad} ${oy} ` +
         `A ${rad} ${rad} 0 1 0 ${ox - rad} ${oy} Z`;
       d = isDonut ? ring(r) + ' ' + ring(rInner) : ring(r);
+    } else if (isArrow) {
+      // Each segment's radial edges become chevrons advanced forward (clockwise)
+      // at the mid radius: the leading edge forms an arrowhead, the trailing edge
+      // a matching notch the previous arrowhead nests into. The gap leaves a
+      // uniform arrow-shaped white seam between consecutive segments. The angular
+      // half-gap shrinks with radius (`halfGap / ρ`) so the seam keeps a constant
+      // *linear* width instead of fanning out toward the rim.
+      const span = endAngle - startAngle;
+      const halfGap = r * 0.025;                     // constant seam half-width (px)
+      const gapAt = (rad) => halfGap / rad;          // angular half-gap at radius
+      const tip  = Math.min(0.13, span * 0.32);      // chevron tip advance angle
+      const rMid = (rInner + r) / 2;
+      const P = (rad, a) => `${ox + rad * Math.cos(a)} ${oy + rad * Math.sin(a)}`;
+      d = `M ${P(rInner, startAngle + gapAt(rInner))} ` +
+          `L ${P(rMid, startAngle + gapAt(rMid) + tip)} ` +
+          `L ${P(r, startAngle + gapAt(r))} ` +
+          `A ${r} ${r} 0 ${largeArc} 1 ${P(r, endAngle - gapAt(r))} ` +
+          `L ${P(rMid, endAngle - gapAt(rMid) + tip)} ` +
+          `L ${P(rInner, endAngle - gapAt(rInner))} ` +
+          `A ${rInner} ${rInner} 0 ${largeArc} 0 ${P(rInner, startAngle + gapAt(rInner))} Z`;
     } else if (isDonut) {
       const ix1 = ox + rInner * Math.cos(startAngle);
       const iy1 = oy + rInner * Math.sin(startAngle);
@@ -1390,7 +1414,7 @@ function initPie(container) {
     path.setAttribute('d', d);
     path.setAttribute('fill', color);
     if (n === 1 && isDonut) path.setAttribute('fill-rule', 'evenodd');
-    if (!hasGap) {
+    if (!hasGap && !isArrow) {
       path.setAttribute('stroke', 'white');
       path.setAttribute('stroke-width', '3');
     }

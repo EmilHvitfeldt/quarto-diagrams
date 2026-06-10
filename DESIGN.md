@@ -100,6 +100,8 @@ Bob
 - `.pie` on container — pie chart layout
 - `.gap` on container — separate all slices with an offset, no white stroke
 - `.gap` on an individual `.item` — offset just that slice (keeps the white stroke on others)
+- `.donut` on container — hollow center (ring); `hole=` sets the inner-radius fraction (default `0.55`, clamped `0.2`–`0.85`), `center=` places a label in the hole
+- `.arrow` on container — donut sub-variant (implies `.donut`): each segment's radial edges are chevrons advanced forward by `tip = min(0.13, span·0.32)` rad at the mid radius, with an angular half-gap `gapA = min(0.05, span·0.18)` each side. The leading edge forms a clockwise arrowhead, the trailing edge a matching notch, and the gap leaves a uniform arrow-shaped white seam. No white stroke (the gap separates segments). Falls back to a plain donut for `n === 1`.
 
 **Color system:**
 - `node-color="<color>"` on container — base color for all slices (default `#2e6b8a`)
