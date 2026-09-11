@@ -116,6 +116,62 @@ Coffee
 :::
 :::
 
+## Outlines
+
+By default each circle is a plain fill with no stroke. Add `outline-color=` (and optionally `outline-width=`, default `2`) to an item to draw a stroke around just that circle, or to the container to apply the same outline to every circle. `fill-opacity=` (default `0.45`) is also overridable per item or on the container, independent of the outline.
+
+````markdown
+::: {.venn ab="Shared"}
+::: {.item outline-color="#7a3b5c" outline-width="3"}
+Frontend
+:::
+::: item
+Backend
+:::
+:::
+````
+
+::: {.venn ab="Shared"}
+::: {.item outline-color="#7a3b5c" outline-width="3"}
+Frontend
+:::
+::: item
+Backend
+:::
+:::
+
+## Icons
+
+Nest an `.icon` div inside an `.item` to pin extra content (an emoji, a Font Awesome icon, an image) at a fixed spot inside that circle's exclusive lobe. Unlike the rest of the label, the icon always stays inside the circle, even when `.outside-labels` pushes the text label outside the rim.
+
+````markdown
+::: {.venn ab="Shared"}
+::: item
+Frontend
+
+::: icon
+🎨
+:::
+:::
+::: item
+Backend
+:::
+:::
+````
+
+::: {.venn ab="Shared"}
+::: item
+Frontend
+
+::: icon
+🎨
+:::
+:::
+::: item
+Backend
+:::
+:::
+
 ## Outside labels
 
 By default, each set's label sits inside its circle's exclusive lobe, which
@@ -349,3 +405,22 @@ The overlap div's own text (if any) still labels the region in place, just
 like `ab=` would — leave it empty, as above, to have only the annotation
 callout. A region can also keep using the plain `ab=`/`bc=`/`ac=`/`abc=`
 attribute if it just needs a label with no callout.
+
+## Reveal.js fragments
+
+An `.icon` or `.overlap` div can carry `.fragment` (plus any fade-*/highlight-*/etc. modifier, and an explicit `data-fragment-index`) to reveal on click, just like a normal Reveal.js fragment. Give several the same `data-fragment-index` to have them appear together, and add an inline `style` (e.g. `transition-delay: 0.5s;`) to one of them to stagger the reveal visually while still triggering on one click.
+
+````markdown
+::: {.venn ab="Shared"}
+::: item
+Frontend
+
+::: {.icon .fragment}
+🎨
+:::
+:::
+::: item
+Backend
+:::
+:::
+````

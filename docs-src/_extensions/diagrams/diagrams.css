@@ -163,6 +163,19 @@
   transform: translate(-50%, -50%);
 }
 
+.venn .set-icon {
+  position: absolute;
+  font-size: 1.1rem;
+  line-height: 0.9;
+  text-align: center;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.venn .set-icon p {
+  margin: 0;
+}
+
 .venn .overlap-label {
   position: absolute;
   color: #222222;
