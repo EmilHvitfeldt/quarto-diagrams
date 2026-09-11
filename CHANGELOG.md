@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.5.0
 
 - Add `.outside-labels` for `.venn`: places each set label just outside its
   circle's rim (plain text, no leader line) instead of inside its exclusive
