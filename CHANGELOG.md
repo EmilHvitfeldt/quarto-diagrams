@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- Add annotation support for `.venn` overlap regions: a sibling `.overlap` div
+  (classed `.ab`/`.ac`/`.bc`/`.abc`) can carry a nested `.annotation` callout
+  for an intersection, the same way `.item` divs already do for sets.
+
 ## 0.3.0
 
 - Add external `.annotation` callouts: nest an `.annotation` div in any item to
