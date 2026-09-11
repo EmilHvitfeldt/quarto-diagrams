@@ -304,6 +304,7 @@ Backend
 - 2-set: `ab` — intersection label.
 - 3-set: `ab`, `bc`, `ac` — pairwise intersections; `abc` — triple overlap. `a`/`b`/`c` are the 1st/2nd/3rd items in order.
 - `overlap-color` (`dataset.overlapColor`) — text color applied to all intersection labels (default `#222222` from CSS).
+- Overlaps can alternatively be given as sibling `.overlap` divs (one region class each: `.ab`/`.ac`/`.bc`/`.abc`), which is required to attach a nested `.annotation` callout to that region — plain `ab=` attributes can't carry one. The div's own text (if any) still supplies the label, same as the attribute would; `overlapDivMap` in `initVenn` looks these up and hides the source divs. The overlap's leader-line anchor is the region's fixed `(x,y)` point itself (no rim to start from, unlike sets), and its default annotation color falls back to `overlap-color` → `node-color` → `#666`.
 
 **Color system:** Each set defaults to a distinct palette color (`['#2e6b8a', '#c0584f', '#5a9367']`). `color=` on an item overrides that circle. `node-color=` on the container sets one shared base color for all circles (overrides the palette). No `arrow-color` (no lines).
 

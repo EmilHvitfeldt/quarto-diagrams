@@ -2332,7 +2332,9 @@ function initVenn(container) {
     const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
     return ann ? ann.innerHTML.trim() : null;
   });
-  const hasAnn = annHTML.some(a => a !== null);
+  const hasOverlapDivAnn = Array.from(container.children).some(c => c.classList.contains('overlap') &&
+    Array.from(c.children).some(cc => cc.classList.contains('annotation')));
+  const hasAnn = annHTML.some(a => a !== null) || hasOverlapDivAnn;
 
   // The venn uses a fixed 500-unit coordinate system. When annotated, scale it
   // down (s) and offset it so side callout columns fit a normal content column.
@@ -2391,6 +2393,19 @@ function initVenn(container) {
        { key: 'bc', x: 250, y: 330 },
        { key: 'abc', x: 250, y: 245 }];
 
+  // Overlap regions can also be given as `.overlap.<key>` divs (siblings of
+  // `.item`) instead of plain `ab=` container attributes, so they can carry a
+  // nested `.annotation` callout the same way sets do.
+  const overlapKeys = ['ab', 'ac', 'bc', 'abc'];
+  const overlapDivMap = {};
+  Array.from(container.children)
+    .filter(c => c.classList.contains('overlap'))
+    .forEach(div => {
+      const key = overlapKeys.find(k => div.classList.contains(k));
+      if (key) overlapDivMap[key] = div;
+      div.style.display = 'none';
+    });
+
   const labelEls = [];
   const annAnchors = [];  // { ex, ey, mid, color, html } per annotated set
   const Ox = X(250), Oy = Y(250);
@@ -2422,15 +2437,35 @@ function initVenn(container) {
 
   const overlapColor = container.dataset.overlapColor;
   overlaps.forEach(o => {
-    const text = container.dataset[o.key];
-    if (!text) return;
-    const label = document.createElement('div');
-    label.className = 'overlap-label';
-    label.textContent = text;
-    label.style.left = X(o.x) + 'px';
-    label.style.top  = Y(o.y) + 'px';
-    if (overlapColor) label.style.color = overlapColor;
-    container.appendChild(label);
+    const div = overlapDivMap[o.key];
+    let text = container.dataset[o.key];
+    let annHtmlOv = null;
+    if (div) {
+      const ann = Array.from(div.children).find(c => c.classList.contains('annotation'));
+      annHtmlOv = ann ? ann.innerHTML.trim() : null;
+      const clone = div.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      const divText = clone.textContent.trim();
+      if (divText) text = divText;
+    }
+    if (text) {
+      const label = document.createElement('div');
+      label.className = 'overlap-label';
+      label.textContent = text;
+      label.style.left = X(o.x) + 'px';
+      label.style.top  = Y(o.y) + 'px';
+      if (overlapColor) label.style.color = overlapColor;
+      container.appendChild(label);
+    }
+    if (annHtmlOv) {
+      const ox = X(o.x), oy = Y(o.y);
+      const dx = ox - Ox, dy = oy - Oy, len = Math.hypot(dx, dy) || 1;
+      const ux = dx / len, uy = dy / len;
+      const color = overlapColor || baseColor || '#666';
+      annAnchors.push({ ex: ox, ey: oy, mid: Math.atan2(uy, ux), color, html: annHtmlOv });
+    }
   });
 
   // Shrink set labels so the longest fits within a circle's exclusive lobe

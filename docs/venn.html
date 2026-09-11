@@ -238,6 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#intersection-label-color" id="toc-intersection-label-color" class="nav-link" data-scroll-target="#intersection-label-color">Intersection label color</a></li>
   <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
   <li><a href="#annotations" id="toc-annotations" class="nav-link" data-scroll-target="#annotations">Annotations</a></li>
+  <li><a href="#annotating-overlaps" id="toc-annotating-overlaps" class="nav-link" data-scroll-target="#annotating-overlaps">Annotating overlaps</a></li>
   </ul>
 </nav>
     </div>
@@ -413,6 +414,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The leader lines can be restyled (dashed, dotted, removed) and the colors adjusted — see the <a href="./annotations.html">Annotations</a> concept page for the full set of <code>ann-line</code>, <code>ann-line-color</code>, and <code>ann-title-color</code> options, which work on every annotated layout.</p>
+</section>
+<section id="annotating-overlaps" class="level2">
+<h2 class="anchored" data-anchor-id="annotating-overlaps">Annotating overlaps</h2>
+<p>Overlap regions can be annotated too. Instead of the plain <code>ab=</code> container attribute, add a sibling <code>.overlap</code> div carrying a class for the region (<code>.ab</code>, <code>.ac</code>, <code>.bc</code>, or <code>.abc</code>). Its text becomes the overlap label — same as <code>ab=</code> — and a nested <code>.annotation</code> div attaches a leader-line callout, exactly like a set’s annotation.</p>
+<p>This is useful when what you actually want to call out is an intersection itself, rather than each set individually — annotate <code>ab</code> once instead of annotating both <code>a</code> and <code>b</code>. Set, 2-way overlap, and 3-way overlap annotations can all be mixed in the same diagram.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>:::::: venn</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Design</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>**Design** how it looks and feels</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>Engineering</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>Product</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>:::: {.overlap .ab}</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>**Design &amp; Engineering** agree on feasibility</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>:::: {.overlap .abc}</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>Every discipline signs off before shipping</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>::::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="venn">
+<div class="item">
+<p>Design</p>
+<div class="annotation">
+<p><strong>Design</strong> how it looks and feels</p>
+</div>
+</div>
+<div class="item">
+<p>Engineering</p>
+</div>
+<div class="item">
+<p>Product</p>
+</div>
+<div class="overlap ab">
+<div class="annotation">
+<p><strong>Design &amp; Engineering</strong> agree on feasibility</p>
+</div>
+</div>
+<div class="overlap abc">
+<div class="annotation">
+<p>Every discipline signs off before shipping</p>
+</div>
+</div>
+</div>
+<p>The overlap div’s own text (if any) still labels the region in place, just like <code>ab=</code> would — leave it empty, as above, to have only the annotation callout. A region can also keep using the plain <code>ab=</code>/<code>bc=</code>/<code>ac=</code>/<code>abc=</code> attribute if it just needs a label with no callout.</p>
 
 
 </section>
@@ -2369,7 +2436,9 @@ function initVenn(container) {
     const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
     return ann ? ann.innerHTML.trim() : null;
   });
-  const hasAnn = annHTML.some(a => a !== null);
+  const hasOverlapDivAnn = Array.from(container.children).some(c => c.classList.contains('overlap') &&
+    Array.from(c.children).some(cc => cc.classList.contains('annotation')));
+  const hasAnn = annHTML.some(a => a !== null) || hasOverlapDivAnn;
 
   // The venn uses a fixed 500-unit coordinate system. When annotated, scale it
   // down (s) and offset it so side callout columns fit a normal content column.
@@ -2428,6 +2497,19 @@ function initVenn(container) {
        { key: 'bc', x: 250, y: 330 },
        { key: 'abc', x: 250, y: 245 }];
 
+  // Overlap regions can also be given as `.overlap.<key>` divs (siblings of
+  // `.item`) instead of plain `ab=` container attributes, so they can carry a
+  // nested `.annotation` callout the same way sets do.
+  const overlapKeys = ['ab', 'ac', 'bc', 'abc'];
+  const overlapDivMap = {};
+  Array.from(container.children)
+    .filter(c => c.classList.contains('overlap'))
+    .forEach(div => {
+      const key = overlapKeys.find(k => div.classList.contains(k));
+      if (key) overlapDivMap[key] = div;
+      div.style.display = 'none';
+    });
+
   const labelEls = [];
   const annAnchors = [];  // { ex, ey, mid, color, html } per annotated set
   const Ox = X(250), Oy = Y(250);
@@ -2459,15 +2541,35 @@ function initVenn(container) {
 
   const overlapColor = container.dataset.overlapColor;
   overlaps.forEach(o => {
-    const text = container.dataset[o.key];
-    if (!text) return;
-    const label = document.createElement('div');
-    label.className = 'overlap-label';
-    label.textContent = text;
-    label.style.left = X(o.x) + 'px';
-    label.style.top  = Y(o.y) + 'px';
-    if (overlapColor) label.style.color = overlapColor;
-    container.appendChild(label);
+    const div = overlapDivMap[o.key];
+    let text = container.dataset[o.key];
+    let annHtmlOv = null;
+    if (div) {
+      const ann = Array.from(div.children).find(c => c.classList.contains('annotation'));
+      annHtmlOv = ann ? ann.innerHTML.trim() : null;
+      const clone = div.cloneNode(true);
+      Array.from(clone.children)
+        .filter(c => c.classList.contains('annotation'))
+        .forEach(c => clone.removeChild(c));
+      const divText = clone.textContent.trim();
+      if (divText) text = divText;
+    }
+    if (text) {
+      const label = document.createElement('div');
+      label.className = 'overlap-label';
+      label.textContent = text;
+      label.style.left = X(o.x) + 'px';
+      label.style.top  = Y(o.y) + 'px';
+      if (overlapColor) label.style.color = overlapColor;
+      container.appendChild(label);
+    }
+    if (annHtmlOv) {
+      const ox = X(o.x), oy = Y(o.y);
+      const dx = ox - Ox, dy = oy - Oy, len = Math.hypot(dx, dy) || 1;
+      const ux = dx / len, uy = dy / len;
+      const color = overlapColor || baseColor || '#666';
+      annAnchors.push({ ex: ox, ey: oy, mid: Math.atan2(uy, ux), color, html: annHtmlOv });
+    }
   });
 
   // Shrink set labels so the longest fits within a circle's exclusive lobe

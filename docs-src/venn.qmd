@@ -196,3 +196,97 @@ The leader lines can be restyled (dashed, dotted, removed) and the colors
 adjusted — see the [Annotations](annotations.qmd) concept page for the full set
 of `ann-line`, `ann-line-color`, and `ann-title-color` options, which work on
 every annotated layout.
+
+## Annotating overlaps
+
+Overlap regions can be annotated too. Instead of the plain `ab=` container
+attribute, add a sibling `.overlap` div carrying a class for the region
+(`.ab`, `.ac`, `.bc`, or `.abc`). Its text becomes the overlap label — same as
+`ab=` — and a nested `.annotation` div attaches a leader-line callout, exactly
+like a set's annotation.
+
+This is useful when what you actually want to call out is an intersection
+itself, rather than each set individually — annotate `ab` once instead of
+annotating both `a` and `b`. Set, 2-way overlap, and 3-way overlap annotations
+can all be mixed in the same diagram.
+
+````markdown
+:::::: venn
+
+:::: item
+Design
+
+::: annotation
+**Design** how it looks and feels
+:::
+
+::::
+
+:::: item
+Engineering
+::::
+
+:::: item
+Product
+::::
+
+:::: {.overlap .ab}
+
+::: annotation
+**Design & Engineering** agree on feasibility
+:::
+
+::::
+
+:::: {.overlap .abc}
+
+::: annotation
+Every discipline signs off before shipping
+:::
+
+::::
+
+::::::
+````
+
+:::::: venn
+
+:::: item
+Design
+
+::: annotation
+**Design** how it looks and feels
+:::
+
+::::
+
+:::: item
+Engineering
+::::
+
+:::: item
+Product
+::::
+
+:::: {.overlap .ab}
+
+::: annotation
+**Design & Engineering** agree on feasibility
+:::
+
+::::
+
+:::: {.overlap .abc}
+
+::: annotation
+Every discipline signs off before shipping
+:::
+
+::::
+
+::::::
+
+The overlap div's own text (if any) still labels the region in place, just
+like `ab=` would — leave it empty, as above, to have only the annotation
+callout. A region can also keep using the plain `ab=`/`bc=`/`ac=`/`abc=`
+attribute if it just needs a label with no callout.
