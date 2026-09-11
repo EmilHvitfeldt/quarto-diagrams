@@ -2418,16 +2418,26 @@ function initVenn(container) {
     Array.from(c.children).some(cc => cc.classList.contains('annotation')));
   const hasAnn = annHTML.some(a => a !== null) || hasOverlapDivAnn;
 
+  // `.outside-labels` moves set labels from inside each circle's exclusive
+  // lobe to just outside its rim — useful when the label names what a circle
+  // represents without implying the label text itself is "in" the set. Plain
+  // text only: no leader lines, unlike `.annotation` callouts.
+  const outsideLabels = container.classList.contains('outside-labels');
+  const OUTSIDE_MARGIN = 70;  // room reserved around the diagram for outside labels
+
   // The venn uses a fixed 500-unit coordinate system. When annotated, scale it
   // down (s) and offset it so side callout columns fit a normal content column.
   const ANN_W = 164, ANN_GAP = 24, OUTER = 8;
   const s = hasAnn ? 0.72 : 1;
   const diagW = 500 * s;
   const PAD = hasAnn ? (ANN_W + ANN_GAP) : 0;
-  const W = hasAnn ? (2 * OUTER + 2 * PAD + diagW) : 500;
-  const H = hasAnn ? 430 : 500;
-  const offsetX = hasAnn ? (OUTER + PAD) : 0;
-  const offsetY = hasAnn ? (H - diagW) / 2 : 0;
+  const marginOutside = outsideLabels ? OUTSIDE_MARGIN : 0;
+  const baseW = hasAnn ? (2 * OUTER + 2 * PAD + diagW) : 500;
+  const baseH = hasAnn ? 430 : 500;
+  const W = baseW + 2 * marginOutside;
+  const H = baseH + 2 * marginOutside;
+  const offsetX = (hasAnn ? (OUTER + PAD) : 0) + marginOutside;
+  const offsetY = (hasAnn ? (baseH - diagW) / 2 : 0) + marginOutside;
   const X = x => offsetX + x * s;   // map base-coord x → container x
   const Y = y => offsetY + y * s;
   const Rr = r => r * s;
@@ -2496,6 +2506,10 @@ function initVenn(container) {
     const label = document.createElement('div');
     label.className = 'set-label';
     let labelText = labelHTML(item);
+    const c = circles[i];
+    const ccx = X(c.cx), ccy = Y(c.cy), rr = Rr(c.r);
+    const dx = ccx - Ox, dy = ccy - Oy, len = Math.hypot(dx, dy) || 1;
+    const ux = dx / len, uy = dy / len;
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
@@ -2503,16 +2517,19 @@ function initVenn(container) {
         .forEach(c => clone.removeChild(c));
       labelText = labelHTML(clone);
       // Leader starts on this set's outer rim, away from the diagram center
-      const c = circles[i];
-      const ccx = X(c.cx), ccy = Y(c.cy), rr = Rr(c.r);
-      const dx = ccx - Ox, dy = ccy - Oy, len = Math.hypot(dx, dy) || 1;
-      const ux = dx / len, uy = dy / len;
       const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i];
       annAnchors.push({ ex: ccx + rr * ux, ey: ccy + rr * uy, mid: Math.atan2(uy, ux), color, html: annHTML[i] });
     }
     label.innerHTML = labelText;
-    label.style.left = X(setLabels[i].x) + 'px';
-    label.style.top  = Y(setLabels[i].y) + 'px';
+    if (outsideLabels) {
+      label.classList.add('outside');
+      const gap = 22;
+      label.style.left = (ccx + (rr + gap) * ux) + 'px';
+      label.style.top  = (ccy + (rr + gap) * uy) + 'px';
+    } else {
+      label.style.left = X(setLabels[i].x) + 'px';
+      label.style.top  = Y(setLabels[i].y) + 'px';
+    }
     container.appendChild(label);
     labelEls.push(label);
   });
@@ -2551,7 +2568,8 @@ function initVenn(container) {
   });
 
   // Shrink set labels so the longest fits within a circle's exclusive lobe
-  const textMaxW = (n === 2 ? 150 : 130) * s;
+  // (outside labels have their own margin and wrap via CSS instead).
+  const textMaxW = outsideLabels ? Infinity : (n === 2 ? 150 : 130) * s;
   const baseStyle = getComputedStyle(labelEls[0]);
   const baseFontSize = parseFloat(baseStyle.fontSize) || 17.6;
   const fontFamily = baseStyle.fontFamily || 'sans-serif';

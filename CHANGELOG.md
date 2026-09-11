@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Add `.outside-labels` for `.venn`: places each set label just outside its
+  circle's rim (plain text, no leader line) instead of inside its exclusive
+  lobe.
+
 ## 0.4.0
 
 - Add annotation support for `.venn` overlap regions: a sibling `.overlap` div

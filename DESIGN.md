@@ -308,6 +308,8 @@ Backend
 
 **Color system:** Each set defaults to a distinct palette color (`['#2e6b8a', '#c0584f', '#5a9367']`). `color=` on an item overrides that circle. `node-color=` on the container sets one shared base color for all circles (overrides the palette). No `arrow-color` (no lines).
 
+**Outside labels:** `.outside-labels` on the container moves each set label from its exclusive lobe to just outside the circle's rim (plain text, no leader line), avoiding the "label = member of set" reading. Adds a uniform `OUTSIDE_MARGIN` (70) around the whole diagram (composable with the `hasAnn` side-column padding) and positions each label along the same outward-from-center direction vector used for annotation leader-line anchors, just past the rim instead of on it. Skips the lobe-width auto-shrink (`textMaxW`) since labels are no longer bounded by the lobe.
+
 **Sizing math (500×500 container, SVG):**
 - 2-set: two circles `r=150` at `(175,250)` and `(325,250)` (center distance 150 → symmetric lens). Set labels at `(120,250)` / `(380,250)`; overlap `ab` at `(250,250)`.
 - 3-set: three circles `r=140` in a trefoil at `(250,155)`, `(320,275)`, `(180,275)`. Set labels at `(250,95)` / `(380,330)` / `(120,330)`; overlaps `ab`=`(320,200)`, `ac`=`(180,200)`, `bc`=`(250,330)`, `abc`=`(250,245)`.

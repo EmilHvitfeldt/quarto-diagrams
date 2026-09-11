@@ -116,6 +116,37 @@ Coffee
 :::
 :::
 
+## Outside labels
+
+By default, each set's label sits inside its circle's exclusive lobe, which
+can read as "this label is a member of the set." Add `.outside-labels` to the
+container to place each label just outside its circle's rim instead — useful
+when the label names what the circle represents rather than an item within
+it. Unlike annotations, outside labels are plain text: no leader lines or
+arrows.
+
+````markdown
+::: {.venn .outside-labels ab="Shared"}
+::: item
+Frontend
+:::
+::: item
+Backend
+:::
+:::
+````
+
+::: {.venn .outside-labels ab="Shared"}
+::: item
+Frontend
+:::
+::: item
+Backend
+:::
+:::
+
+Overlap labels are unaffected and still render inside the shaded region.
+
 ## Annotations
 
 Give any item a nested `.annotation` div to attach an external callout that

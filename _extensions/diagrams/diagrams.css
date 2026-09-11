@@ -148,6 +148,10 @@
   transform: translate(-50%, -50%);
 }
 
+.venn .set-label.outside {
+  max-width: 130px;
+}
+
 .stacked-venn .set-label {
   position: absolute;
   color: white;
