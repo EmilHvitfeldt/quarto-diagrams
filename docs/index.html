@@ -2467,7 +2467,7 @@ function initVenn(container) {
   // represents without implying the label text itself is "in" the set. Plain
   // text only: no leader lines, unlike `.annotation` callouts.
   const outsideLabels = container.classList.contains('outside-labels');
-  const OUTSIDE_MARGIN = 70;  // room reserved around the diagram for outside labels
+  const OUTSIDE_MARGIN = 110;  // room reserved around the diagram for outside labels
 
   // The venn uses a fixed 500-unit coordinate system. When annotated, scale it
   // down (s) and offset it so side callout columns fit a normal content column.
@@ -2567,7 +2567,7 @@ function initVenn(container) {
     label.innerHTML = labelText;
     if (outsideLabels) {
       label.classList.add('outside');
-      const gap = 22;
+      const gap = 46;
       label.style.left = (ccx + (rr + gap) * ux) + 'px';
       label.style.top  = (ccy + (rr + gap) * uy) + 'px';
     } else {

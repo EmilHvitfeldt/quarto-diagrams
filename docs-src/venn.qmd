@@ -145,6 +145,34 @@ Backend
 :::
 :::
 
+It works the same way for three sets:
+
+````markdown
+::: {.venn .outside-labels ab="A∩B" bc="B∩C" ac="A∩C" abc="All three"}
+::: item
+Design
+:::
+::: item
+Engineering
+:::
+::: item
+Product
+:::
+:::
+````
+
+::: {.venn .outside-labels ab="A∩B" bc="B∩C" ac="A∩C" abc="All three"}
+::: item
+Design
+:::
+::: item
+Engineering
+:::
+::: item
+Product
+:::
+:::
+
 Overlap labels are unaffected and still render inside the shaded region.
 
 ## Annotations

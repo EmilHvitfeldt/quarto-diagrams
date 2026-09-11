@@ -585,7 +585,7 @@
     "href": "venn.html#outside-labels",
     "title": "Venn",
     "section": "Outside labels",
-    "text": "Outside labels\nBy default, each set’s label sits inside its circle’s exclusive lobe, which can read as “this label is a member of the set.” Add .outside-labels to the container to place each label just outside its circle’s rim instead — useful when the label names what the circle represents rather than an item within it. Unlike annotations, outside labels are plain text: no leader lines or arrows.\n::: {.venn .outside-labels ab=\"Shared\"}\n::: item\nFrontend\n:::\n::: item\nBackend\n:::\n:::\n\n\nFrontend\n\n\nBackend\n\n\nOverlap labels are unaffected and still render inside the shaded region."
+    "text": "Outside labels\nBy default, each set’s label sits inside its circle’s exclusive lobe, which can read as “this label is a member of the set.” Add .outside-labels to the container to place each label just outside its circle’s rim instead — useful when the label names what the circle represents rather than an item within it. Unlike annotations, outside labels are plain text: no leader lines or arrows.\n::: {.venn .outside-labels ab=\"Shared\"}\n::: item\nFrontend\n:::\n::: item\nBackend\n:::\n:::\n\n\nFrontend\n\n\nBackend\n\n\nIt works the same way for three sets:\n::: {.venn .outside-labels ab=\"A∩B\" bc=\"B∩C\" ac=\"A∩C\" abc=\"All three\"}\n::: item\nDesign\n:::\n::: item\nEngineering\n:::\n::: item\nProduct\n:::\n:::\n\n\nDesign\n\n\nEngineering\n\n\nProduct\n\n\nOverlap labels are unaffected and still render inside the shaded region."
   },
   {
     "objectID": "venn.html#annotations",
