@@ -237,9 +237,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#three-sets" id="toc-three-sets" class="nav-link" data-scroll-target="#three-sets">Three sets</a></li>
   <li><a href="#intersection-label-color" id="toc-intersection-label-color" class="nav-link" data-scroll-target="#intersection-label-color">Intersection label color</a></li>
   <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
+  <li><a href="#outlines" id="toc-outlines" class="nav-link" data-scroll-target="#outlines">Outlines</a></li>
+  <li><a href="#icons" id="toc-icons" class="nav-link" data-scroll-target="#icons">Icons</a></li>
   <li><a href="#outside-labels" id="toc-outside-labels" class="nav-link" data-scroll-target="#outside-labels">Outside labels</a></li>
   <li><a href="#annotations" id="toc-annotations" class="nav-link" data-scroll-target="#annotations">Annotations</a></li>
   <li><a href="#annotating-overlaps" id="toc-annotating-overlaps" class="nav-link" data-scroll-target="#annotating-overlaps">Annotating overlaps</a></li>
+  <li><a href="#reveal.js-fragments" id="toc-reveal.js-fragments" class="nav-link" data-scroll-target="#reveal.js-fragments">Reveal.js fragments</a></li>
   </ul>
 </nav>
     </div>
@@ -360,17 +363,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="outside-labels" class="level2">
-<h2 class="anchored" data-anchor-id="outside-labels">Outside labels</h2>
-<p>By default, each set’s label sits inside its circle’s exclusive lobe, which can read as “this label is a member of the set.” Add <code>.outside-labels</code> to the container to place each label just outside its circle’s rim instead — useful when the label names what the circle represents rather than an item within it. Unlike annotations, outside labels are plain text: no leader lines or arrows.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: {.venn .outside-labels ab="Shared"}</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<section id="outlines" class="level2">
+<h2 class="anchored" data-anchor-id="outlines">Outlines</h2>
+<p>By default each circle is a plain fill with no stroke. Add <code>outline-color=</code> (and optionally <code>outline-width=</code>, default <code>2</code>) to an item to draw a stroke around just that circle, or to the container to apply the same outline to every circle. <code>fill-opacity=</code> (default <code>0.45</code>) is also overridable per item or on the container, independent of the outline.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: {.venn ab="Shared"}</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>::: {.item outline-color="#7a3b5c" outline-width="3"}</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Frontend</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>Backend</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="venn" data-ab="Shared">
+<div class="item" data-outline-color="#7a3b5c" data-outline-width="3">
+<p>Frontend</p>
+</div>
+<div class="item">
+<p>Backend</p>
+</div>
+</div>
+</section>
+<section id="icons" class="level2">
+<h2 class="anchored" data-anchor-id="icons">Icons</h2>
+<p>Nest an <code>.icon</code> div inside an <code>.item</code> to pin extra content (an emoji, a Font Awesome icon, an image) at a fixed spot inside that circle’s exclusive lobe. Unlike the rest of the label, the icon always stays inside the circle, even when <code>.outside-labels</code> pushes the text label outside the rim.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>::: {.venn ab="Shared"}</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Frontend</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>::: icon</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>🎨</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>Backend</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="venn" data-ab="Shared">
+<div class="item">
+<p>Frontend</p>
+<div class="icon">
+<p>🎨</p>
+</div>
+</div>
+<div class="item">
+<p>Backend</p>
+</div>
+</div>
+</section>
+<section id="outside-labels" class="level2">
+<h2 class="anchored" data-anchor-id="outside-labels">Outside labels</h2>
+<p>By default, each set’s label sits inside its circle’s exclusive lobe, which can read as “this label is a member of the set.” Add <code>.outside-labels</code> to the container to place each label just outside its circle’s rim instead — useful when the label names what the circle represents rather than an item within it. Unlike annotations, outside labels are plain text: no leader lines or arrows.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>::: {.venn .outside-labels ab="Shared"}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Frontend</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>Backend</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="venn outside-labels" data-ab="Shared">
 <div class="item">
 <p>Frontend</p>
@@ -380,17 +430,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>It works the same way for three sets:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>::: {.venn .outside-labels ab="A∩B" bc="B∩C" ac="A∩C" abc="All three"}</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Design</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Engineering</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Product</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>::: {.venn .outside-labels ab="A∩B" bc="B∩C" ac="A∩C" abc="All three"}</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Design</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Engineering</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>Product</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="venn outside-labels" data-ab="A∩B" data-bc="B∩C" data-ac="A∩C" data-abc="All three">
 <div class="item">
 <p>Design</p>
@@ -408,36 +458,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="annotations">Annotations</h2>
 <p>Give any item a nested <code>.annotation</code> div to attach an external callout that points at its set with a leader line. The callouts fan out to the side matching each set’s position. The annotation content is free-form Markdown; any bold text or heading is tinted to match the set color (optional). Annotate all, some, or none of the sets.</p>
 <p>Nest the fenced divs with <strong>more colons on the outer fences</strong> (<code>:::::</code> for the chart, <code>::::</code> for each item, <code>:::</code> for the annotation) and leave a blank line around the inner fences.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>::::: venn</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Design</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>**Design** how it looks and feels</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>Engineering</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>**Engineering** how it is built</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>:::: item</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>Product</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>**Product** what gets built and why</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>::::: venn</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Design</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>**Design** how it looks and feels</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>Engineering</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>**Engineering** how it is built</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>Product</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>**Product** what gets built and why</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>:::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="venn">
 <div class="item">
 <p>Design</p>
@@ -464,42 +514,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="annotating-overlaps">Annotating overlaps</h2>
 <p>Overlap regions can be annotated too. Instead of the plain <code>ab=</code> container attribute, add a sibling <code>.overlap</code> div carrying a class for the region (<code>.ab</code>, <code>.ac</code>, <code>.bc</code>, or <code>.abc</code>). Its text becomes the overlap label — same as <code>ab=</code> — and a nested <code>.annotation</code> div attaches a leader-line callout, exactly like a set’s annotation.</p>
 <p>This is useful when what you actually want to call out is an intersection itself, rather than each set individually — annotate <code>ab</code> once instead of annotating both <code>a</code> and <code>b</code>. Set, 2-way overlap, and 3-way overlap annotations can all be mixed in the same diagram.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>:::::: venn</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>Design</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>**Design** how it looks and feels</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>Engineering</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>:::: item</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>Product</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>:::: {.overlap .ab}</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>**Design &amp; Engineering** agree on feasibility</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>:::: {.overlap .abc}</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>Every discipline signs off before shipping</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>::::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>:::::: venn</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>Design</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>**Design** how it looks and feels</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>Engineering</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>:::: item</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>Product</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>:::: {.overlap .ab}</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>**Design &amp; Engineering** agree on feasibility</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>:::: {.overlap .abc}</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>::: annotation</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>Every discipline signs off before shipping</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>::::::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="venn">
 <div class="item">
 <p>Design</p>
@@ -525,6 +575,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The overlap div’s own text (if any) still labels the region in place, just like <code>ab=</code> would — leave it empty, as above, to have only the annotation callout. A region can also keep using the plain <code>ab=</code>/<code>bc=</code>/<code>ac=</code>/<code>abc=</code> attribute if it just needs a label with no callout.</p>
+</section>
+<section id="reveal.js-fragments" class="level2">
+<h2 class="anchored" data-anchor-id="reveal.js-fragments">Reveal.js fragments</h2>
+<p>An <code>.icon</code> or <code>.overlap</code> div can carry <code>.fragment</code> (plus any fade-<em>/highlight-</em>/etc. modifier, and an explicit <code>data-fragment-index</code>) to reveal on click, just like a normal Reveal.js fragment. Give several the same <code>data-fragment-index</code> to have them appear together, and add an inline <code>style</code> (e.g.&nbsp;<code>transition-delay: 0.5s;</code>) to one of them to stagger the reveal visually while still triggering on one click.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>::: {.venn ab="Shared"}</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Frontend</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>::: {.icon .fragment}</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>🎨</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>::: item</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>Backend</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -973,6 +1039,29 @@ function makeLeaderLine(opts, shapeColor, x1, y1, x2, y2) {
 // such as Font Awesome icons (<i class="fa-...">) survives into the diagram.
 // Strips nested .annotation children (plus any extra selectors, e.g. 'item' for
 // the hierarchy layout) and unwraps Pandoc's <p> wrapper.
+// Reveal.js fragment classes (see reveal.js/plugin/fragment styles). Diagram
+// elements are built dynamically after Reveal parses the deck, so an author's
+// `.fragment` div (plus any fade-*/highlight-*/etc. modifier and an explicit
+// `data-fragment-index`) has to be copied onto the generated node by hand for
+// Reveal's fragment plugin to pick it up.
+const FRAGMENT_CLASS_RE = /^fragment$|^fade-|^highlight-|^grow$|^shrink$|^strike$|^semi-fade-out$|^current-visible$/;
+function copyFragmentAttrs(src, dst) {
+  if (!src) return;
+  Array.from(src.classList)
+    .filter(c => FRAGMENT_CLASS_RE.test(c))
+    .forEach(c => dst.classList.add(c));
+  if (src.hasAttribute('data-fragment-index')) {
+    dst.setAttribute('data-fragment-index', src.getAttribute('data-fragment-index'));
+  }
+  // Any inline style on the source (e.g. `transition-delay` to stagger
+  // same-index fragments) is appended, not overwritten, so it layers on top
+  // of the positioning styles the diagram already set on `dst`. Some callers
+  // (e.g. `.overlap` divs) hide `src` via inline `display: none` before this
+  // runs; `dataset.origStyle`, snapshotted beforehand, is preferred when set.
+  const style = src.dataset.origStyle !== undefined ? src.dataset.origStyle : src.getAttribute('style');
+  if (style) dst.style.cssText += (dst.style.cssText && !dst.style.cssText.endsWith(';') ? ';' : '') + style;
+}
+
 function labelHTML(el, stripSelectors) {
   const clone = el.cloneNode(true);
   const drop = ['annotation'].concat(stripSelectors || []);
@@ -1372,6 +1461,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.setAttribute('data-cf-init', '1');
     initCycle(el);
   });
+  // Diagrams may add `.fragment` elements (e.g. an annotated `.icon`/`.overlap`)
+  // after Reveal has already scanned the deck for fragments; re-sync so they're
+  // picked up and get a fragment index.
+  if (typeof Reveal !== 'undefined' && Reveal.sync) Reveal.sync();
 });
 
 if (typeof Reveal !== 'undefined') {
@@ -1416,6 +1509,7 @@ if (typeof Reveal !== 'undefined') {
       el.setAttribute('data-cf-init', '1');
       initCycle(el);
     });
+    if (Reveal.sync) Reveal.sync();
   });
 }
 
@@ -2481,6 +2575,12 @@ function initVenn(container) {
     const ann = Array.from(item.children).find(c => c.classList.contains('annotation'));
     return ann ? ann.innerHTML.trim() : null;
   });
+  // Per-item icon HTML (nested `.icon` div); null if absent. Unlike the rest
+  // of an item's label, the icon always stays pinned inside the circle's
+  // exclusive lobe, even under `.outside-labels` (which only pushes the text
+  // label outside the rim).
+  const iconEls = items.map(item => Array.from(item.children).find(c => c.classList.contains('icon')) || null);
+  const iconHTML = iconEls.map(icon => icon ? icon.innerHTML.trim() : null);
   const hasOverlapDivAnn = Array.from(container.children).some(c => c.classList.contains('overlap') &&
     Array.from(c.children).some(cc => cc.classList.contains('annotation')));
   const hasAnn = annHTML.some(a => a !== null) || hasOverlapDivAnn;
@@ -2528,13 +2628,26 @@ function initVenn(container) {
 
   items.forEach((item, i) => {
     const color = item.getAttribute('color') || item.dataset.color || baseColor || palette[i];
+    // Outline is independent of fill: falls back from item -> container, and
+    // is only drawn when a color is actually given (no outline by default).
+    const outlineColor = item.getAttribute('outline-color') || item.dataset.outlineColor ||
+      container.dataset.outlineColor || null;
+    const outlineWidthRaw = item.getAttribute('outline-width') || item.dataset.outlineWidth ||
+      container.dataset.outlineWidth;
+    const outlineWidth = outlineWidthRaw ? parseFloat(outlineWidthRaw) : 2;
+    const fillOpacity = item.getAttribute('fill-opacity') || item.dataset.fillOpacity ||
+      container.dataset.fillOpacity || '0.45';
     const c = circles[i];
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', X(c.cx));
     circle.setAttribute('cy', Y(c.cy));
     circle.setAttribute('r', Rr(c.r));
     circle.setAttribute('fill', color);
-    circle.setAttribute('fill-opacity', '0.45');
+    circle.setAttribute('fill-opacity', fillOpacity);
+    if (outlineColor) {
+      circle.setAttribute('stroke', outlineColor);
+      circle.setAttribute('stroke-width', outlineWidth);
+    }
     circle.style.mixBlendMode = 'multiply';
     svg.appendChild(circle);
     item.style.display = 'none';
@@ -2547,8 +2660,8 @@ function initVenn(container) {
 
   const overlaps = n === 2
     ? [{ key: 'ab', x: 250, y: 250 }]
-    : [{ key: 'ab', x: 320, y: 200 },
-       { key: 'ac', x: 180, y: 200 },
+    : [{ key: 'ab', x: 345, y: 180 },
+       { key: 'ac', x: 155, y: 180 },
        { key: 'bc', x: 250, y: 330 },
        { key: 'abc', x: 250, y: 245 }];
 
@@ -2562,6 +2675,9 @@ function initVenn(container) {
     .forEach(div => {
       const key = overlapKeys.find(k => div.classList.contains(k));
       if (key) overlapDivMap[key] = div;
+      // Snapshot the author's inline style (if any) before hiding the source
+      // div, so copyFragmentAttrs() doesn't pick up this `display: none`.
+      div.dataset.origStyle = div.getAttribute('style') || '';
       div.style.display = 'none';
     });
 
@@ -2572,7 +2688,7 @@ function initVenn(container) {
   items.forEach((item, i) => {
     const label = document.createElement('div');
     label.className = 'set-label';
-    let labelText = labelHTML(item);
+    let labelText = labelHTML(item, ['icon']);
     const c = circles[i];
     const ccx = X(c.cx), ccy = Y(c.cy), rr = Rr(c.r);
     const dx = ccx - Ox, dy = ccy - Oy, len = Math.hypot(dx, dy) || 1;
@@ -2580,7 +2696,7 @@ function initVenn(container) {
     if (annHTML[i] !== null) {
       const clone = item.cloneNode(true);
       Array.from(clone.children)
-        .filter(c => c.classList.contains('annotation'))
+        .filter(c => c.classList.contains('annotation') || c.classList.contains('icon'))
         .forEach(c => clone.removeChild(c));
       labelText = labelHTML(clone);
       // Leader starts on this set's outer rim, away from the diagram center
@@ -2599,30 +2715,38 @@ function initVenn(container) {
     }
     container.appendChild(label);
     labelEls.push(label);
+
+    if (iconHTML[i] !== null) {
+      const icon = document.createElement('div');
+      icon.className = 'set-icon';
+      icon.innerHTML = iconHTML[i];
+      icon.style.left = X(setLabels[i].x) + 'px';
+      icon.style.top  = Y(setLabels[i].y) + 'px';
+      copyFragmentAttrs(iconEls[i], icon);
+      container.appendChild(icon);
+    }
   });
 
   const overlapColor = container.dataset.overlapColor;
   overlaps.forEach(o => {
     const div = overlapDivMap[o.key];
-    let text = container.dataset[o.key];
+    let html = null;
     let annHtmlOv = null;
     if (div) {
       const ann = Array.from(div.children).find(c => c.classList.contains('annotation'));
       annHtmlOv = ann ? ann.innerHTML.trim() : null;
-      const clone = div.cloneNode(true);
-      Array.from(clone.children)
-        .filter(c => c.classList.contains('annotation'))
-        .forEach(c => clone.removeChild(c));
-      const divText = clone.textContent.trim();
-      if (divText) text = divText;
+      const divHTML = labelHTML(div);
+      if (divHTML) html = divHTML;
     }
-    if (text) {
+    if (!html && container.dataset[o.key]) html = container.dataset[o.key];
+    if (html) {
       const label = document.createElement('div');
       label.className = 'overlap-label';
-      label.textContent = text;
+      label.innerHTML = html;
       label.style.left = X(o.x) + 'px';
       label.style.top  = Y(o.y) + 'px';
       if (overlapColor) label.style.color = overlapColor;
+      copyFragmentAttrs(div, label);
       container.appendChild(label);
     }
     if (annHtmlOv) {

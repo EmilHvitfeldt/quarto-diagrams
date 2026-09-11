@@ -581,6 +581,20 @@
     "text": "Colors\nEach set defaults to a distinct color. Use color= on an individual item to override one circle, or node-color= on the container to set a single shared base color for every circle.\n::: {.venn}\n::: {.item color=\"#7a3b5c\"}\nTea\n:::\n::: {.item color=\"#3b7a5c\"}\nCoffee\n:::\n:::\n\n\nTea\n\n\nCoffee"
   },
   {
+    "objectID": "venn.html#outlines",
+    "href": "venn.html#outlines",
+    "title": "Venn",
+    "section": "Outlines",
+    "text": "Outlines\nBy default each circle is a plain fill with no stroke. Add outline-color= (and optionally outline-width=, default 2) to an item to draw a stroke around just that circle, or to the container to apply the same outline to every circle. fill-opacity= (default 0.45) is also overridable per item or on the container, independent of the outline.\n::: {.venn ab=\"Shared\"}\n::: {.item outline-color=\"#7a3b5c\" outline-width=\"3\"}\nFrontend\n:::\n::: item\nBackend\n:::\n:::\n\n\nFrontend\n\n\nBackend"
+  },
+  {
+    "objectID": "venn.html#icons",
+    "href": "venn.html#icons",
+    "title": "Venn",
+    "section": "Icons",
+    "text": "Icons\nNest an .icon div inside an .item to pin extra content (an emoji, a Font Awesome icon, an image) at a fixed spot inside that circle’s exclusive lobe. Unlike the rest of the label, the icon always stays inside the circle, even when .outside-labels pushes the text label outside the rim.\n::: {.venn ab=\"Shared\"}\n::: item\nFrontend\n\n::: icon\n🎨\n:::\n:::\n::: item\nBackend\n:::\n:::\n\n\nFrontend\n\n🎨\n\n\n\nBackend"
+  },
+  {
     "objectID": "venn.html#outside-labels",
     "href": "venn.html#outside-labels",
     "title": "Venn",
@@ -600,6 +614,13 @@
     "title": "Venn",
     "section": "Annotating overlaps",
     "text": "Annotating overlaps\nOverlap regions can be annotated too. Instead of the plain ab= container attribute, add a sibling .overlap div carrying a class for the region (.ab, .ac, .bc, or .abc). Its text becomes the overlap label — same as ab= — and a nested .annotation div attaches a leader-line callout, exactly like a set’s annotation.\nThis is useful when what you actually want to call out is an intersection itself, rather than each set individually — annotate ab once instead of annotating both a and b. Set, 2-way overlap, and 3-way overlap annotations can all be mixed in the same diagram.\n:::::: venn\n\n:::: item\nDesign\n\n::: annotation\n**Design** how it looks and feels\n:::\n\n::::\n\n:::: item\nEngineering\n::::\n\n:::: item\nProduct\n::::\n\n:::: {.overlap .ab}\n\n::: annotation\n**Design & Engineering** agree on feasibility\n:::\n\n::::\n\n:::: {.overlap .abc}\n\n::: annotation\nEvery discipline signs off before shipping\n:::\n\n::::\n\n::::::\n\n\nDesign\n\nDesign how it looks and feels\n\n\n\nEngineering\n\n\nProduct\n\n\n\nDesign & Engineering agree on feasibility\n\n\n\n\nEvery discipline signs off before shipping\n\n\n\nThe overlap div’s own text (if any) still labels the region in place, just like ab= would — leave it empty, as above, to have only the annotation callout. A region can also keep using the plain ab=/bc=/ac=/abc= attribute if it just needs a label with no callout."
+  },
+  {
+    "objectID": "venn.html#reveal.js-fragments",
+    "href": "venn.html#reveal.js-fragments",
+    "title": "Venn",
+    "section": "Reveal.js fragments",
+    "text": "Reveal.js fragments\nAn .icon or .overlap div can carry .fragment (plus any fade-/highlight-/etc. modifier, and an explicit data-fragment-index) to reveal on click, just like a normal Reveal.js fragment. Give several the same data-fragment-index to have them appear together, and add an inline style (e.g. transition-delay: 0.5s;) to one of them to stagger the reveal visually while still triggering on one click.\n::: {.venn ab=\"Shared\"}\n::: item\nFrontend\n\n::: {.icon .fragment}\n🎨\n:::\n:::\n::: item\nBackend\n:::\n:::"
   },
   {
     "objectID": "process.html",
